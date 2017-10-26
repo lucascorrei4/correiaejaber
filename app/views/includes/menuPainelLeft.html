@@ -1,0 +1,34 @@
+<meta charset="utf-8" />
+<div class="navbar-default sidebar" role="navigation">
+	<div class="sidebar-nav navbar-collapse">
+		<ul class="nav" id="side-menu">
+			<li><a href="@{Admin.index}"><i class="fa fa-home fa-fw"></i> Início</a></li>
+			<li><a href="@{ParameterCRUD.list}"><i class="fa fa-gears fa-fw"></i> Par&acirc;metros</a></li>
+			<li style="display: ${enableUser == 'false' ? 'none' : 'block'};">
+				<a href="#"><i class="fa fa-gears fa-fw"></i> Configurações<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="/admin/empresa/${id}">Dados da Empresa</a></li>
+					<li><a href="/admin/usuario/${idu}">Meus dados</a></li>
+<!-- 					<li><a href="/admin/financeiro/${id}">Financeiro</a></li> -->
+				</ul>
+			</li>
+			<li style="display: ${poweradmin == 'false' ? 'none' : 'block'};">
+				<a href="#"><i class="fa fa-gears fa-fw"></i> Admin<span class="fa arrow"></span></a>
+				<ul class="nav nav-second-level">
+					<li><a href="@{MailListCRUD.listAll}">Leads</a></li>
+					<li><a href="@{MonetizzeTransactionCRUD.list}">Monetizze</a></li>
+					<li><a href="@{ArticleCRUD.list}">Artigos</a></li>
+					<li><a href="@{SimplePagesCRUD.list}">Páginas Simples</a></li>
+					<li><a href="@{MessageCRUD.list}">Mensagens</a></li>
+					<li><a href="@{TheSystemCRUD.list}">O Sistema</a></li>
+					<li><a href="@{MailBaseCRUD.list}">Base de E-mails</a></li>
+					<li><a href="@{SequenceMailCRUD.listAll}">Sequência de E-mails</a></li>
+					<li><a href="@{SequenceMailQueueCRUD.listAll}">Fila de E-mails</a></li>
+				</ul>
+			</li>
+			
+			<li><a href="@{Secure.logout()}"><i class="fa fa-power-off fa-fw"></i> Sair</a></li>
+		</ul>
+	</div>
+	<!-- /.sidebar-collapse -->
+</div>

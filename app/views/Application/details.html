@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+		<!-- End Google Tag Manager -->
+		<title>&{title} | &{parameter.getSiteName()}</title>
+		<meta name="description" content="&{article.getHeadline()}">
+		<meta name="keywords" content="&{article.getMetatags()}">
+		<meta property="twitter:title" content="&{title} | &{parameter.getSiteName()}">
+		<meta property="twitter:description" content="&{article.getHeadline()}">
+		<meta property="og:title" content="&{title} | &{parameter.getSiteName()}">
+		<meta property="og:description" content="&{article.getHeadline()}">
+		<meta property="og:image" content="&{parameter.getSiteDomain()}}/application/getimage?id=&{article.id}&index=1">
+		<meta charset="utf-8" />
+		#{include 'includes/headerTemplateFollow.html' /}
+	</head>
+	<body class="right-sidebar">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<div id="page-wrapper">
+			<!-- Header -->
+				#{include 'includes/menuTemplateFollow.html' /}
+			<!-- Main -->
+				<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}">
+					#{include 'includes/imgAdsTop.html' /}
+					<header class="special container" style="margin-bottom: 0">
+						<span class="icon fa-heartbeat"></span>
+						<h1 class="mainLead">&{article.getTitle().raw()}</h1>
+						<p style="font-size: 15px; margin: 0;">Você está em: <a href="/"><strong>&{parameter.getSiteTitle()}</strong></a> > <a href="/artigos"> <a href="#"><strong>&{article.getTitle().raw()}</strong></a></p>
+						<p style="font-size: 15px; margin: 0;">Publicado em &{article.postedAtParsed}</p>
+					</header>
+					<section class="wrapper style4 container">
+						<footer id="newsletterTips" style="width: 100%">
+							#{include 'includes/formNewsletterTips.html' /}
+						</footer>
+						<div class="row 150%">
+							<div class="8u 12u(narrower)">
+								<!-- Content -->
+								<div class="content">
+									<section>
+										<header>
+											<input id="shorten" type="hidden" value="&{article.getShortenUrl()}" />
+											<h2 style=" font-size: 18px;   text-align: left; text-transform: unset; margin-top: 20px; font-weight: 300">&{article.getHeadline().raw()}</h2>
+										</header>
+										
+										#{if article.getEmbed()}
+											<iframe width="560" height="315" src="&{article.getEmbed()}?rel=0&autoplay=1" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
+											<p style="color: #444444">&{article.getDescription().raw()}</p>
+											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '2')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
+										#{/if}
+										#{else}
+											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '2')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
+											<p style="color: #444444">&{article.getDescription().raw()}</p>
+										#{/else}
+										
+										#{if article.getComplement()}
+											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '3')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
+											<p style="color: #444444">&{article.getComplement().raw()}</p>
+										#{/if}
+									</section>
+									<div id="share"></div>
+									<div class="fb-comments" data-href="" data-numposts="5"></div>
+									<!-- Tweet Embed Content  -->
+									<section style="padding-top: 10px;">
+										&{parameter.getTweet().raw()}
+										<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+									</section>
+								</div>
+							</div>
+							<div class="4u 12u(narrower)">
+								<div class="sidebar">
+									#{include 'includes/imgAdsSidebar.html' /}
+								</div>
+								<div class="sidebar">
+									#{include 'includes/lastNewsSidebarRight.html' /}
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section class="wrapper style1 container special">
+						<div class="row">
+							#{include 'includes/imgAdsBottom.html' /}
+						</div>
+					</section>
+					<section class="wrapper style1 container special">
+						<div class="row">
+							#{include 'includes/lastNewsBottom.html' /}
+						</div>
+					</section>
+				</article>
+			<!-- Footer -->
+			#{include 'includes/footerTemplateFollow.html' /}
+		</div>
+	</body>
+</html>

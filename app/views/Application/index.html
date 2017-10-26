@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+		<!-- End Google Tag Manager -->
+		<title>&{parameter.getSiteTitle()}</title>
+		<meta name="description" content="&{parameter.getSiteDescription()} | &{parameter.getSiteTitle()}">
+		<meta name="keywords" content="&{parameter.getSiteKeywords()}">
+		<meta property="twitter:title" content="&{parameter.getSiteTitle()}">
+		<meta property="twitter:description" content="&{parameter.getSiteDescription()} | &{parameter.getSiteTitle()}">
+		<meta property="og:title" content="&{parameter.getSiteTitle()}">
+		<meta property="og:description" content="&{parameter.getSiteDescription()} | &{parameter.getSiteTitle()}">
+		<meta property="og:image" content="&{parameter.getSiteDomain()}}&{parameter.getSiteLogo()}">
+		<meta charset="utf-8" />
+		#{include 'includes/headerTemplateFollow.html' /}
+	</head>
+	<body class="right-sidebar">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<div id="page-wrapper">
+			#{include 'includes/menuTemplateFollow.html' /}
+			<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}">
+				#{include 'includes/imgAdsTop.html' /}
+				<header class="special container" style="margin-bottom: 0">
+					<span class="icon fa-heartbeat"></span>
+					<div class="logo" style="position: relative; background-image: url('&{parameter.getSiteLogo()}'); width:150px; height:150px; border-radius:50%; overflow:hidden; background-size: cover; margin: 0 auto;"></div>
+					<h2 style="font-family: demo_coneria; text-transform: capitalize; font-size: 2.4em; color: &{parameter.getSiteMainTitleColor() == null ? 'black' : parameter.getSiteMainTitleColor()}; font-weight: 600;">#{verbatim}&{parameter.getSiteName()}#{/verbatim}</h2>
+					<blockquote style="border: none; padding: 0;font-style:italic; color: darkslategray">
+						#{verbatim}&{parameter.getSiteSlogan()}#{/verbatim} 
+					</blockquote>
+				</header>
+				<section class="wrapper style4 container">
+					<div id="newsletterTips" style="width: 100%">
+						#{include 'includes/formNewsletterTips.html' /}
+					</div>
+					<div class="row 150%">
+						<div class="8u 12u(narrower)">
+							<div class="content">
+								#{include 'includes/highlightArticles.html' /}
+							</div>
+						</div>
+						<div class="4u 12u(narrower)">
+							<div class="sidebar">
+								#{include 'includes/imgAdsSidebar.html' /}
+							</div>
+							<div class="sidebar">
+								#{include 'includes/lastNewsSidebarRight.html' /}
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="wrapper style1 container special">
+					<div class="row">
+						#{include 'includes/imgAdsBottom.html' /}
+					</div>
+				</section>
+				<section class="wrapper style1 container special">
+					<div class="row">
+						#{include 'includes/lastNewsBottom.html' /}
+					</div>
+				</section>
+			</article>
+			#{include 'includes/footerTemplateFollow.html' /}
+		</div>
+	</body>
+</html>
