@@ -31,7 +31,7 @@
 				<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}">
 					#{include 'includes/imgAdsTop.html' /}
 					<header class="special container" style="margin-bottom: 0">
-						<span class="icon fa-heartbeat"></span>
+						<span class="icon &{parameter.getSiteIconFontAwesome() == null ? 'fa-heartbeat' : parameter.getSiteIconFontAwesome()}"></span>
 						<h1 class="mainLead">&{article.getTitle().raw()}</h1>
 						<p style="font-size: 15px; margin: 0;">Você está em: <a href="/"><strong>&{parameter.getSiteTitle()}</strong></a> > <a href="/artigos"> <a href="#"><strong>&{article.getTitle().raw()}</strong></a></p>
 						<p style="font-size: 15px; margin: 0;">Publicado em &{article.postedAtParsed}</p>

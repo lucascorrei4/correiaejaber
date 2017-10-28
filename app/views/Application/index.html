@@ -29,7 +29,7 @@
 			<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}">
 				#{include 'includes/imgAdsTop.html' /}
 				<header class="special container" style="margin-bottom: 0">
-					<span class="icon fa-heartbeat"></span>
+					<span class="icon &{parameter.getSiteIconFontAwesome() == null ? 'fa-heartbeat' : parameter.getSiteIconFontAwesome()}"></span>
 					<div class="logo" style="position: relative; background-image: url('&{parameter.getSiteLogo()}'); width:150px; height:150px; border-radius:50%; overflow:hidden; background-size: cover; margin: 0 auto;"></div>
 					<h2 style="font-family: demo_coneria; text-transform: capitalize; font-size: 2.4em; color: &{parameter.getSiteMainTitleColor() == null ? 'black' : parameter.getSiteMainTitleColor()}; font-weight: 600;">#{verbatim}&{parameter.getSiteName()}#{/verbatim}</h2>
 					<blockquote style="border: none; padding: 0;font-style:italic; color: darkslategray">

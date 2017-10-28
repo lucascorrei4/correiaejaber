@@ -162,6 +162,7 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+siteIconFontAwesome=Ícone Font Awesome
 siteMainTitleColor=Cor Título Principal
 siteBackGroundColor=Cor de Fundo
 typeAds=Tipo Ads

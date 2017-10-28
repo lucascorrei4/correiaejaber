@@ -50,6 +50,8 @@ public class Parameter extends Model {
 	public String siteBackGroundColor;
 	public String siteMainTitleColor;
 	
+	public String siteIconFontAwesome;
+	
 	@Lob
 	public String logoUrl;
 
@@ -223,5 +225,14 @@ public class Parameter extends Model {
 	public void setSiteMainTitleColor(String siteMainTitleColor) {
 		this.siteMainTitleColor = siteMainTitleColor;
 	}
+
+	public String getSiteIconFontAwesome() {
+		return siteIconFontAwesome;
+	}
+
+	public void setSiteIconFontAwesome(String siteIconFontAwesome) {
+		this.siteIconFontAwesome = siteIconFontAwesome;
+	}
+
 
 }

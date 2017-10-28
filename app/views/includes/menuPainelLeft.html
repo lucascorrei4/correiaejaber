@@ -10,11 +10,6 @@
 					<li><a href="/admin/empresa/${id}">Dados da Empresa</a></li>
 					<li><a href="/admin/usuario/${idu}">Meus dados</a></li>
 <!-- 					<li><a href="/admin/financeiro/${id}">Financeiro</a></li> -->
-				</ul>
-			</li>
-			<li style="display: ${poweradmin == 'false' ? 'none' : 'block'};">
-				<a href="#"><i class="fa fa-gears fa-fw"></i> Admin<span class="fa arrow"></span></a>
-				<ul class="nav nav-second-level">
 					<li><a href="@{MailListCRUD.listAll}">Leads</a></li>
 					<li><a href="@{MonetizzeTransactionCRUD.list}">Monetizze</a></li>
 					<li><a href="@{ArticleCRUD.list}">Artigos</a></li>
