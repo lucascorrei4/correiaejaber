@@ -21,7 +21,8 @@ public class SequenceMail extends Model {
 	@Lob
 	@MaxSize(100000)
 	public String description;
-	
+
+	@Hidden
 	public Blob attachment;
 
 	public Integer sequence;

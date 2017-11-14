@@ -467,7 +467,9 @@ public class Utils extends Controller {
 	}
 
 	public static String normalizeString(String str) {
-		return str.replace("%", "%%");
+		str = str.replaceAll("%%", "%");
+		str = str.replaceAll("&#37;&#37;", "&#37;");
+		return str.replace("%", "&#37;");
 	}
 
 	public static String getFirstDayMonthDate() {

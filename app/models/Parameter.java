@@ -62,6 +62,10 @@ public class Parameter extends Model {
 	
 	public String googleRemarketingId;
 
+	public String messageHighlightProducts;
+	
+	public String googleTagManagerId;
+
 	public String toString() {
 		return "Portal: " + siteName;
 	}
@@ -234,5 +238,24 @@ public class Parameter extends Model {
 		this.siteIconFontAwesome = siteIconFontAwesome;
 	}
 
+	public String getMessageHighlightProducts() {
+		return messageHighlightProducts;
+	}
+
+	public void setMessageHighlightProducts(String messageHighlightProducts) {
+		this.messageHighlightProducts = messageHighlightProducts;
+	}
+	
+	public String getGoogleTagManagerId() {
+		return googleTagManagerId;
+	}
+
+	public void setGoogleTagManagerId(String googleTagManagerId) {
+		this.googleTagManagerId = googleTagManagerId;
+	}
+	
+	public static Parameter getCurrentParameter() {
+		return (Parameter) Parameter.findAll().iterator().next();
+	}
 
 }

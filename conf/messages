@@ -85,6 +85,7 @@ true=Sim
 false=Não
 
 #Controllers
+SellPageCRUD=Página de Vendas
 SequenceMailQueueCRUD=Fila de E-mails
 ClientCRUD=Clientes
 SimplePagesCRUD=Páginas Simples
@@ -119,8 +120,11 @@ TheSystemCRUD=O Sistema
 MailBaseCRUD=Base de E-mails
 MonetizzeTransactionCRUD=Transações Monetizze
 SequenceMailCRUD=Sequência de E-mails
+HighlightProductCRUD=Produtos em Destaque
 
 #Models
+SellPage=Página de Vendas
+HighlightProduct=Produtos em Destaque
 SequenceMailQueue=Fila de E-mail
 SequenceMail=Sequência de E-mail
 MonetizzeTransaction=Transação Monetizze
@@ -162,6 +166,31 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+messageHighlightProducts=Título Destaques Home
+titleSEO=Título SEO
+descriptionSEO=Descrição SEO
+keywordsSEO=Palavras-chave SEO
+canonicalURL=URL Canônica
+urlCheckout=URL Checkout
+warnings=Avisos
+mainTitle=Título Principal
+videoDescription=Descrição do Vídeo
+embedVideo=Embed do Vídeo
+buttonMainTitle=Título do Botão Principal
+buttonActionMainTitle=Ação do Botão Principal
+backgroundImage=Imagem de Fundo (1500x1000 .jpg)
+backgroundColor=Cor de Fundo
+subtitle1=Subtítulo 1
+description=Descrição
+imageProduct=Imagem do Produto (1000x1164.png)
+subtitle2=Subtítulo 2
+htmlOffer1=HTML Oferta 1 
+htmlOffer2=HTML Oferta 2
+htmlOffer3=HTML Oferta 3
+htmlOffer4=HTML Oferta 4
+googleTagManagerId=Google Tag Manager Id
+link=Link
+msgOffer=Msg. da Oferta
 siteIconFontAwesome=Ícone Font Awesome
 siteMainTitleColor=Cor Título Principal
 siteBackGroundColor=Cor de Fundo

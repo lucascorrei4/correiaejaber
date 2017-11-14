@@ -1,19 +1,28 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=&{parameter.getGoogleAnalyticsId()}"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+		
+		  gtag('config', '&{parameter.getGoogleAnalyticsId()}');
+		</script>
 		<!-- Google Tag Manager -->
 		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+		})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
 		<!-- End Google Tag Manager -->
-		<title>&{title} | &{parameter.getSiteName()}</title>
+		<title>&{title} | &{parameter.getSiteTitle()}</title>
 		<meta name="description" content="&{article.getHeadline()}">
 		<meta name="keywords" content="&{article.getMetatags()}">
-		<meta property="twitter:title" content="&{title} | &{parameter.getSiteName()}">
+		<meta property="twitter:title" content="&{title} | &{parameter.getSiteTitle()}">
 		<meta property="twitter:description" content="&{article.getHeadline()}">
-		<meta property="og:title" content="&{title} | &{parameter.getSiteName()}">
+		<meta property="og:title" content="&{title} | &{parameter.getSiteTitle()}">
 		<meta property="og:description" content="&{article.getHeadline()}">
 		<meta property="og:image" content="&{parameter.getSiteDomain()}}/application/getimage?id=&{article.id}&index=1">
 		<meta charset="utf-8" />
@@ -21,7 +30,7 @@
 	</head>
 	<body class="right-sidebar">
 		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WWMNHWH"
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
 		<div id="page-wrapper">

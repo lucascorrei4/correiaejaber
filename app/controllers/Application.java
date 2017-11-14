@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Article;
+import models.HighlightProduct;
 import models.Parameter;
 import models.TheSystem;
 import play.mvc.Controller;
@@ -24,13 +25,13 @@ public class Application extends Controller {
 		List<Article> articleSidebarRightAds = getArticleAdsSidebarRight(listArticles);
 		List<Article> articleBottomAds = getArticlesAdsBottom(listArticles);
 		Parameter parameter = Parameter.all().first();
-		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc")
-				.fetch(6);
+		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
-		render(bottomNews, sidebarRightNews, highlightArticles, parameter, listTheSystems, theSystem, articleTopAds, articleSidebarRightAds, articleBottomAds);
+		List<HighlightProduct> listHightlightProduct = HighlightProduct.find("isActive = true order by postedAt desc").fetch();
+		render(bottomNews, sidebarRightNews, highlightArticles, parameter, listTheSystems, theSystem, articleTopAds, articleSidebarRightAds, articleBottomAds, listHightlightProduct);
 	}
-	
+
 	public static void details(String id) {
 		Article article = Article.findById(Long.valueOf(id));
 		List<Article> listArticles = Article.find("highlight = false and isActive = true and id <>  " + Long.valueOf(id) + " order by postedAt desc").fetch();
@@ -41,8 +42,7 @@ public class Application extends Controller {
 		List<Article> articleSidebarRightAds = getArticleAdsSidebarRight(listArticles);
 		List<Article> articleBottomAds = getArticlesAdsBottom(listArticles);
 		Parameter parameter = Parameter.all().first();
-		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc")
-				.fetch(6);
+		List<TheSystem> listTheSystems = TheSystem.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
 		String title = Utils.removeHTML(article.getTitle());
@@ -117,12 +117,21 @@ public class Application extends Controller {
 			if (article.getImage1() != null) {
 				renderBinary(article.getImage1().get());
 				return;
-			} 
+			}
 		} else if ("2".equals(index)) {
 			if (article.getImage2() != null) {
 				renderBinary(article.getImage2().get());
 				return;
-			} 
+			}
+		}
+	}
+
+	public static void getImageHighlightProduct(long id) {
+		final HighlightProduct hightlightProduct = HighlightProduct.findById(id);
+		notFoundIfNull(hightlightProduct);
+		if (hightlightProduct.getImage() != null) {
+			renderBinary(hightlightProduct.getImage().get());
+			return;
 		}
 	}
 
@@ -131,7 +140,7 @@ public class Application extends Controller {
 		File f = vf.getRealFile();
 		return f;
 	}
-	
+
 	public static void contact() {
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
