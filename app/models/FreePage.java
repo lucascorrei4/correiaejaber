@@ -10,11 +10,10 @@ import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
-import util.ApplicationConfiguration;
 import util.Utils;
 
 @Entity
-public class SellPage extends Model {
+public class FreePage extends Model {
 
 	@Required(message = "Campo obrigatório.")
 	public String titleSEO;
@@ -29,51 +28,16 @@ public class SellPage extends Model {
 	public String mainTitle;
 	@Lob
 	@MaxSize(10000000)
-	public String videoDescription;
-	public String embedVideo;
-	
-	
-	public String buttonMainTitle;
-	public String buttonActionMainTitle;
-	
+	public String description;
 
 	public Blob backgroundImage;
 	public String backgroundColor;
 	
+	public boolean noFollow = false;
+
 	@Lob
 	@MaxSize(10000000)
 	public String subtitle1;
-	@Lob
-	@MaxSize(10000000)
-	public String description;
-
-	public Blob imageProduct;
-	@Lob
-	@MaxSize(10000000)
-	public String subtitle2;
-
-	@Lob
-	@MaxSize(10000000)
-	public String htmlOffer1;
-	@Lob
-	@MaxSize(10000000)
-	public String htmlOffer2;
-	@Lob
-	@MaxSize(10000000)
-	public String htmlOffer3;
-	@Lob
-	@MaxSize(10000000)
-	public String htmlOffer4;
-
-	@Lob
-	@MaxSize(10000000)
-	public String warnings;
-	
-	public String urlCheckout;
-
-	public String metatags;
-
-	public String embed;
 
 	public String friendlyUrl;
 
@@ -127,14 +91,6 @@ public class SellPage extends Model {
 		return Utils.parseStringDateTime(postedAt);
 	}
 
-	public String getEmbed() {
-		return embed;
-	}
-
-	public void setEmbed(String embed) {
-		this.embed = embed;
-	}
-
 	public String getFriendlyUrl() {
 		if (Utils.isNullOrEmpty(this.friendlyUrl) && !Utils.isNullOrEmpty(this.mainTitle)) {
 			setFriendlyUrl(Utils.stringToUrl(Utils.removeHTML(this.mainTitle.trim())));
@@ -146,44 +102,20 @@ public class SellPage extends Model {
 		this.friendlyUrl = friendlyUrl;
 	}
 
-	public static SellPage findByFriendlyUrl(String friendlyUrl) {
+	public static FreePage findByFriendlyUrl(String friendlyUrl) {
 		return find("byFriendlyUrl", friendlyUrl).first();
 	}
 
 	public String getShortenUrl() {
 		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id)
 				&& !Utils.isNullOrEmpty(this.friendlyUrl)) {
-			setShortenUrl(Utils.getShortenUrl(Parameter.getCurrentParameter().getSiteDomain() + "/pv/".concat(this.getFriendlyUrl())));
+			setShortenUrl(Utils.getShortenUrl(Parameter.getCurrentParameter().getSiteDomain() + "/fp/".concat(this.getFriendlyUrl())));
 		}
 		return shortenUrl;
 	}
 
 	public void setShortenUrl(String shortenUrl) {
 		this.shortenUrl = shortenUrl;
-	}
-
-	public String getMetatags() {
-		return metatags;
-	}
-
-	public void setMetatags(String metatags) {
-		this.metatags = metatags;
-	}
-
-	public String getVideoDescription() {
-		return Utils.isNullOrEmpty(this.videoDescription) ? videoDescription : Utils.normalizeString(videoDescription);
-	}
-
-	public void setVideoDescription(String videoDescription) {
-		this.videoDescription = videoDescription;
-	}
-
-	public String getEmbedVideo() {
-		return embedVideo;
-	}
-
-	public void setEmbedVideo(String embedVideo) {
-		this.embedVideo = embedVideo;
 	}
 
 	public Blob getBackgroundImage() {
@@ -208,86 +140,6 @@ public class SellPage extends Model {
 
 	public void setSubtitle1(String subtitle1) {
 		this.subtitle1 = subtitle1;
-	}
-
-	public Blob getImageProduct() {
-		return imageProduct;
-	}
-
-	public void setImageProduct(Blob imageProduct) {
-		this.imageProduct = imageProduct;
-	}
-
-	public String getSubtitle2() {
-		return Utils.isNullOrEmpty(this.subtitle2) ? subtitle2 : Utils.normalizeString(subtitle2);
-	}
-
-	public void setSubtitle2(String subtitle2) {
-		this.subtitle2 = subtitle2;
-	}
-
-	public String getHtmlOffer1() {
-		return Utils.isNullOrEmpty(this.htmlOffer1) ? htmlOffer1 : Utils.normalizeString(htmlOffer1);
-	}
-
-	public void setHtmlOffer1(String htmlOffer1) {
-		this.htmlOffer1 = htmlOffer1;
-	}
-
-	public String getHtmlOffer2() {
-		return Utils.isNullOrEmpty(this.htmlOffer2) ? htmlOffer2 : Utils.normalizeString(htmlOffer2);
-	}
-
-	public void setHtmlOffer2(String htmlOffer2) {
-		this.htmlOffer2 = htmlOffer2;
-	}
-
-	public String getHtmlOffer3() {
-		return Utils.isNullOrEmpty(this.htmlOffer3) ? htmlOffer3 : Utils.normalizeString(htmlOffer3);
-	}
-
-	public void setHtmlOffer3(String htmlOffer3) {
-		this.htmlOffer3 = htmlOffer3;
-	}
-
-	public String getHtmlOffer4() {
-		return Utils.isNullOrEmpty(this.htmlOffer4) ? htmlOffer4 : Utils.normalizeString(htmlOffer4);
-	}
-
-	public void setHtmlOffer4(String htmlOffer4) {
-		this.htmlOffer4 = htmlOffer4;
-	}
-
-	public String getButtonMainTitle() {
-		return Utils.isNullOrEmpty(this.buttonMainTitle) ? buttonMainTitle : Utils.normalizeString(buttonMainTitle);
-	}
-
-	public void setButtonMainTitle(String buttonMainTitle) {
-		this.buttonMainTitle = buttonMainTitle;
-	}
-
-	public String getButtonActionMainTitle() {
-		return buttonActionMainTitle;
-	}
-
-	public void setButtonActionMainTitle(String buttonActionMainTitle) {
-		this.buttonActionMainTitle = buttonActionMainTitle;
-	}
-
-	public String getUrlCheckout() {
-		return urlCheckout;
-	}
-
-	public void setUrlCheckout(String urlCheckout) {
-		this.urlCheckout = urlCheckout;
-	}
-
-	public String getWarnings() {
-		return Utils.isNullOrEmpty(this.warnings) ? warnings : Utils.normalizeString(warnings);
-	}
-
-	public void setWarnings(String warnings) {
-		this.warnings = warnings;
 	}
 
 	public String getTitleSEO() {
@@ -320,6 +172,14 @@ public class SellPage extends Model {
 
 	public void setCanonicalURL(String canonicalURL) {
 		this.canonicalURL = canonicalURL;
+	}
+
+	public boolean isNoFollow() {
+		return noFollow;
+	}
+
+	public void setNoFollow(boolean noFollow) {
+		this.noFollow = noFollow;
 	}
 
 }

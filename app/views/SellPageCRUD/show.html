@@ -11,28 +11,6 @@
                	<div class="col-lg-12">
 					#{form id:'form', action:@save(object._key()), enctype:'multipart/form-data'}
 						#{crud.form}
-							#{crud.custom 'description'}
-								<div class="form-group">
-									<label for="object_description"> Conteúdo</label>
-									<textarea id="object_description" name="object.description"  rows="10" cols="80">
-						            	${object.description}
-						           	</textarea>
-						           	<script>
-						               CKEDITOR.replace('object_description');
-						           	</script>
-								</div>
-							#{/crud.custom}
-							#{crud.custom 'complement'}
-								<div class="form-group">
-									<label for="object.complement"> Complemento</label>
-									<textarea id="object.complement" name="object.complement">
-						            	${object.complement}
-						           	</textarea>
-						           	<script>
-						               CKEDITOR.replace( 'object.complement' );
-						           	</script>
-								</div>
-							#{/crud.custom}
 							#{crud.custom 'isActive'}
 								<div class="form-group">
 									<label> Habilitar </label> 

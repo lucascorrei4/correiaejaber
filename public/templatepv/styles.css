@@ -118,3 +118,13 @@ div.wpcf7 input[type="file"] {
 div.wpcf7 input[type="file"]:disabled {
 	cursor: default;
 }
+
+@media screen and (max-width: 770px) {
+	#prod-principal.image-caption {
+		margin-top: -500px !important;
+	}
+	.image-caption img {
+		margin: 0 auto !important;
+		max-width: 70% !important;
+	}
+}	

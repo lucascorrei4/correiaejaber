@@ -3,7 +3,10 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-      		<!-- Global site tag (gtag.js) - Google Analytics -->
+		#{if freePage.noFollow}
+			<meta name="robots" content="nofollow">
+		#{/if}
+      	<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=&{parameter.getGoogleAnalyticsId()}"></script>
 		<script>
 		  window.dataLayer = window.dataLayer || [];
@@ -19,15 +22,15 @@
 		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 		})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
 		<!-- End Google Tag Manager -->
-		<title>&{sellPage.getTitleSEO()}</title>
-		<meta name="description" content="&{sellPage.getDescriptionSEO()} | &{sellPage.getTitleSEO()}">
-		<meta name="keywords" content="&{sellPage.getKeywordsSEO()}">
-		<meta property="twitter:title" content="&{sellPage.getTitleSEO()}">
-		<meta property="twitter:description" content="&{sellPage.getDescriptionSEO()} | &{sellPage.getTitleSEO()}">
-		<meta property="og:title" content="&{sellPage.getTitleSEO()}">
-		<meta property="og:description" content="&{sellPage.getDescriptionSEO()} | &{sellPage.getTitleSEO()}">
+		<title>&{freePage.getTitleSEO()}</title>
+		<meta name="description" content="&{freePage.getDescriptionSEO()} | &{freePage.getTitleSEO()}">
+		<meta name="keywords" content="&{freePage.getKeywordsSEO()}">
+		<meta property="twitter:title" content="&{freePage.getTitleSEO()}">
+		<meta property="twitter:description" content="&{freePage.getDescriptionSEO()} | &{freePage.getTitleSEO()}">
+		<meta property="og:title" content="&{freePage.getTitleSEO()}">
+		<meta property="og:description" content="&{freePage.getDescriptionSEO()} | &{freePage.getTitleSEO()}">
 		<meta property="og:image" content="&{parameter.getSiteDomain()}}&{parameter.getSiteLogo()}">
-        <link rel="canonical" href="&{sellPage.getCanonicalURL()}">
+        <link rel="canonical" href="&{freePage.getCanonicalURL()}">
         <meta name="author" content="&{parameter.getSiteName()}">
 		<link rel="apple-touch-icon" sizes="57x57" href="&{parameter.getSiteLogo()}">
 		<link rel="apple-touch-icon" sizes="60x60" href="&{parameter.getSiteLogo()}">
@@ -44,7 +47,7 @@
 		<link rel="icon" type="image/png" href="&{parameter.getSiteLogo()}" sizes="196x196">
 		<meta name="msapplication-TileColor" content="#000000">
 		<meta name="msapplication-TileImage" content="&{parameter.getSiteLogo()}">
-		<meta property="twitter:card" content="&{sellPage.getTitleSEO()}" />
+		<meta property="twitter:card" content="&{freePage.getTitleSEO()}" />
 		<meta property="twitter:site" content="&{parameter.getSiteDomain()}}" />
 			
 		<meta property="og:type" content="article" />
@@ -3190,70 +3193,20 @@
 		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
-      <link href="@{'public/templatepv/toastr.min.css'}" rel="stylesheet">
-      <script type="text/javascript" src="@{'public/templatepv/toastr.min.js'}"></script>
-      <script>
-         function shuffle(array) {
-           var currentIndex = array.length, temporaryValue, randomIndex;
-         
-           // While there remain elements to shuffle...
-           while (0 !== currentIndex) {
-         
-             // Pick a remaining element...
-             randomIndex = Math.floor(Math.random() * currentIndex);
-             currentIndex -= 1;
-         
-             // And swap it with the current element.
-             temporaryValue = array[currentIndex];
-             array[currentIndex] = array[randomIndex];
-             array[randomIndex] = temporaryValue;
-           }
-         
-           return array;
-         }
-         jQuery(window).load(function() {
-         var qtd = Math.floor((Math.random() * 20) + 1);
-         if (qtd<5) qtd = 5;
-         var nome = ['João P. Queiroz','Antônio Moura','Lucas P. Santos','Maria A. Torquato','Ângelo Castro', 'Francisco Chagas', 'Tarcísio Oliveira', 'Carlos R. Foes'];
-         nome = shuffle(nome);
-         
-         setTimeout(function() { toastr.info('<a href="&{sellPage.getUrlCheckout()}">Clique aqui e reserve o seu!</a>', qtd+'  aproveitaram a oferta nos últimos 20 min.', {timeOut: 10000, positionClass: "toast-bottom-right",}) }, 200000);
-         
-         setTimeout(function() { toastr.success('<a href="&{sellPage.getUrlCheckout()}">Clique aqui e Aproveite. Garanta a sua!</a>', nome[0]+' acabou de realizar uma compra.',  {timeOut: 15000, positionClass: "toast-bottom-right",}) }, 205000);
-         
-         setTimeout(function() { toastr.success('<a href="&{sellPage.getUrlCheckout()}">Clique aqui e Aproveite. Garanta a sua!</a>', nome[1]+' acabou de realizar uma compra.', 'Aproveite. Garanta a sua!', {timeOut: 5000, positionClass: "toast-bottom-right",}) }, 234200);
-         
-         setTimeout(function() { toastr.success('<a href="&{sellPage.getUrlCheckout()}">Clique aqui e Aproveite. Garanta a sua!</a>', nome[2]+' acabou de realizar uma compra.', 'Aproveite. Garanta a sua!', {timeOut: 5000, positionClass: "toast-bottom-right",}) }, 278000);
-         
-         setTimeout(function() { toastr.success('<a href="&{sellPage.getUrlCheckout()}">Clique aqui e Aproveite. Garanta a sua!</a>', nome[3]+' acabou de realizar uma compra.', 'Aproveite. Garanta a sua!', {timeOut: 5000, positionClass: "toast-bottom-right",}) }, 440000);
-         
-         setTimeout(function() { toastr.success('<a href="&{sellPage.getUrlCheckout()}">Clique aqui e Aproveite. Garanta a sua!</a>', nome[4]+' acabou de realizar uma compra.', 'Aproveite. Garanta a sua!', {timeOut: 5000, positionClass: "toast-bottom-right",}) }, 670000);
-         
-         setTimeout(function() { toastr.success('<a href="&{sellPage.getUrlCheckout()}">Clique aqui e Aproveite. Garanta a sua!</a>', nome[5]+' acabou de realizar uma compra.', 'Aproveite. Garanta a sua!', {timeOut: 5000, positionClass: "toast-bottom-right",}) }, 690000);
-         
-         setTimeout(function() { toastr.success('<a href="&{sellPage.getUrlCheckout()}">Clique aqui e Aproveite. Garanta a sua!</a>', nome[6]+' acabou de realizar uma compra.', 'Aproveite. Garanta a sua!', {timeOut: 5000, positionClass: "toast-bottom-right",}) }, 890000);
-         
-         setTimeout(function() { toastr.info('<a href="&{sellPage.getUrlCheckout()}">Clique aqui e reserve o seu!</a>', qtd+9+' compraram nos últimos 20 min.', {timeOut: 20000, positionClass: "toast-bottom-right",}) }, 1090000);
-         
-         setTimeout(function() { toastr.success('<a href="&{sellPage.getUrlCheckout()}">Clique aqui e reserve o seu!</a>', nome[7]+' acabou de comprar.', 'Aproveite. Garanta a sua!', {timeOut: 5000, positionClass: "toast-bottom-right",}) }, 1190000);
-         
-         setTimeout(function() { toastr.info('<a href="&{sellPage.getUrlCheckout()}">Clique aqui e reserve o seu!</a>', qtd+11+' compraram nos últimos 20 min.', {timeOut: 20000, positionClass: "toast-bottom-right",}) }, 1500000);
-         });
-      </script>
       <div class="container main-content">
          <div id="content_area" class="">
-            <div style="background:&{sellPage.getBackgroundColor()};border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row one-column cf ui-sortable section arrowRow   " id="le_body_row_10" data-style="eyJjc3NDbGFzcyI6ImFycm93Um93IiwiYmFja2dyb3VuZENvbG9yU3RhcnQiOiIjZmM3NzY5IiwiYm9yZGVyVG9wV2lkdGgiOiIiLCJib3JkZXJUb3BDb2xvciI6IiIsImJvcmRlckJvdHRvbVdpZHRoIjoiIiwiYm9yZGVyQm90dG9tQ29sb3IiOiIiLCJhZGRvbiI6e319">
+            <div style="background:&{freePage.getBackgroundColor()};border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row one-column cf ui-sortable section arrowRow   " id="le_body_row_10" data-style="eyJjc3NDbGFzcyI6ImFycm93Um93IiwiYmFja2dyb3VuZENvbG9yU3RhcnQiOiIjZmM3NzY5IiwiYm9yZGVyVG9wV2lkdGgiOiIiLCJib3JkZXJUb3BDb2xvciI6IiIsImJvcmRlckJvdHRvbVdpZHRoIjoiIiwiYm9yZGVyQm90dG9tQ29sb3IiOiIiLCJhZGRvbiI6e319">
                <div class="fixed-width">
                   <div class="one-column column cols" id="le_body_row_10_col_1">
                      <div class="element-container cf" data-style="" id="le_body_row_10_col_1_el_1">
                         <div class="element">
-                           <h2 style="font-family:&quot;Oswald&quot;, sans-serif;color:#ffffff;text-align:center;">&{sellPage.getMainTitle().raw()}</h2>
+                           <h2 style="font-family:&quot;Oswald&quot;, sans-serif;color:#ffffff;text-align:center;">&{freePage.getMainTitle().raw()}</h2>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
-            <div style="background-image:url(@{SellPageController.getBackgroundImage(sellPage.id)});background-repeat:no-repeat;background-size:cover;border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row one-column cf ui-sortable section parallax   " id="le_body_row_11" data-style="eyJjc3NDbGFzcyI6InBhcmFsbGF4IiwiYmFja2dyb3VuZEltYWdlIjoidXJsKGh0dHA6Ly93d3cuZXhwZXJ0bm9hbW9yLmNvbS5ici93cC1jb250ZW50L3VwbG9hZHMvMjAxNi8xMi9sb3ZlcnVsZXMtYmcuanBnKSIsImJhY2tncm91bmRQb3NpdGlvbiI6ImNvdmVyIiwiYm9yZGVyVG9wV2lkdGgiOiIiLCJib3JkZXJUb3BDb2xvciI6IiIsImJvcmRlckJvdHRvbVdpZHRoIjoiIiwiYm9yZGVyQm90dG9tQ29sb3IiOiIiLCJhZGRvbiI6e319">
+            <div style="background-image:url(@{FreePageController.getBackgroundImage(freePage.id)});background-repeat:no-repeat;background-size:cover;border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;padding-top:0;" class="row one-column cf ui-sortable section parallax   " id="le_body_row_11" data-style="eyJjc3NDbGFzcyI6InBhcmFsbGF4IiwiYmFja2dyb3VuZEltYWdlIjoidXJsKGh0dHA6Ly93d3cuZXhwZXJ0bm9hbW9yLmNvbS5ici93cC1jb250ZW50L3VwbG9hZHMvMjAxNi8xMi9sb3ZlcnVsZXMtYmcuanBnKSIsImJhY2tncm91bmRQb3NpdGlvbiI6ImNvdmVyIiwiYm9yZGVyVG9wV2lkdGgiOiIiLCJib3JkZXJUb3BDb2xvciI6IiIsImJvcmRlckJvdHRvbVdpZHRoIjoiIiwiYm9yZGVyQm90dG9tQ29sb3IiOiIiLCJhZGRvbiI6e319">
                <div class="fixed-width">
                   <div class="one-column column cols" id="le_body_row_11_col_1">
                      <div class="element-container cf" data-style="" id="le_body_row_11_col_1_el_1">
@@ -3264,154 +3217,38 @@
                   </div>
                </div>
             </div>
-            <div style="background-image:url(@{SellPageController.getBackgroundImage(sellPage.id)});background-repeat:no-repeat;background-position:center;border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row five-columns cf ui-sortable section parallax   " id="le_body_row_12" data-style="eyJjc3NDbGFzcyI6InBhcmFsbGF4IiwiYmFja2dyb3VuZEltYWdlIjoidXJsKGh0dHA6Ly93d3cuZXhwZXJ0bm9hbW9yLmNvbS5ici93cC1jb250ZW50L3VwbG9hZHMvMjAxNi8xMi9sb3ZlcnVsZXMtYmcuanBnKSIsImJhY2tncm91bmRQb3NpdGlvbiI6ImNlbnRlciIsImJvcmRlclRvcFdpZHRoIjoiIiwiYm9yZGVyVG9wQ29sb3IiOiIiLCJib3JkZXJCb3R0b21XaWR0aCI6IiIsImJvcmRlckJvdHRvbUNvbG9yIjoiIiwiYWRkb24iOnt9fQ==">
+            <div style="background-image:url(@{FreePageController.getBackgroundImage(freePage.id)});background-repeat:no-repeat;background-position:center;border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;padding-top:0;" class="row five-columns cf ui-sortable section parallax   " id="le_body_row_12" data-style="eyJjc3NDbGFzcyI6InBhcmFsbGF4IiwiYmFja2dyb3VuZEltYWdlIjoidXJsKGh0dHA6Ly93d3cuZXhwZXJ0bm9hbW9yLmNvbS5ici93cC1jb250ZW50L3VwbG9hZHMvMjAxNi8xMi9sb3ZlcnVsZXMtYmcuanBnKSIsImJhY2tncm91bmRQb3NpdGlvbiI6ImNlbnRlciIsImJvcmRlclRvcFdpZHRoIjoiIiwiYm9yZGVyVG9wQ29sb3IiOiIiLCJib3JkZXJCb3R0b21XaWR0aCI6IiIsImJvcmRlckJvdHRvbUNvbG9yIjoiIiwiYWRkb24iOnt9fQ==">
                <div class="fixed-width">
-                  <div class="three-fifths column cols" id="le_body_row_12_col_1">
-                     <div class="element-container cf" data-style="" id="le_body_row_12_col_1_el_1">
-                        <div class="element">
-                           <div class="video-plugin-new youtube not-flowplayer" style="max-width:100%; width:580px; height:auto; padding-top:0; padding-bottom:0; margin:0 auto;margin:0 auto; border: 10px solid &{sellPage.getBackgroundColor()};margin-bottom: 20px;">
-                              <div style="width:580px;height:0;  padding-bottom: 57.758620689655%; padding-top:0;">
-                                 <iframe width="560" height="315" src="&{sellPage.getEmbedVideo()}?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" gesture="media" allowfullscreen></iframe>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="element-container cf" data-style="" id="le_body_row_12_col_1_el_2">
-                        <div class="element">
-                           <div class="arrow-right"><img src="@{'public/templatepv/arrow-3-3.png'}" class="arrows" alt="arrow"></div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="two-fifths column cols narrow" id="le_body_row_12_col_2">
-                     <div class="element-container cf" data-style="" id="le_body_row_12_col_2_el_1">
+                  <div class="three-fifths" id="">
+                     <div class="element-container cf" data-style="" id="">
                         <div class="element">
                            <div class="op-text-block" style="width:100%;text-align: left;">
-                              <p style="font-size:1.5em;font-family:&quot;Cabin&quot;, sans-serif;color:#fff;text-align: justify;">
-							  	  &{sellPage.getVideoDescription().raw()}
+                              <p style="font-size:2.5em;font-family:&quot;Cabin&quot;, sans-serif;color:#fff;text-align: justify;">
+							  	  &{freePage.getDescription().raw()}
 							  </p>
                            </div>
                         </div>
                      </div>
-					 
                   </div>
-				  <div class="element-container cf" data-style="" id="le_body_row_28_col_1_el_2">
-						<div class="element">
-						   <div style="text-align:center">
-							  <style type="text/css">#btn_1_f589b5bcd3859c467f9c4208649c27a0 .text {font-size:36px;color:#ffffff;font-family:Cabin;font-weight:normal;text-shadow:#000000 0px 1px 0px;}#btn_1_f589b5bcd3859c467f9c4208649c27a0 .subtext {text-shadow:#000000 0px 1px 0px;}#btn_1_f589b5bcd3859c467f9c4208649c27a0 {padding:38px 29px;border-width:0px;-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;background:#ee1802;background:-webkit-gradient(linear, left top, left bottom, color-stop(0%, #ee1802), color-stop(100%, #ec4837));background:-webkit-linear-gradient(top, #ee1802 0%, #ec4837 100%);background:-moz-linear-gradient(top, #ee1802 0%, #ec4837 100%);background:-ms-linear-gradient(top, #ee1802 0%, #ec4837 100%);background:-o-linear-gradient(top, #ee1802 0%, #ec4837 100%);background:linear-gradient(to bottom, #ee1802 0%, #ec4837 100%);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#ee1802, endColorstr=#ec4837, GradientType=0);box-shadow:none;}#btn_1_f589b5bcd3859c467f9c4208649c27a0 .gradient {-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;}#btn_1_f589b5bcd3859c467f9c4208649c27a0 .shine {-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;}#btn_1_f589b5bcd3859c467f9c4208649c27a0 .active {-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;}#btn_1_f589b5bcd3859c467f9c4208649c27a0 .hover {-moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;}</style>
-							  <a href="&{sellPage.getButtonActionMainTitle().raw()}" id="btn_1_f589b5bcd3859c467f9c4208649c27a0" class="css-button style-1"><span class="text">&{sellPage.getButtonMainTitle().raw()}</span><span class="shine"></span><span class="hover"></span><span class="active"></span></a>
-						   </div>
-						</div>
-					</div>
                </div>
             </div>
-            <div style="background:&{sellPage.getBackgroundColor()};border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row one-column cf ui-sortable section   " id="le_body_row_22" data-style="eyJiYWNrZ3JvdW5kQ29sb3JTdGFydCI6IiNmYzc3NjkiLCJib3JkZXJUb3BXaWR0aCI6IiIsImJvcmRlclRvcENvbG9yIjoiIiwiYm9yZGVyQm90dG9tV2lkdGgiOiIiLCJib3JkZXJCb3R0b21Db2xvciI6IiIsImFkZG9uIjp7fX0=">
+            <div style="background:&{freePage.getBackgroundColor()};border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row one-column cf ui-sortable section   " id="le_body_row_22" data-style="eyJiYWNrZ3JvdW5kQ29sb3JTdGFydCI6IiNmYzc3NjkiLCJib3JkZXJUb3BXaWR0aCI6IiIsImJvcmRlclRvcENvbG9yIjoiIiwiYm9yZGVyQm90dG9tV2lkdGgiOiIiLCJib3JkZXJCb3R0b21Db2xvciI6IiIsImFkZG9uIjp7fX0=">
                <div class="fixed-width">
                   <div class="one-column column cols" id="le_body_row_22_col_1">
                      <div class="element-container cf" data-style="" id="le_body_row_22_col_1_el_1">
                         <div class="element">
-                           <h2 style="font-family:&quot;Oswald&quot;, sans-serif;color:#ffffff;text-align:center;">&{sellPage.getSubtitle1().raw()}</h2>
+                           <h2 style="font-family:&quot;Oswald&quot;, sans-serif;color:#ffffff;text-align:center;">&{freePage.getSubtitle1().raw()}</h2>
                         </div>
                      </div>
                   </div>
                </div>
             </div>
-            <div style="background-image:url(@{SellPageController.getBackgroundImage(sellPage.id)});background-repeat:no-repeat;background-position:center;background-color:#f5f5f5;border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row one-column cf ui-sortable section parallax   " id="le_body_row_23" data-style="eyJjc3NDbGFzcyI6InBhcmFsbGF4IiwiYmFja2dyb3VuZEltYWdlIjoidXJsKGh0dHA6Ly93d3cuZXhwZXJ0bm9hbW9yLmNvbS5ici93cC1jb250ZW50L3VwbG9hZHMvMjAxNi8xMi9tYXJyaWVkLWNvdXBsZS1tYWluLmpwZykiLCJiYWNrZ3JvdW5kUG9zaXRpb24iOiJjZW50ZXIiLCJiYWNrZ3JvdW5kQ29sb3JTdGFydCI6IiNmNWY1ZjUiLCJib3JkZXJUb3BXaWR0aCI6IiIsImJvcmRlclRvcENvbG9yIjoiIiwiYm9yZGVyQm90dG9tV2lkdGgiOiIiLCJib3JkZXJCb3R0b21Db2xvciI6IiIsImFkZG9uIjp7fX0=">
+            <div style="background-image:url(@{FreePageController.getBackgroundImage(freePage.id)});background-repeat:no-repeat;background-position:center;background-color:#f5f5f5;border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row one-column cf ui-sortable section parallax   " id="le_body_row_23" data-style="eyJjc3NDbGFzcyI6InBhcmFsbGF4IiwiYmFja2dyb3VuZEltYWdlIjoidXJsKGh0dHA6Ly93d3cuZXhwZXJ0bm9hbW9yLmNvbS5ici93cC1jb250ZW50L3VwbG9hZHMvMjAxNi8xMi9tYXJyaWVkLWNvdXBsZS1tYWluLmpwZykiLCJiYWNrZ3JvdW5kUG9zaXRpb24iOiJjZW50ZXIiLCJiYWNrZ3JvdW5kQ29sb3JTdGFydCI6IiNmNWY1ZjUiLCJib3JkZXJUb3BXaWR0aCI6IiIsImJvcmRlclRvcENvbG9yIjoiIiwiYm9yZGVyQm90dG9tV2lkdGgiOiIiLCJib3JkZXJCb3R0b21Db2xvciI6IiIsImFkZG9uIjp7fX0=">
                <div class="fixed-width">
                   <div class="one-column column cols" id="le_body_row_23_col_1">
                      <div class="element-container cf" data-style="" id="le_body_row_23_col_1_el_1">
                         <div class="element">
                            
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div style="background-image:url(@{SellPageController.getBackgroundImage(sellPage.id)});background-repeat:no-repeat;background-position:center;border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row three-columns cf ui-sortable section parallax   " id="le_body_row_24" data-style="eyJjc3NDbGFzcyI6InBhcmFsbGF4IiwiYmFja2dyb3VuZEltYWdlIjoidXJsKGh0dHA6Ly93d3cuZXhwZXJ0bm9hbW9yLmNvbS5ici93cC1jb250ZW50L3VwbG9hZHMvMjAxNi8xMi9tYXJyaWVkLWNvdXBsZS1tYWluLmpwZykiLCJiYWNrZ3JvdW5kUG9zaXRpb24iOiJjZW50ZXIiLCJib3JkZXJUb3BXaWR0aCI6IiIsImJvcmRlclRvcENvbG9yIjoiIiwiYm9yZGVyQm90dG9tV2lkdGgiOiIiLCJib3JkZXJCb3R0b21Db2xvciI6IiIsImFkZG9uIjp7fX0=">
-               <div class="fixed-width">
-                  <div class="one-third column cols narrow" id="le_body_row_24_col_1"></div>
-                  <div class="two-thirds column cols" id="le_body_row_24_col_2">
-                     <div class="element-container cf top-box" data-style="eyJhZHZhbmNlZENsYXNzIjoidG9wLWJveCJ9" id="le_body_row_24_col_2_el_1">
-                        <div class="element">
-                           <div class="feature-box feature-box-15 feature-box-align-center" style="width: 620px;">
-                              <div class="feature-box-content cf" data-epicbox-title="Feature Box Content">
-                                 <div class="row element-container cf ">
-                                    
-                                 </div>
-                                 <div class="row element-container cf ">
-                                    <div class="op-text-block" style="width:100%;text-align: left;">
-                                    	&{sellPage.getDescription().raw()}
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div style="background-image:url(@{SellPageController.getBackgroundImage(sellPage.id)});background-repeat:no-repeat;background-size:cover;border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row one-column cf ui-sortable section parallax   " id="le_body_row_25" data-style="eyJjc3NDbGFzcyI6InBhcmFsbGF4IiwiYmFja2dyb3VuZEltYWdlIjoidXJsKGh0dHA6Ly93d3cuZXhwZXJ0bm9hbW9yLmNvbS5ici93cC1jb250ZW50L3VwbG9hZHMvMjAxNi8xMi9tYXJyaWVkLWNvdXBsZS1tYWluLmpwZykiLCJiYWNrZ3JvdW5kUG9zaXRpb24iOiJjb3ZlciIsImJvcmRlclRvcFdpZHRoIjoiIiwiYm9yZGVyVG9wQ29sb3IiOiIiLCJib3JkZXJCb3R0b21XaWR0aCI6IiIsImJvcmRlckJvdHRvbUNvbG9yIjoiIiwiYWRkb24iOnt9fQ==">
-               <div class="fixed-width">
-                  <div class="one-column column cols" id="le_body_row_25_col_1">
-                     <div class="element-container cf" data-style="" id="le_body_row_25_col_1_el_1">
-                        <div class="element">
-                           <div style="height:50px"></div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div style="background:&{sellPage.getBackgroundColor()};border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row three-columns cf ui-sortable section   " id="le_body_row_26" data-style="eyJiYWNrZ3JvdW5kQ29sb3JTdGFydCI6IiNmYzc3NjkiLCJib3JkZXJUb3BXaWR0aCI6IiIsImJvcmRlclRvcENvbG9yIjoiIiwiYm9yZGVyQm90dG9tV2lkdGgiOiIiLCJib3JkZXJCb3R0b21Db2xvciI6IiIsImFkZG9uIjp7fX0=">
-               <div class="fixed-width">
-                  <div class="one-third column cols narrow" id="le_body_row_26_col_1"></div>
-                  <div class="two-thirds column cols" id="le_body_row_26_col_2">
-                     <div class="element-container cf" data-style="" id="le_body_row_26_col_2_el_1">
-                        <div class="element">
-                           <h2 style="font-family:&quot;Oswald&quot;, sans-serif;color:#ffffff;text-align:center;">&{sellPage.getSubtitle2().raw()}</h2>
-                        </div>
-                     </div>
-                     <div class="element-container cf" data-style="" id="le_body_row_26_col_2_el_2">
-                        <div class="element">
-                           <div style="height:10px"></div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-            <div style="background-color:#f5f5f5;border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row two-columns cf ui-sortable section   " id="le_body_row_27" data-style="eyJiYWNrZ3JvdW5kSW1hZ2UiOiJ1cmwoaHR0cDovL3d3dy5leHBlcnRub2Ftb3IuY29tLmJyL3dwLWNvbnRlbnQvdXBsb2Fkcy8yMDE2LzEyL2hlYXJ0X2RlY29fYnlfdGhsdWx1LWQ1ZmlkY3UucG5nKSIsImJhY2tncm91bmRQb3NpdGlvbiI6InRpbGVfaG9yaXpvbnRhbCIsImJhY2tncm91bmRDb2xvclN0YXJ0IjoiI2Y1ZjVmNSIsImJvcmRlclRvcFdpZHRoIjoiIiwiYm9yZGVyVG9wQ29sb3IiOiIiLCJib3JkZXJCb3R0b21XaWR0aCI6IiIsImJvcmRlckJvdHRvbUNvbG9yIjoiIiwiYWRkb24iOnt9fQ==">
-               <div class="fixed-width">
-                  <div class="one-half column cols" id="le_body_row_27_col_1">
-                     <div class="element-container cf" data-style="" id="le_body_row_27_col_1_el_1">
-                        <div class="element">
-                           <div id="prod-principal" class="image-caption" style="width:400px;margin-top:-400px;margin-bottom:px;margin-right:px;margin-left:px;float: left;"><img alt="" src="@{SellPageController.getImageProduct(sellPage.id)}" border="0" class="full-width"></div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="one-half column cols" id="le_body_row_27_col_2"></div>
-               </div>
-            </div>
-			<a id="anchor"></a>
-			
-            &{sellPage.getHtmlOffer1().raw()}
-            
-            &{sellPage.getHtmlOffer2().raw()}
-
-            &{sellPage.getHtmlOffer3().raw()}
-
-            &{sellPage.getHtmlOffer4().raw()}
-            
-            <div style="background:#f5f5f5;border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row three-columns cf ui-sortable section   " id="le_body_row_30" data-style="eyJiYWNrZ3JvdW5kQ29sb3JTdGFydCI6IiNmNWY1ZjUiLCJib3JkZXJUb3BXaWR0aCI6IiIsImJvcmRlclRvcENvbG9yIjoiIiwiYm9yZGVyQm90dG9tV2lkdGgiOiIiLCJib3JkZXJCb3R0b21Db2xvciI6IiIsImFkZG9uIjp7fX0=">
-               <div class="fixed-width">
-                  <div class="two-thirds column cols" id="le_body_row_30_col_1">
-                     <div class="element-container cf" data-style="" id="le_body_row_30_col_1_el_1">
-                        <div class="element">
-                           &{sellPage.getWarnings().raw()}
-                        </div>
-                     </div>
-                  </div>
-                  <div class="one-third column cols narrow" id="le_body_row_30_col_2">
-                     <div class="element-container cf" data-style="" id="le_body_row_30_col_2_el_1">
-                        <div class="element">
-                           <div class="image-caption" style="width:240px;margin-top:0px;margin-bottom:px;margin-right:auto;margin-left:auto;"><img alt="" src="@{'public/templatepv/Selo-Garantia1.png'}" border="0" class="full-width"></div>
                         </div>
                      </div>
                   </div>

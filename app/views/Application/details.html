@@ -17,14 +17,17 @@
 		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 		})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
 		<!-- End Google Tag Manager -->
-		<title>&{title} | &{parameter.getSiteTitle()}</title>
-		<meta name="description" content="&{article.getHeadline()}">
-		<meta name="keywords" content="&{article.getMetatags()}">
-		<meta property="twitter:title" content="&{title} | &{parameter.getSiteTitle()}">
-		<meta property="twitter:description" content="&{article.getHeadline()}">
-		<meta property="og:title" content="&{title} | &{parameter.getSiteTitle()}">
-		<meta property="og:description" content="&{article.getHeadline()}">
-		<meta property="og:image" content="&{parameter.getSiteDomain()}}/application/getimage?id=&{article.id}&index=1">
+		<title>&{article.getTitleSEO()}</title>
+		<meta name="description" content="&{article.getDescriptionSEO()} | &{article.getTitleSEO()}">
+		<meta name="keywords" content="&{article.getKeywordsSEO()}">
+		<meta property="twitter:title" content="&{article.getTitleSEO()}">
+		<meta property="twitter:description" content="&{article.getDescriptionSEO()} | &{article.getTitleSEO()}">
+		<meta property="og:title" content="&{article.getTitleSEO()}">
+		<meta property="og:description" content="&{article.getDescriptionSEO()} | &{article.getTitleSEO()}">
+		<meta property="og:image" content="&{parameter.getSiteDomain()}}&{parameter.getSiteLogo()}">
+        <link rel="canonical" href="&{article.getCanonicalURL()}">
+        <meta name="author" content="&{parameter.getSiteName()}">
+		<meta name="robots" content="index,follow">
 		<meta charset="utf-8" />
 		#{include 'includes/headerTemplateFollow.html' /}
 	</head>

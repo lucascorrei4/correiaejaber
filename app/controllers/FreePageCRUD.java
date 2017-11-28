@@ -2,13 +2,13 @@ package controllers;
 
 import java.util.List;
 
-import models.SellPage;
+import models.FreePage;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
 
-@CRUD.For(models.SellPage.class)
-public class SellPageCRUD extends CRUD {
+@CRUD.For(models.FreePage.class)
+public class FreePageCRUD extends CRUD {
 	
 	@Before
 	static void globals() {
@@ -42,14 +42,14 @@ public class SellPageCRUD extends CRUD {
 		try {
 			render(type, objects, count, totalCount, page, orderBy, order);
 		} catch (TemplateNotFoundException e) {
-			render("SellPageCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+			render("FreePageCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		}
 	}
 	
 	public static void remove(String id) throws Exception {
-		SellPage sellPage = SellPage.find("id = " + Long.valueOf(id)).first();
-		sellPage.delete();
-		SellPageCRUD.list(0, null, null, null, null);
+		FreePage freePage = FreePage.find("id = " + Long.valueOf(id)).first();
+		freePage.delete();
+		FreePageCRUD.list(0, null, null, null, null);
 	}
 	
 }

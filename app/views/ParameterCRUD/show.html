@@ -11,25 +11,47 @@
                	<div class="col-lg-12">
 					#{form id:'form', action:@save(object._key()), enctype:'multipart/form-data'}
 						#{crud.form}
-							#{crud.custom 'description'}
+							#{crud.custom 'descriptionContactPage'}
 								<div class="form-group">
-									<label for="object_description"> Conteúdo</label>
-									<textarea id="object_description" name="object.description"  rows="10" cols="80">
-						            	${object.description}
+									<label for="object_descriptionContactPage"> Descrição Página de Contato</label>
+									<textarea id="object_descriptionContactPage" name="object.descriptionContactPage">
+						            	${object.descriptionContactPage}
 						           	</textarea>
 						           	<script>
-						               CKEDITOR.replace('object_description');
+						               CKEDITOR.replace('object_descriptionContactPage');
 						           	</script>
 								</div>
 							#{/crud.custom}
-							#{crud.custom 'complement'}
+							#{crud.custom 'descriptionPrivacyPolicyPage'}
 								<div class="form-group">
-									<label for="object.complement"> Complemento</label>
-									<textarea id="object.complement" name="object.complement">
-						            	${object.complement}
+									<label for="object_descriptionPrivacyPolicyPage"> Descrição Página Política de Privacidade</label>
+									<textarea id="object_descriptionPrivacyPolicyPage" name="object.descriptionPrivacyPolicyPage">
+						            	${object.descriptionPrivacyPolicyPage}
 						           	</textarea>
 						           	<script>
-						               CKEDITOR.replace( 'object.complement' );
+						               CKEDITOR.replace('object_descriptionPrivacyPolicyPage');
+						           	</script>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'descriptionAboutPage'}
+								<div class="form-group">
+									<label for="object_descriptionAboutPage"> Descrição Página Sobre</label>
+									<textarea id="object_descriptionAboutPage" name="object.descriptionAboutPage">
+						            	${object.descriptionAboutPage}
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace('object_descriptionAboutPage');
+						           	</script>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'descriptionTermsConditionsPage'}
+								<div class="form-group">
+									<label for="object_descriptionTermsConditionsPage"> Descrição Página Termos e Condições</label>
+									<textarea id="object_descriptionTermsConditionsPage" name="object.descriptionTermsConditionsPage">
+						            	${object.descriptionTermsConditionsPage}
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace('object_descriptionTermsConditionsPage');
 						           	</script>
 								</div>
 							#{/crud.custom}

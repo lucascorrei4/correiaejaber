@@ -85,7 +85,8 @@ true=Sim
 false=Não
 
 #Controllers
-SellPageCRUD=Página de Vendas
+FreePageCRUD=Páginas Livre
+SellPageCRUD=Páginas de Vendas
 SequenceMailQueueCRUD=Fila de E-mails
 ClientCRUD=Clientes
 SimplePagesCRUD=Páginas Simples
@@ -123,6 +124,7 @@ SequenceMailCRUD=Sequência de E-mails
 HighlightProductCRUD=Produtos em Destaque
 
 #Models
+SellPage=Página Livre
 SellPage=Página de Vendas
 HighlightProduct=Produtos em Destaque
 SequenceMailQueue=Fila de E-mail
@@ -166,6 +168,10 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+descriptionTermsConditionsPage=Descrição Página Termos e Condições
+descriptionContactPage=Descrição Página de Contato
+descriptionAboutPage=Descrição Página Sobre
+descriptionPrivacyPolicyPage=Descrição Página Política de Privacidade
 messageHighlightProducts=Título Destaques Home
 titleSEO=Título SEO
 descriptionSEO=Descrição SEO

@@ -1,14 +1,11 @@
 package controllers;
 
-import java.io.File;
 import java.util.List;
 
-import controllers.CRUD.ObjectType;
 import models.Article;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
-import play.vfs.VirtualFile;
 import util.PlansEnum;
 
 @CRUD.For(models.Article.class)
@@ -48,5 +45,11 @@ public class ArticleCRUD extends CRUD {
 		} catch (TemplateNotFoundException e) {
 			render("ArticleCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		}
+	}
+	
+	public static void remove(String id) throws Exception {
+		Article article = Article.find("id = " + Long.valueOf(id)).first();
+		article.delete();
+		ArticleCRUD.list(0, null, null, null, null);
 	}
 }

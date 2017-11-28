@@ -11,13 +11,13 @@
 GET     ${ctx}/                                       				Application.index
 GET    	${ctx}/artigos/{id}/{friendlyUrl}							Application.details
 GET    	${ctx}/artigos												Application.index
+GET     ${ctx}/sitemap.xml                              			staticFile:/public/sitemap.xml
 
 # Home page
 POST    ${ctx}/savemessage											MessageCRUD.saveMessage
 
 POST    ${ctx}/savequickaccount										Application.saveQuickAccount
 GET    	${ctx}/como-funciona										Application.howItWorks
-GET    	${ctx}/contato												Application.contact
 POST	${ctx}/chalk-moip-response									Application.moipResponse
 GET     ${ctx}/novo			                     					Application.newAccount
 POST    ${ctx}/novo			       				 					Application.saveNewAccount
@@ -28,6 +28,12 @@ GET     ${ctx}/acompanhe	 		   				 				Application.followAdmin
 POST    ${ctx}/resetpass	   				 						Application.resetPass
 GET    	${ctx}/nova-senha/{id}	   				 					Application.newPass
 GET    	${ctx}/gratidao					   				 			Application.thankLead
+
+# Essentials Pages
+GET    	${ctx}/contato												Application.contact
+GET    	${ctx}/sobre												Application.about
+GET    	${ctx}/politica-de-privacidade								Application.privacyPolicy
+GET    	${ctx}/termos-e-condicoes									Application.termsConditions
 
 # Public MonetizzeController
 
@@ -44,6 +50,9 @@ GET    	${ctx}/spl/{friendlyUrl}									SimplePagesController.details
 # Public SellPages
 GET    	${ctx}/pv/{friendlyUrl}										SellPageController.details
 
+# Public FreePages
+GET    	${ctx}/fp/{friendlyUrl}										FreePageController.details
+
 # Public News
 
 # Admin Update Order
@@ -55,7 +64,18 @@ POST    ${ctx}/updateRadioValue	   				 					OrderOfServiceCRUD.updateRadioValue
 GET		${ctx}/admin/transacoes-monetizze									MonetizzeTransactionCRUD.list
 GET		${ctx}/admin/transacoes-monetizze/{id}								MonetizzeTransactionCRUD.show
 
-# HighlightProduct
+# FreePage
+
+GET		${ctx}/admin/paginas-livre										FreePageCRUD.list
+GET		${ctx}/admin/paginas-livre/novo									FreePageCRUD.blank
+GET		${ctx}/admin/paginas-livre/{id}									FreePageCRUD.show
+GET		${ctx}/admin/paginas-livre/{id}/{field}							FreePageCRUD.attachment
+GET		${ctx}/admin/paginas-livre/{id}/editar							FreePageCRUD.edit
+POST	${ctx}/admin/paginas-livre										FreePageCRUD.create
+POST	${ctx}/admin/paginas-livre/{id}									FreePageCRUD.save
+DELETE	${ctx}/admin/paginas-livre/{id}									FreePageCRUD.delete
+
+# SellPage
 
 GET		${ctx}/admin/paginas-de-venda										SellPageCRUD.list
 GET		${ctx}/admin/paginas-de-venda/novo									SellPageCRUD.blank

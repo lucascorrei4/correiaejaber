@@ -22,6 +22,15 @@ import util.Utils;
 public class Article extends Model {
 
 	@Required(message = "Campo obrigatório.")
+	public String titleSEO;
+	@Required(message = "Campo obrigatório.")
+	public String descriptionSEO;
+	@Required(message = "Campo obrigatório.")
+	public String keywordsSEO;
+	@Required(message = "Campo obrigatório.")
+	public String canonicalURL;
+
+	@Required(message = "Campo obrigatório.")
 	public String title;
 
 	@Lob
@@ -49,13 +58,12 @@ public class Article extends Model {
 	public String tags;
 
 	public String embed;
-	
+
 	@Enumerated(EnumType.STRING)
 	public TypeAdsNewsEnum typeAds = TypeAdsNewsEnum.Default;
 
 	public String directLink;
 
-	@Hidden
 	public String friendlyUrl;
 
 	public boolean highlight;
@@ -66,7 +74,7 @@ public class Article extends Model {
 	public String shortenUrl;
 
 	public boolean isActive = true;
-	
+
 	public String toString() {
 		return title;
 	}
@@ -83,8 +91,7 @@ public class Article extends Model {
 	public long institutionId;
 
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
-				: Admin.getLoggedUserInstitution().getInstitution().getId();
+		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l : Admin.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {
@@ -157,7 +164,7 @@ public class Article extends Model {
 	public Blob getImage3() {
 		return image3;
 	}
-	
+
 	public void setImage3(Blob image3) {
 		this.image3 = image3;
 	}
@@ -203,8 +210,7 @@ public class Article extends Model {
 
 	public String getShortenUrl() {
 		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id) && !Utils.isNullOrEmpty(this.friendlyUrl)) {
-			setShortenUrl(Utils.getShortenUrl(ApplicationConfiguration.getInstance().getSiteDomain() + "/artigos/".concat(String.valueOf(this.id)).concat("/")
-					.concat(this.getFriendlyUrl())));
+			setShortenUrl(Utils.getShortenUrl(Parameter.getCurrentParameter().getSiteDomain() + "/artigos/".concat(String.valueOf(this.id)).concat("/").concat(this.getFriendlyUrl())));
 		}
 		return shortenUrl;
 	}
@@ -214,21 +220,21 @@ public class Article extends Model {
 	}
 
 	public String getComplement() {
-		return complement;
+		return Utils.isNullOrEmpty(this.complement) ? complement : Utils.normalizeString(complement);
 	}
 
 	public void setComplement(String complement) {
 		this.complement = complement;
 	}
-	
+
 	public String getTitleCaptureForm() {
 		return titleCaptureForm;
 	}
-	
+
 	public void setTitleCaptureForm(String titleCaptureForm) {
 		this.titleCaptureForm = titleCaptureForm;
 	}
-	
+
 	public TypeAdsNewsEnum getTypeAds() {
 		return typeAds;
 	}
@@ -243,6 +249,38 @@ public class Article extends Model {
 
 	public void setDirectLink(String directLink) {
 		this.directLink = directLink;
+	}
+
+	public String getTitleSEO() {
+		return titleSEO;
+	}
+
+	public void setTitleSEO(String titleSEO) {
+		this.titleSEO = titleSEO;
+	}
+
+	public String getDescriptionSEO() {
+		return descriptionSEO;
+	}
+
+	public void setDescriptionSEO(String descriptionSEO) {
+		this.descriptionSEO = descriptionSEO;
+	}
+
+	public String getKeywordsSEO() {
+		return keywordsSEO;
+	}
+
+	public void setKeywordsSEO(String keywordsSEO) {
+		this.keywordsSEO = keywordsSEO;
+	}
+
+	public String getCanonicalURL() {
+		return canonicalURL;
+	}
+
+	public void setCanonicalURL(String canonicalURL) {
+		this.canonicalURL = canonicalURL;
 	}
 
 }

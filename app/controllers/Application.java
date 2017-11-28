@@ -115,12 +115,17 @@ public class Application extends Controller {
 		notFoundIfNull(article);
 		if ("1".equals(index)) {
 			if (article.getImage1() != null) {
-				renderBinary(article.getImage1().get());
+				renderBinary(article.getImage1().get(), index.concat("-").concat(article.friendlyUrl));
 				return;
 			}
 		} else if ("2".equals(index)) {
 			if (article.getImage2() != null) {
 				renderBinary(article.getImage2().get());
+				return;
+			}
+		} else if ("3".equals(index)) {
+			if (article.getImage3() != null) {
+				renderBinary(article.getImage3().get());
 				return;
 			}
 		}
@@ -142,6 +147,33 @@ public class Application extends Controller {
 	}
 
 	public static void contact() {
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		Parameter parameter = Parameter.all().first();
+		render(theSystem, bottomNews, parameter);
+	}
+
+	public static void about() {
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		Parameter parameter = Parameter.all().first();
+		render(theSystem, bottomNews, parameter);
+	}
+
+	public static void privacyPolicy() {
+		TheSystem theSystem = new TheSystem();
+		theSystem.setShowTopMenu(true);
+		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);
+		List<Article> bottomNews = listArticles.subList(0, 3);
+		Parameter parameter = Parameter.all().first();
+		render(theSystem, bottomNews, parameter);
+	}
+
+	public static void termsConditions() {
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
 		List<Article> listArticles = Article.find("highlight = false and isActive = true order by postedAt desc").fetch(6);

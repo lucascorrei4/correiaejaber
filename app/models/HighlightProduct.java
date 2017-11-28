@@ -105,5 +105,9 @@ public class HighlightProduct extends Model {
 	public void setImage(Blob image) {
 		this.image = image;
 	}
+	
+	public String getTitleNoHtml() {
+		return Utils.removeHTML(this.title);
+	}
 
 }

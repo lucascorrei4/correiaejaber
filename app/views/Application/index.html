@@ -18,6 +18,7 @@
 		})(window,document,'script','dataLayer','&{parameter.getGoogleTagManagerId()}');</script>
 		<!-- End Google Tag Manager -->
 		<title>&{parameter.getSiteTitle()}</title>
+		<meta name="robots" content="index,follow">
 		<meta name="description" content="&{parameter.getSiteDescription()} | &{parameter.getSiteTitle()}">
 		<meta name="keywords" content="&{parameter.getSiteKeywords()}">
 		<meta property="twitter:title" content="&{parameter.getSiteTitle()}">
@@ -26,7 +27,7 @@
 		<meta property="og:description" content="&{parameter.getSiteDescription()} | &{parameter.getSiteTitle()}">
 		<meta property="og:image" content="&{parameter.getSiteDomain()}}&{parameter.getSiteLogo()}">
 		<meta charset="utf-8" />
-		<link rel="sitemap" type="application/xml" title="Sitemap" href="/public/sitemap/sitemap.xml">
+		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 		#{include 'includes/headerTemplateFollow.html' /}
 	</head>
 	<body class="right-sidebar">
