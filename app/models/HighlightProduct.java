@@ -25,6 +25,8 @@ public class HighlightProduct extends Model {
 
 	public Blob image;
 
+	public boolean isHighlight;
+
 	@Hidden
 	public String postedAt;
 
@@ -108,6 +110,14 @@ public class HighlightProduct extends Model {
 	
 	public String getTitleNoHtml() {
 		return Utils.removeHTML(this.title);
+	}
+
+	public boolean isHighlight() {
+		return isHighlight;
+	}
+
+	public void setHighlight(boolean isHighlight) {
+		this.isHighlight = isHighlight;
 	}
 
 }

@@ -48,7 +48,7 @@
 					</blockquote>
 				</header>
 				<h3 style="text-align: center; font-weight: 600; margin: 0 auto;">#{verbatim}&{parameter.getMessageHighlightProducts() == null ? 'Ofertas da semana em estoque' : parameter.getMessageHighlightProducts()}#{/verbatim}</h3>				
-				<section class="wrapper style4 container">
+				<section class="wrapper style4 container" style="display: ${listHightlightProduct.size() > 0 ? 'block' : 'none'}">
 					#{include 'includes/highlightProduct.html' /}
 				</section>
 				<section class="wrapper style4 container">

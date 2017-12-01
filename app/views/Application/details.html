@@ -61,7 +61,6 @@
 											<input id="shorten" type="hidden" value="&{article.getShortenUrl()}" />
 											<h2 style=" font-size: 18px;   text-align: left; text-transform: unset; margin-top: 20px; font-weight: 300">&{article.getHeadline().raw()}</h2>
 										</header>
-										
 										#{if article.getEmbed()}
 											<iframe width="560" height="315" src="&{article.getEmbed()}?rel=0&autoplay=1" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
 											<p style="color: #444444">&{article.getDescription().raw()}</p>

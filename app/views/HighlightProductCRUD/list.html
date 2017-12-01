@@ -16,7 +16,10 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['title', 'msgOffer', 'postedAt']}
+			        #{crud.table fields:['title', 'msgOffer', 'postedAt', 'isHighlight', 'isActive', 'action']}
+			        	#{crud.custom 'action'}
+                             <a href="@{HighlightProductCRUD.remove(object.id)}" title="Atenção: Esta ação remove o item.">Remover</a>
+				        #{/crud.custom}
 				    #{/crud.table}
     				<div class="alert alert-info alert-dismissable">
 						#{crud.pagination /}

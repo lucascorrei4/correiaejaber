@@ -46,7 +46,8 @@ public class Application extends Controller {
 		TheSystem theSystem = new TheSystem();
 		theSystem.setShowTopMenu(true);
 		String title = Utils.removeHTML(article.getTitle());
-		render(article, bottomNews, sidebarRightNews, parameter, listTheSystems, theSystem, title, articleTopAds, articleSidebarRightAds, articleBottomAds);
+		HighlightProduct hightlightProduct = HighlightProduct.find("isActive = true and isHighlight = true").first();
+		render(article, bottomNews, sidebarRightNews, parameter, listTheSystems, theSystem, title, articleTopAds, articleSidebarRightAds, articleBottomAds, hightlightProduct);
 	}
 
 	private static List<Article> getArticlesSidebarRightNews(List<Article> listArticles) {

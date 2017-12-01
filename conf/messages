@@ -168,6 +168,9 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+true=Sim
+false=Não
+isHighlight=Destaque
 descriptionTermsConditionsPage=Descrição Página Termos e Condições
 descriptionContactPage=Descrição Página de Contato
 descriptionAboutPage=Descrição Página Sobre
