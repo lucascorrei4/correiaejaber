@@ -3,6 +3,8 @@ package models;
 import java.text.ParseException;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 
 import controllers.CRUD.Hidden;
@@ -11,6 +13,7 @@ import play.data.validation.Required;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
 import util.ApplicationConfiguration;
+import util.FacebookEventEnum;
 import util.Utils;
 
 @Entity
@@ -21,8 +24,6 @@ public class SellPage extends Model {
 	@Required(message = "Campo obrigatório.")
 	public String descriptionSEO;
 	@Required(message = "Campo obrigatório.")
-	public String keywordsSEO;
-	@Required(message = "Campo obrigatório.")
 	public String canonicalURL;
 
 	@Required(message = "Campo obrigatório.")
@@ -31,15 +32,13 @@ public class SellPage extends Model {
 	@MaxSize(10000000)
 	public String videoDescription;
 	public String embedVideo;
-	
-	
+
 	public String buttonMainTitle;
 	public String buttonActionMainTitle;
-	
 
 	public Blob backgroundImage;
 	public String backgroundColor;
-	
+
 	@Lob
 	@MaxSize(10000000)
 	public String subtitle1;
@@ -68,12 +67,11 @@ public class SellPage extends Model {
 	@Lob
 	@MaxSize(10000000)
 	public String warnings;
-	
+
 	public String urlCheckout;
 
-	public String metatags;
-
-	public String embed;
+	@Enumerated(EnumType.STRING)
+	public FacebookEventEnum facebookEvent = FacebookEventEnum.ViewContent;
 
 	public String friendlyUrl;
 
@@ -83,7 +81,7 @@ public class SellPage extends Model {
 	public String shortenUrl;
 
 	public boolean isActive = true;
-	
+
 	public String toString() {
 		return titleSEO;
 	}
@@ -127,14 +125,6 @@ public class SellPage extends Model {
 		return Utils.parseStringDateTime(postedAt);
 	}
 
-	public String getEmbed() {
-		return embed;
-	}
-
-	public void setEmbed(String embed) {
-		this.embed = embed;
-	}
-
 	public String getFriendlyUrl() {
 		if (Utils.isNullOrEmpty(this.friendlyUrl) && !Utils.isNullOrEmpty(this.mainTitle)) {
 			setFriendlyUrl(Utils.stringToUrl(Utils.removeHTML(this.mainTitle.trim())));
@@ -151,23 +141,17 @@ public class SellPage extends Model {
 	}
 
 	public String getShortenUrl() {
-		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id)
-				&& !Utils.isNullOrEmpty(this.friendlyUrl)) {
-			setShortenUrl(Utils.getShortenUrl(Parameter.getCurrentParameter().getSiteDomain() + "/pv/".concat(this.getFriendlyUrl())));
+		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id) && !Utils.isNullOrEmpty(this.friendlyUrl)) {
+			Parameter parameter = Parameter.getCurrentParameter();
+			parameter.setGoogleShortnerUrlApiId(parameter.getGoogleShortnerUrlApiId() == null ? "AIzaSyCscCd-De7uL6UGXABT1g4I_rU1wMJRv8w" : parameter.getGoogleShortnerUrlApiId());
+			setShortenUrl(Utils.getShortenUrl(parameter.getGoogleShortnerUrlApiId(), Parameter.getCurrentParameter().getSiteDomain() + "/pv/".concat(String.valueOf(this.id)).concat("/").concat(this.getFriendlyUrl())));
 		}
 		return shortenUrl;
 	}
 
+
 	public void setShortenUrl(String shortenUrl) {
 		this.shortenUrl = shortenUrl;
-	}
-
-	public String getMetatags() {
-		return metatags;
-	}
-
-	public void setMetatags(String metatags) {
-		this.metatags = metatags;
 	}
 
 	public String getVideoDescription() {
@@ -306,20 +290,20 @@ public class SellPage extends Model {
 		this.descriptionSEO = descriptionSEO;
 	}
 
-	public String getKeywordsSEO() {
-		return keywordsSEO;
-	}
-
-	public void setKeywordsSEO(String keywordsSEO) {
-		this.keywordsSEO = keywordsSEO;
-	}
-
 	public String getCanonicalURL() {
 		return canonicalURL;
 	}
 
 	public void setCanonicalURL(String canonicalURL) {
 		this.canonicalURL = canonicalURL;
+	}
+
+	public FacebookEventEnum getFacebookEvent() {
+		return facebookEvent;
+	}
+
+	public void setFacebookEvent(FacebookEventEnum facebookEvent) {
+		this.facebookEvent = facebookEvent;
 	}
 
 }

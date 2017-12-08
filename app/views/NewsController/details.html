@@ -24,6 +24,9 @@
 		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
+		<script>
+		  fbq('track', '&{article.getFacebookEvent().getValue()}');
+		</script>
 		<div id="page-wrapper">
 			<!-- Header -->
 				#{include 'includes/menuTemplateFollow.html' /}
@@ -45,7 +48,7 @@
 									<div class="content">
 										<section>
 											<header>
-												<p style="font-size: 15px; margin: 0; text-align: left">Você está em: <a href="/"><strong>&{parameter.getSiteName()}</strong></a> > <a href="/dicas"><strong>Dicas</strong></a> > <a href="#"><strong>&{article.getTitle().raw()}</strong></a></p>
+												<p style="font-size: 15px; margin: 0; text-align: left">Você está em: <a href="/"><strong>&{parameter.getSiteName()}</strong></a> > <a href="/artigos"><strong>artigos</strong></a> > <a href="#"><strong>&{article.getTitle().raw()}</strong></a></p>
 												<p style="font-size: 15px; margin: 0; text-align: left">Publicado por <a href="http://instagram.com/lucascorrei4" target="_blank">Lucas Correia</a> em &{article.postedAtParsed}</p>
 												<input id="shorten" type="hidden" value="&{article.getShortenUrl()}" />
 												<h3 style="text-align: left; text-transform: unset; margin-top: 20px; color: #0f0f0f; font-weight: 600">&{article.getHeadline().raw()}</h3>

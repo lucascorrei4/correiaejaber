@@ -24,7 +24,6 @@
 		<!-- End Google Tag Manager -->
 		<title>&{freePage.getTitleSEO()}</title>
 		<meta name="description" content="&{freePage.getDescriptionSEO()} | &{freePage.getTitleSEO()}">
-		<meta name="keywords" content="&{freePage.getKeywordsSEO()}">
 		<meta property="twitter:title" content="&{freePage.getTitleSEO()}">
 		<meta property="twitter:description" content="&{freePage.getDescriptionSEO()} | &{freePage.getTitleSEO()}">
 		<meta property="og:title" content="&{freePage.getTitleSEO()}">
@@ -3187,12 +3186,28 @@
       <link rel="apple-touch-icon-precomposed" href="#">
       <meta name="msapplication-TileImage" content="#">
       <style type="text/css">.fancybox-margin{margin-right:17px;}</style>
+      <!-- Facebook Pixel Code -->
+		<script>
+		!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+		n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+		n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+		t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+		document,'script','https://connect.facebook.net/en_US/fbevents.js');
+		fbq('init', '457036137826789'); // Insert your pixel ID here.
+		fbq('track', 'PageView');
+		</script>
+		<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=457036137826789&ev=PageView&noscript=1" /></noscript>
+		<!-- DO NOT MODIFY -->
+		<!-- End Facebook Pixel Code -->
    </head>
    <body class="page-template-default page page-id-308 wp-custom-logo op-live-editor-page op-plugin group-blog has-header-image page-one-column title-tagline-hidden colors-light" style="">
    <!-- Google Tag Manager (noscript) -->
 		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
+		<script>
+		  fbq('track', '&{freePage.getFacebookEvent().getValue()}');
+		</script>
       <div class="container main-content">
          <div id="content_area" class="">
             <div style="background:&{freePage.getBackgroundColor()};border-top-width:px;border-top-style:solid;border-top-color:;border-bottom-width:px;border-bottom-style:solid;border-bottom-color:;" class="row one-column cf ui-sortable section arrowRow   " id="le_body_row_10" data-style="eyJjc3NDbGFzcyI6ImFycm93Um93IiwiYmFja2dyb3VuZENvbG9yU3RhcnQiOiIjZmM3NzY5IiwiYm9yZGVyVG9wV2lkdGgiOiIiLCJib3JkZXJUb3BDb2xvciI6IiIsImJvcmRlckJvdHRvbVdpZHRoIjoiIiwiYm9yZGVyQm90dG9tQ29sb3IiOiIiLCJhZGRvbiI6e319">

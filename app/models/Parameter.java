@@ -75,6 +75,10 @@ public class Parameter extends Model {
 	
 	public String googleTagManagerId;
 
+	public String googleShortnerUrlApiId;
+	
+	public String facebookPixelId;
+
 	public String toString() {
 		return "Portal: " + siteName;
 	}
@@ -298,5 +302,22 @@ public class Parameter extends Model {
 	public void setDescriptionTermsConditionsPage(String descriptionTermsConditionsPage) {
 		this.descriptionTermsConditionsPage = descriptionTermsConditionsPage;
 	}
+
+	public String getGoogleShortnerUrlApiId() {
+		return googleShortnerUrlApiId;
+	}
+
+	public void setGoogleShortnerUrlApiId(String googleShortnerUrlApiId) {
+		this.googleShortnerUrlApiId = googleShortnerUrlApiId;
+	}
+
+	public String getFacebookPixelId() {
+		return facebookPixelId;
+	}
+
+	public void setFacebookPixelId(String facebookPixelId) {
+		this.facebookPixelId = facebookPixelId;
+	}
+	
 
 }

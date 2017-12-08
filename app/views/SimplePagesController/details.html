@@ -23,6 +23,9 @@
 		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
+		<script>
+		  fbq('track', '&{simplePage.getFacebookEvent().getValue()}');
+		</script>
 		<div id="page-wrapper">
 			<!-- Main -->
 				<article id="main" style="padding: 1em 0;">

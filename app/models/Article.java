@@ -14,6 +14,7 @@ import play.data.validation.Required;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
 import util.ApplicationConfiguration;
+import util.FacebookEventEnum;
 import util.StatusInvoiceEnum;
 import util.TypeAdsNewsEnum;
 import util.Utils;
@@ -25,8 +26,6 @@ public class Article extends Model {
 	public String titleSEO;
 	@Required(message = "Campo obrigatório.")
 	public String descriptionSEO;
-	@Required(message = "Campo obrigatório.")
-	public String keywordsSEO;
 	@Required(message = "Campo obrigatório.")
 	public String canonicalURL;
 
@@ -52,6 +51,8 @@ public class Article extends Model {
 	public Blob image2;
 
 	public Blob image3;
+	
+	public boolean showCaptureForm = true;
 
 	public String titleCaptureForm;
 
@@ -63,6 +64,9 @@ public class Article extends Model {
 	public TypeAdsNewsEnum typeAds = TypeAdsNewsEnum.Default;
 
 	public String directLink;
+	
+	@Enumerated(EnumType.STRING)
+	public FacebookEventEnum facebookEvent = FacebookEventEnum.ViewContent;
 
 	public String friendlyUrl;
 
@@ -210,7 +214,9 @@ public class Article extends Model {
 
 	public String getShortenUrl() {
 		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id) && !Utils.isNullOrEmpty(this.friendlyUrl)) {
-			setShortenUrl(Utils.getShortenUrl(Parameter.getCurrentParameter().getSiteDomain() + "/artigos/".concat(String.valueOf(this.id)).concat("/").concat(this.getFriendlyUrl())));
+			Parameter parameter = Parameter.getCurrentParameter();
+			parameter.setGoogleShortnerUrlApiId(parameter.getGoogleShortnerUrlApiId() == null ? "AIzaSyCscCd-De7uL6UGXABT1g4I_rU1wMJRv8w" : parameter.getGoogleShortnerUrlApiId());
+			setShortenUrl(Utils.getShortenUrl(parameter.getGoogleShortnerUrlApiId(), Parameter.getCurrentParameter().getSiteDomain() + "/artigos/".concat(String.valueOf(this.id)).concat("/").concat(this.getFriendlyUrl())));
 		}
 		return shortenUrl;
 	}
@@ -267,20 +273,28 @@ public class Article extends Model {
 		this.descriptionSEO = descriptionSEO;
 	}
 
-	public String getKeywordsSEO() {
-		return keywordsSEO;
-	}
-
-	public void setKeywordsSEO(String keywordsSEO) {
-		this.keywordsSEO = keywordsSEO;
-	}
-
 	public String getCanonicalURL() {
 		return canonicalURL;
 	}
 
 	public void setCanonicalURL(String canonicalURL) {
 		this.canonicalURL = canonicalURL;
+	}
+
+	public boolean isShowCaptureForm() {
+		return showCaptureForm;
+	}
+
+	public void setShowCaptureForm(boolean showCaptureForm) {
+		this.showCaptureForm = showCaptureForm;
+	}
+
+	public FacebookEventEnum getFacebookEvent() {
+		return facebookEvent;
+	}
+
+	public void setFacebookEvent(FacebookEventEnum facebookEvent) {
+		this.facebookEvent = facebookEvent;
 	}
 
 }

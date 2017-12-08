@@ -1,15 +1,19 @@
 package controllers;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import models.Article;
 import models.HighlightProduct;
+import models.MailList;
 import models.Parameter;
 import models.TheSystem;
 import play.mvc.Controller;
 import play.vfs.VirtualFile;
+import util.FromEnum;
 import util.TypeAdsNewsEnum;
 import util.Utils;
 
@@ -181,6 +185,61 @@ public class Application extends Controller {
 		List<Article> bottomNews = listArticles.subList(0, 3);
 		Parameter parameter = Parameter.all().first();
 		render(theSystem, bottomNews, parameter);
+	}
+	
+	public static void saveMailList() throws UnsupportedEncodingException {
+		String resp = null;
+		String status = null;
+		String body = params.get("body", String.class);
+		String decodedParams = URLDecoder.decode(body, "UTF-8");
+		String[] params = decodedParams.split("&");
+		String name = Utils.getValueFromUrlParam(params[0]);
+		String mail = Utils.getValueFromUrlParam(params[1]);
+		String origin = Utils.getValueFromUrlParam(params[2]);
+		String url = Utils.getValueFromUrlParam(params[3]);
+		MailList mailList = new MailList();
+		mailList.id = 0l;
+		if (Utils.isNullOrEmpty(name)) {
+			mailList.setName("");
+		} else {
+			mailList.setName(name);
+		}
+		mailList.setName(name);
+		mailList.setMail(mail);
+		mailList.origin = FromEnum.getNameByValue(origin);
+		mailList.setUrl(url);
+		/* Making validations */
+		validation.clear();
+		validation.valid(mailList);
+		validation.email(mailList.getMail()).message("Favor, insira o seu e-mail no formato nome@provedor.com.br.").key("mailList.mail1");
+		if (validation.hasErrors()) {
+			status = "ERROR";
+			resp = "Favor, insira o seu e-mail no formato nome@provedor.com.br.";
+		} else {
+			status = "SUCCESS";
+			resp = "E-mail incluído com sucesso. Gratidão.";
+			mailList.setPostedAt(Utils.getCurrentDateTime());
+			mailList.merge();
+		}
+
+		/* Render page based on origin */
+		switch (FromEnum.getNameByValue(origin)) {
+		case HomePageTop:
+			render("includes/formNewsletterTop.html", status, resp);
+			break;
+		case HomePageBottom:
+			render("includes/formNewsletterBottom.html", status, resp);
+			break;
+		case NewsPage:
+			render("includes/formNewsletterTips.html", status, resp);
+			break;
+		case CapturePageTop:
+			render("includes/formCapturePageTop.html", status, resp);
+			break;
+		case CapturePageBottom:
+			render("includes/formCapturePageBottom.html", status, resp);
+			break;
+		}
 	}
 
 }

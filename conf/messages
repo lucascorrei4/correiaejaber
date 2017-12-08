@@ -111,7 +111,7 @@ StatusSmsCRUD=SMSs Enviadas
 InstitutionCRUD=Dados da Empresa
 UserCRUD=Usuário
 StatusPushCRUD=Notificações Push Enviadas
-ParameterCRUD=Parâmetros
+ParameterCRUD=Parâmetros Gerais
 FinancialCRUD=Financeiro
 MessageCRUD=Mensagens Recebidas
 StatusMailCRUD=E-mails Enviados
@@ -168,6 +168,15 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+sent=Enviado
+sequenceMail=Sequência do E-mail
+jobDate
+origin=Origem
+facebookPixelId=Facebook Pixel Id
+showCaptureForm=Mostrar Form. de Captura
+googleShortnerUrlApiId=Api Encurtador de URL do Google
+noFollow=No Follow (SEO - Não irá indexar a página)
+facebookEvent=Evento - Pixel Facebook
 true=Sim
 false=Não
 isHighlight=Destaque
@@ -178,7 +187,6 @@ descriptionPrivacyPolicyPage=Descrição Página Política de Privacidade
 messageHighlightProducts=Título Destaques Home
 titleSEO=Título SEO
 descriptionSEO=Descrição SEO
-keywordsSEO=Palavras-chave SEO
 canonicalURL=URL Canônica
 urlCheckout=URL Checkout
 warnings=Avisos
