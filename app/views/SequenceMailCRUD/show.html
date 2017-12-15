@@ -16,10 +16,17 @@
 								    <label for="object_services">
 								        Página
 								    </label>
-							        #{select id:'object.url', name:'object.url', items:mailList, valueProperty:'url', labelProperty:'url', class:'form-control', value: object.url /}
+							        #{select id:'object.url', name:'object.url', items:urls, valueProperty:'value', labelProperty:'label', class:'form-control', value: object.url /}
 								    <p class="help-block">
 								    </p>
    								</div>	
+							#{/crud.custom}
+							#{crud.custom 'title'}
+   								<div class="form-group">
+								    <label for="object_title"> Título do e-mail - Coloque @lead@ para mencionar o nome. Ex.: @lead@, obrigado por se cadastrar!</label>
+									<input id="object_title" type="text" class="form-control" name="object.title" value="${object.title}" />
+								    <p class="help-block">Obrigatório</p>
+   								</div>
 							#{/crud.custom}
 							#{crud.custom 'description'}
 								<div class="form-group">

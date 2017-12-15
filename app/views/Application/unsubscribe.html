@@ -7,7 +7,7 @@
 <meta name="description" content="Login | &{parameter.getSiteTitle()}">
 <meta name="author" content="">
 
-<title>&{parameter.getSiteTitle()} - Login</title>
+<title>Descadastro de e-mail | &{parameter.getSiteTitle()}</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="@{'public/templatebootstrap/bower_components/bootstrap/dist/css/bootstrap.min.css'}" rel="stylesheet">
@@ -31,8 +31,33 @@
 </head>
 
 <body>
-	
-	#{doLayout /}
+	<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+				<div class="container">
+                	<a href="@{Application.index}"> 
+						<div class="logo" style="position: relative; background-image: url('@{Application.getLogo()}'); width:150px; height:150px; border-radius:50%; overflow:hidden; background-size: cover; margin: 30px auto;"></div>
+					</a>
+				</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Descadastramento</h2>
+                    </div>
+                    <div id="panel-body" class="panel-body">
+                    	<input type="hidden" id="response" name="response" value="${response}" /> 
+						<input type="hidden" id="status" name="status" value="${status}" />
+                        <h2 style="text-align: center"><strong>${lead}</strong>,</h2>
+                        <h4 style="text-align: center">nós lamentamos, mas respeitamos a sua vontade. Você não receberá mais nossos e-mails.</h4>
+                        <h4 style="text-align: center">Você é muito bem-vindo(a) quando quiser voltar a acessar <a href="${parameter.getSiteDomain()}" target="_blank">${parameter.getSiteDomain()}</a>.</h4>
+                        <br />
+                        <h4 style="text-align: center">Grande abraço,</h4>
+                        <h4 style="text-align: center">${parameter.getSiteTitle()}.</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+<script src="@{'public/templatebootstrap/bower_components/jquery/dist/jquery.min.js'}"></script>
 	
 	<!-- jQuery -->
 	<script src="@{'public/templatebootstrap/bower_components/jquery/dist/jquery.min.js'}"></script>
@@ -49,3 +74,4 @@
 </body>
 
 </html>
+    

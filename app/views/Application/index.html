@@ -20,12 +20,11 @@
 		<title>&{parameter.getSiteTitle()}</title>
 		<meta name="robots" content="index,follow">
 		<meta name="description" content="&{parameter.getSiteDescription()}">
-		<meta name="keywords" content="&{parameter.getSiteKeywords()}">
 		<meta property="twitter:title" content="&{parameter.getSiteTitle()}">
 		<meta property="twitter:description" content="&{parameter.getSiteDescription()}">
 		<meta property="og:title" content="&{parameter.getSiteTitle()}">
 		<meta property="og:description" content="&{parameter.getSiteDescription()} | &{parameter.getSiteTitle()}">
-		<meta property="og:image" content="&{parameter.getSiteDomain()}}&{parameter.getSiteLogo()}">
+		<meta property="og:image" content="&{parameter.getSiteDomain()}@{Application.getLogo()}">
 		<meta charset="utf-8" />
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 		#{include 'includes/headerTemplateFollow.html' /}
@@ -41,7 +40,9 @@
 				#{include 'includes/imgAdsTop.html' /}
 				<header class="special container" style="margin-bottom: 0">
 					<span class="icon &{parameter.getSiteIconFontAwesome() == null ? 'fa-heartbeat' : parameter.getSiteIconFontAwesome()}"></span>
-					<div class="logo" style="position: relative; background-image: url('&{parameter.getSiteLogo()}'); width:150px; height:150px; border-radius:50%; overflow:hidden; background-size: cover; margin: 0 auto;"></div>
+					#{if !parameter.getLeftAligmentLogo()}
+						<div class="logo" style="position: relative; background-image: url('@{Application.getLogo()}'); width:150px; height:150px; border-radius:50%; overflow:hidden; background-size: cover; margin: 0 auto;"></div>
+					#{/if}
 					<h2 style="font-family: demo_coneria; text-transform: capitalize; font-size: 2.4em; color: &{parameter.getSiteMainTitleColor() == null ? 'black' : parameter.getSiteMainTitleColor()}; font-weight: 600;">#{verbatim}&{parameter.getSiteName()}#{/verbatim}</h2>
 					<blockquote style="border: none; padding: 0;font-style:italic; color: darkslategray">
 						#{verbatim}&{parameter.getSiteSlogan()}#{/verbatim} 

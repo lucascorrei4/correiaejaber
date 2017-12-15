@@ -4,20 +4,22 @@ package controllers;
 import java.util.Date;
 import java.util.List;
 
+import models.Article;
 import models.BodyMail;
-import models.Client;
 import models.Country;
+import models.FreePage;
 import models.Institution;
 import models.Invoice;
+import models.MailList;
 import models.MonetizzeTransaction;
 import models.Parameter;
+import models.SellPage;
 import models.SendTo;
 import models.Sender;
-import models.Service;
+import models.SequenceMail;
 import models.StatusMail;
-import models.StatusPUSH;
-import models.StatusSMS;
 import models.User;
+import play.db.jpa.JPA;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -78,17 +80,17 @@ public class Admin extends Controller {
 		} else {
 			/* Verify expiration license */
 			if (validateLicenseDate(getLoggedUserInstitution())) {
-				int contClients = Client.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
-				int contServices = Service.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
-				int contSentSMSs = StatusSMS.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
-				int contSentPushs = StatusPUSH.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
-				int contSentMails = StatusMail.find("institutionId = " + connectedUser.getInstitutionId()).fetch().size();
-				List<Client> listClients = Client.find("institutionId = " + connectedUser.getInstitutionId() + " and isActive = true order by postedAt desc").fetch(5);
-				List<Service> listServices = Service.find("institutionId = " + connectedUser.getInstitutionId() + " and isActive = true order by postedAt desc").fetch(5);
+				int contLeads = MailList.findAll().size();
+				int contArticles = Article.find("isActive = true order by postedAt desc").fetch().size();
+				int contSequenceMails = SequenceMail.find("isActive = true order by postedAt desc").fetch().size();
+				List<SellPage> listSellPages = SellPage.find("isActive = true order by postedAt desc").fetch(5);
+				List<FreePage> listFreePage = FreePage.find("isActive = true order by postedAt desc").fetch(5);
+				List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(5);
 				Institution institution = Institution.find("byId", connectedUser.getInstitutionId()).first();
 				String institutionName = institution.getInstitution();
-				int allSents = contSentSMSs + contSentPushs + contSentMails;
-				render(listClients, listServices, contClients, contServices, connectedUser, institutionName, contSentSMSs, institution, contSentPushs, parameter, smsExceedLimit, userFreeTrial, allSents, contSentMails);
+				List<Object> leadsByPage = getleadsByPage();
+				String top3LeadPages = top3LeadPages();
+				render(listSellPages, listFreePage, contLeads, connectedUser, institutionName, institution, parameter, smsExceedLimit, userFreeTrial, leadsByPage, listArticles, contArticles, top3LeadPages, contSequenceMails, contSequenceMails);
 			} else {
 				/* Redirect to page of information about expired license */
 				render("@Admin.expiredLicense", connectedUser, parameter);
@@ -96,6 +98,29 @@ public class Admin extends Controller {
 		}
 	}
 
+	private static List<Object> getleadsByPage() {
+		return JPA.em().createNativeQuery("SELECT count(*), url FROM maillist where url is not null group by url order by COUNT(*) desc limit 10").getResultList();
+	}
+
+	public static String top3LeadPages() {
+		List<Object> leadsByPage = getleadsByPage();
+		List<Object> top3leadsByPage = null;
+		String json = "";
+		if (leadsByPage != null && leadsByPage.size() > 3) {
+			top3leadsByPage = leadsByPage.subList(0, 3);
+			for (int i = 0; i < top3leadsByPage.size(); i++) {
+				json += "{";
+				Object[] x = (Object[]) top3leadsByPage.get(i);
+				json += "label: \"" + String.valueOf(x[1]) + "\",";  
+				json += "value: " + x[0];  
+				if (i < top3leadsByPage.size() -1) {
+					json += "},";
+				}
+			}
+			json += "}";
+		}
+		return json;
+	}
 
 	public static boolean validateLicenseDate(UserInstitutionParameter userInstitutionParameter) {
 		Invoice invoice = getInstitutionInvoice();
@@ -140,7 +165,6 @@ public class Admin extends Controller {
 		invoice.merge();
 	}
 
-
 	public static UserInstitutionParameter getLoggedUserInstitution() {
 		if (loggedUserInstitution == null || loggedUserInstitution.getCurrentSession() != session.get("username"))
 			loggedUserInstitution = new UserInstitutionParameter();
@@ -172,8 +196,8 @@ public class Admin extends Controller {
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
 		Sender sender = new Sender();
-		sender.setCompany(ApplicationConfiguration.getInstance().getSiteName());
-		sender.setFrom(ApplicationConfiguration.getInstance().getSiteMail());
+		sender.setCompany(parameter.getSiteTitle());
+		sender.setFrom(parameter.getSiteMail());
 		sender.setKey("");
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
@@ -184,14 +208,14 @@ public class Admin extends Controller {
 		bodyMail.setParagraph3(userInstitutionParameter.getInstitution().getEmail());
 		bodyMail.setFooter1(Institution.findAll().size() + " empresas cadastradas.");
 		bodyMail.setImage1(parameter.getLogoUrl());
-		bodyMail.setBodyHTML(MailController.getHTMLTemplate(bodyMail));
-		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
+		bodyMail.setBodyHTML(MailController.getHTMLTemplate(bodyMail, parameter));
+		mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter);
 		sendTo = new SendTo();
 		sendTo.setDestination("th4mmy@gmail.com");
 		sendTo.setName("Thammy");
 		sendTo.setSex("");
 		sendTo.setStatus(new StatusMail());
-		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
+		mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter);
 	}
 
 	public static void sendMailToMeWithCustomInfo(String message, String info) {
@@ -205,8 +229,8 @@ public class Admin extends Controller {
 		sendTo.setStatus(new StatusMail());
 		/* Sender object */
 		Sender sender = new Sender();
-		sender.setCompany(ApplicationConfiguration.getInstance().getSiteName());
-		sender.setFrom(ApplicationConfiguration.getInstance().getSiteMail());
+		sender.setCompany(parameter.getSiteTitle());
+		sender.setFrom(parameter.getSiteMail());
 		sender.setKey("");
 		/* SendTo object */
 		BodyMail bodyMail = new BodyMail();
@@ -217,8 +241,8 @@ public class Admin extends Controller {
 		bodyMail.setParagraph3("");
 		bodyMail.setFooter1("");
 		bodyMail.setImage1(parameter.getLogoUrl());
-		bodyMail.setBodyHTML(MailController.getHTMLTemplateSimple(bodyMail));
-		mailController.sendHTMLMail(sendTo, sender, bodyMail, null);
+		bodyMail.setBodyHTML(MailController.getHTMLTemplateSimple(bodyMail, parameter));
+		mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter);
 	}
 
 	public static Invoice getInstitutionInvoice() {

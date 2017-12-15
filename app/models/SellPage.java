@@ -144,7 +144,7 @@ public class SellPage extends Model {
 		if (Utils.isNullOrEmpty(this.shortenUrl) && !Utils.isNullOrZero(this.id) && !Utils.isNullOrEmpty(this.friendlyUrl)) {
 			Parameter parameter = Parameter.getCurrentParameter();
 			parameter.setGoogleShortnerUrlApiId(parameter.getGoogleShortnerUrlApiId() == null ? "AIzaSyCscCd-De7uL6UGXABT1g4I_rU1wMJRv8w" : parameter.getGoogleShortnerUrlApiId());
-			setShortenUrl(Utils.getShortenUrl(parameter.getGoogleShortnerUrlApiId(), Parameter.getCurrentParameter().getSiteDomain() + "/pv/".concat(String.valueOf(this.id)).concat("/").concat(this.getFriendlyUrl())));
+			setShortenUrl(Utils.getShortenUrl(parameter.getGoogleShortnerUrlApiId(), Parameter.getCurrentParameter().getSiteDomain() + "/pv/".concat(this.getFriendlyUrl())));
 		}
 		return shortenUrl;
 	}

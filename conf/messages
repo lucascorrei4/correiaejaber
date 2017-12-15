@@ -120,7 +120,7 @@ MailListCRUD=Leads
 TheSystemCRUD=O Sistema
 MailBaseCRUD=Base de E-mails
 MonetizzeTransactionCRUD=Transações Monetizze
-SequenceMailCRUD=Sequência de E-mails
+SequenceMailCRUD=Funil de E-mails
 HighlightProductCRUD=Produtos em Destaque
 
 #Models
@@ -128,7 +128,7 @@ SellPage=Página Livre
 SellPage=Página de Vendas
 HighlightProduct=Produtos em Destaque
 SequenceMailQueue=Fila de E-mail
-SequenceMail=Sequência de E-mail
+SequenceMail=Funil de E-mail
 MonetizzeTransaction=Transação Monetizze
 SimplePage=Página Simples
 ContactForm=Mensagens - Form. Contato
@@ -168,6 +168,13 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+mailHostName=Hostname (SMTP)
+mailHostUser=Hostname (Usuário)
+mailHostPassword=Hostname (Senha)
+mailRead=Lido
+leftAligmentLogo=Logo Alinhado a Esquerda
+logo=Logo do Site (Ideal: 700px x 700px, .jpg)
+jobDate=Data Envio
 sent=Enviado
 sequenceMail=Sequência do E-mail
 jobDate
@@ -214,7 +221,7 @@ siteBackGroundColor=Cor de Fundo
 typeAds=Tipo Ads
 directLink=Link Direto
 siteName=Nome do Site
-siteDomain=Domínio do Site
+siteDomain=Domínio do Site (Informe sem a barra final "/")
 siteMail=E-mail do Site
 siteTitle=Título do Site (SEO)
 siteDescription=Descrição do Site (SEO)

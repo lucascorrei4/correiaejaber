@@ -1,29 +1,11 @@
 package models;
 
-import java.text.ParseException;
-import java.util.Date;
-
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import org.apache.ivy.Main;
-
-import com.mysql.jdbc.Util;
-
-import controllers.Admin;
 import controllers.CRUD.Hidden;
-import play.data.binding.As;
-import play.data.validation.Required;
+import play.db.jpa.Blob;
 import play.db.jpa.Model;
-import util.StatusEnum;
-import util.StatusInvoiceEnum;
-import util.StatusPaymentEnum;
 import util.Utils;
 
 @Entity
@@ -35,6 +17,7 @@ public class Parameter extends Model {
 	
 	public String siteTitle;
 	public String siteDescription;
+	@Hidden
 	public String siteKeywords;
 
 	public String siteFacebook;
@@ -43,15 +26,20 @@ public class Parameter extends Model {
 	public String siteInstagram;
 	public String siteInstagramShort;
 
+	@Hidden
 	public String siteLogo;
+	public Blob logo;
 	public String siteHeader;
 	public String siteSlogan;
+	public boolean leftAligmentLogo;
 
 	public String siteBackGroundColor;
 	public String siteMainTitleColor;
 	
 	public String siteIconFontAwesome;
 	
+	public String messageHighlightProducts;
+
 	@Lob
 	public String descriptionContactPage;
 	@Lob
@@ -61,6 +49,7 @@ public class Parameter extends Model {
 	@Lob
 	public String descriptionTermsConditionsPage;
 	
+	@Hidden
 	@Lob
 	public String logoUrl;
 
@@ -71,13 +60,20 @@ public class Parameter extends Model {
 	
 	public String googleRemarketingId;
 
-	public String messageHighlightProducts;
 	
 	public String googleTagManagerId;
 
 	public String googleShortnerUrlApiId;
 	
 	public String facebookPixelId;
+	
+	public String mailHostName;
+	public String mailHostUser;
+	public String mailHostPassword;
+	
+
+	@Hidden
+	public long institutionId;
 
 	public String toString() {
 		return "Portal: " + siteName;
@@ -317,6 +313,54 @@ public class Parameter extends Model {
 
 	public void setFacebookPixelId(String facebookPixelId) {
 		this.facebookPixelId = facebookPixelId;
+	}
+
+	public Blob getLogo() {
+		return logo;
+	}
+
+	public void setLogo(Blob logo) {
+		this.logo = logo;
+	}
+
+	public boolean isLeftAligmentLogo() {
+		return leftAligmentLogo;
+	}
+
+	public void setLeftAligmentLogo(boolean leftAligmentLogo) {
+		this.leftAligmentLogo = leftAligmentLogo;
+	}
+
+	public long getInstitutionId() {
+		return institutionId;
+	}
+
+	public void setInstitutionId(long institutionId) {
+		this.institutionId = institutionId;
+	}
+
+	public String getMailHostName() {
+		return mailHostName;
+	}
+
+	public void setMailHostName(String mailHostName) {
+		this.mailHostName = mailHostName;
+	}
+
+	public String getMailHostUser() {
+		return mailHostUser;
+	}
+
+	public void setMailHostUser(String mailHostUser) {
+		this.mailHostUser = mailHostUser;
+	}
+
+	public String getMailHostPassword() {
+		return mailHostPassword;
+	}
+
+	public void setMailHostPassword(String mailHostPassword) {
+		this.mailHostPassword = mailHostPassword;
 	}
 	
 

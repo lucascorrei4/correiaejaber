@@ -1,157 +1,10 @@
-
-package controllers;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.Properties;
-
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-
-import org.apache.log4j.Logger;
+package util;
 
 import models.BodyMail;
-import models.Parameter;
-import models.SendTo;
-import models.Sender;
-import models.StatusMail;
-import play.db.jpa.Blob;
-import util.ApplicationConfiguration;
-import util.Utils;
 
-public class MailController {
-	public static Logger logger = Logger.getLogger(MailController.class);
-	
-	public boolean sendHTMLMail(SendTo sendTo, Sender sender, BodyMail bodyMail, String subject, Parameter parameter) {
-		final String userName = parameter.getMailHostUser();
-		final String password = parameter.getMailHostPassword();
-		String hostName = parameter.getMailHostName();
-		if (validateMailCredentials(userName, password, hostName)) {
-			Properties properties = new Properties();
-			properties.put("mail.transport.protocol", "smtp");
-			properties.put("mail.smtp.host", hostName);
-			properties.put("mail.smtp.socketFactory.port", "465");
-			properties.put("mail.smtp.port", "25");
-			properties.put("mail.smtp.auth", "true");
-			properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-			/* Trying connect do smtp server */
-			Authenticator auth = new Authenticator() {
-				public PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(userName, password);
-				}
-			};
-			/* Parse and send content */
-			try {
-				Session session = Session.getInstance(properties, auth);
-				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(sender.from, sender.company, "utf-8"));
-				message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendTo.destination));
-				if (Utils.isNullOrEmpty(subject)) {
-					message.setSubject(Utils.removeHTML(bodyMail.title2));
-				} else {
-					message.setSubject(Utils.removeHTML(subject));
-				}
-				String htmlMessage = bodyMail.getBodyHTML();
-				Multipart multipart = new MimeMultipart();
-				MimeBodyPart mimeBodyPart = new MimeBodyPart();
-				mimeBodyPart.setContent(htmlMessage, "text/html");
-				multipart.addBodyPart(mimeBodyPart);
-				message.setContent(multipart);
-				message.saveChanges();
-				Transport.send(message);
-				logger.info("Success sending email to " + sendTo.destination + ".");
-			} catch (MessagingException e) {
-				logger.error("Problem sending email to " + sendTo.destination + ". Error: " + e.getMessage() + ". Cause: " + e.getCause());
-				return false;
-			} catch (UnsupportedEncodingException e) {
-				logger.error("Problem sending email to " + sendTo.destination + ". Error: " + e.getMessage() + ". Cause: " + e.getCause());
-				return false;
-			}
-		} else {
-			logger.error("Problem validate mail credentials (username, password, hostname). Verify project configuration properties.");
-		}
-		return true;
-	}
-	
-	public boolean sendHTMLMail(SendTo sendTo, Sender sender, BodyMail bodyMail, String subject, Blob attachment, Parameter parameter) {
-		final String userName = parameter.getMailHostUser();
-		final String password = parameter.getMailHostPassword();
-		String hostName = parameter.getMailHostName();
-		if (validateMailCredentials(userName, password, hostName)) {
-			Properties properties = new Properties();
-			properties.put("mail.transport.protocol", "smtp");
-			properties.put("mail.smtp.host", hostName);
-			properties.put("mail.smtp.socketFactory.port", "465");
-			properties.put("mail.smtp.port", "25");
-			properties.put("mail.smtp.auth", "true");
-			properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-			/* Trying connect do smtp server */
-			Authenticator auth = new Authenticator() {
-				public PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(userName, password);
-				}
-			};
-			/* Parse and send content */
-			try {
-				Session session = Session.getInstance(properties, auth);
-				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(sender.from, sender.company, "utf-8"));
-				message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendTo.destination));
-				if (Utils.isNullOrEmpty(subject)) {
-					message.setSubject(Utils.removeHTML(bodyMail.title2));
-				} else {
-					message.setSubject(Utils.removeHTML(subject));
-				}
-				String htmlMessage = bodyMail.getBodyHTML();
-				Multipart multipart = new MimeMultipart();
-				MimeBodyPart mimeBodyPart = new MimeBodyPart();
-				mimeBodyPart.setContent(htmlMessage, "text/html");
-				multipart.addBodyPart(mimeBodyPart);
-				/* Finding attachment and adding to body message mail */
-				if (attachment.exists()) {
-					MimeBodyPart attachPart = new MimeBodyPart();
-					try {
-						attachPart.attachFile(attachment.getFile());
-						attachPart.setFileName(attachment.getFile().getName());
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
-					multipart.addBodyPart(attachPart);
-				}
-				message.setContent(multipart);
-				message.saveChanges();
-				Transport.send(message);
-				logger.info("Success sending email to " + sendTo.destination + ".");
-			} catch (MessagingException e) {
-				logger.error("Problem sending email to " + sendTo.destination + ". Error: " + e.getMessage() + ". Cause: " + e.getCause());
-				return false;
-			} catch (UnsupportedEncodingException e) {
-				logger.error("Problem sending email to " + sendTo.destination + ". Error: " + e.getMessage() + ". Cause: " + e.getCause());
-				return false;
-			}
-		} else {
-			logger.error("Problem validate mail credentials (username, password, hostname). Verify project configuration properties.");
-		}
-		return true;
-	}
+public class MailTemplates {
 
-	private boolean validateMailCredentials(String userName, String password, String hostName) {
-		if (Utils.isNullOrEmpty(userName) || Utils.isNullOrEmpty(password) || Utils.isNullOrEmpty(hostName)) {
-			return false;
-		}
-		return true;
-	}
-
-	public static String getHTMLTemplate(BodyMail bodyMail, Parameter parameter) {
+	public static String getHTMLTemplate(BodyMail bodyMail) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				"<div id=\":1fb\" class=\"a3s aXjCH m14d93659b00650ae\">                                                                                                                                                                                                                                                                                       ");
@@ -227,7 +80,7 @@ public class MailController {
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
 				"                                                                                       <tr align=\"center\">                                                                                                                                                                                                                                ");
-		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"" + parameter.getSiteTitle() + "\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
+		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"SeuPedido.Online - Acompanhamento de Pedidos e Servi&ccedil;os\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
 				+ "\"                                                                                                                                                    ");
 		sb.append(
 				"                                                                                             style=\"border-radius: 5%; border: 1px solid rgb(227, 227, 227); width: 80px; min-height: 80px\"></td>                                                                                                                                         ");
@@ -236,7 +89,7 @@ public class MailController {
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
 		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteDomain() + "</td>                                                                                                                                 ");
+				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">SeuPedido.Online</td>                                                                                                                                 ");
 		sb.append(
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
@@ -358,11 +211,11 @@ public class MailController {
 		sb.append(
 				"                                                                                             <div>                                                                                                                                                                                                                                        ");
 		sb.append(
-				"                                                                                                <a href=\"" + parameter.getSiteDomain() + "\"                                                                                                                                                                                                     ");
+				"                                                                                                <a href=\"https://www.seupedido.online\"                                                                                                                                                                                                     ");
 		sb.append(
 				"                                                                                                   style=\"background-color: #808000; border-radius: 5px; color: #ffffff; display: inline-block; font-family: sans-serif; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; text-decoration: none; width: 310px\"  ");
 		sb.append(
-				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain() + "</a>                                                                                                                                            ");
+				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"https://www.seupedido.online\">www.seupedido.online</a>                                                                                                                                            ");
 		sb.append(
 				"                                                                                             </div>                                                                                                                                                                                                                                       ");
 		sb.append(
@@ -556,7 +409,7 @@ public class MailController {
 		return sb.toString();
 	}
 
-	public static String getHTMLTemplateSimple(BodyMail bodyMail, Parameter parameter) {
+	public static String getHTMLTemplateSimple(BodyMail bodyMail) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				"<div id=\":1fb\" class=\"a3s aXjCH m14d93659b00650ae\">                                                                                                                                                                                                                                                                                       ");
@@ -632,7 +485,7 @@ public class MailController {
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
 				"                                                                                       <tr align=\"center\">                                                                                                                                                                                                                                ");
-		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"" + parameter.getSiteTitle() + "\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
+		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"SeuPedido.Online - Acompanhamento de Pedidos e Servi&ccedil;os\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
 				+ "\"                                                                                                                                                    ");
 		sb.append(
 				"                                                                                             style=\"border-radius: 5%; border: 1px solid rgb(227, 227, 227); width: 80px; min-height: 80px\"></td>                                                                                                                                         ");
@@ -641,7 +494,7 @@ public class MailController {
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
 		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteDomain() + "</td>                                                                                                                                 ");
+				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">SeuPedido.Online</td>                                                                                                                                 ");
 		sb.append(
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
@@ -699,11 +552,11 @@ public class MailController {
 		sb.append(
 				"                                                                                             <div>                                                                                                                                                                                                                                        ");
 		sb.append(
-				"                                                                                                <a href=\"" + parameter.getSiteDomain() + "\"                                                                                                                                                                                                     ");
+				"                                                                                                <a href=\"https://www.seupedido.online\"                                                                                                                                                                                                     ");
 		sb.append(
 				"                                                                                                   style=\"background-color: #808000; border-radius: 5px; color: #ffffff; display: inline-block; font-family: sans-serif; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; text-decoration: none; width: 310px\"  ");
 		sb.append(
-				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain() + "</a>                                                                                                                                            ");
+				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"https://www.seupedido.online\">www.seupedido.online</a>                                                                                                                                            ");
 		sb.append(
 				"                                                                                             </div>                                                                                                                                                                                                                                       ");
 		sb.append(
@@ -897,7 +750,7 @@ public class MailController {
 		return sb.toString();
 	}
 
-	public static String getHTMLTemplateResetPass(BodyMail bodyMail, Parameter parameter) {
+	public static String getHTMLTemplateResetPass(BodyMail bodyMail) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(
 				"<div id=\":1fb\" class=\"a3s aXjCH m14d93659b00650ae\">                                                                                                                                                                                                                                                                                       ");
@@ -973,7 +826,7 @@ public class MailController {
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
 				"                                                                                       <tr align=\"center\">                                                                                                                                                                                                                                ");
-		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"" + parameter.getSiteTitle() + "\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
+		sb.append("                                                                                          <td style=\"text-align: center\"><img alt=\"SeuPedido.Online - Acompanhamento de Pedidos e Servi&ccedil;os\" class=\"m_3594026484717175708CToWUd CToWUd\" src=\"" + bodyMail.getImage1()
 				+ "\"                                                                                                                                                    ");
 		sb.append(
 				"                                                                                             style=\"border-radius: 5%; border: 1px solid rgb(227, 227, 227); width: 80px; min-height: 80px\"></td>                                                                                                                                         ");
@@ -982,7 +835,7 @@ public class MailController {
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
 		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteDomain() + "</td>                                                                                                                                 ");
+				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">SeuPedido.Online</td>                                                                                                                                 ");
 		sb.append(
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
@@ -1044,11 +897,11 @@ public class MailController {
 		sb.append(
 				"                                                                                             <div>                                                                                                                                                                                                                                        ");
 		sb.append(
-				"                                                                                                <a href=\"" + parameter.getSiteDomain() + "\"                                                                                                                                                                                                     ");
+				"                                                                                                <a href=\"https://www.seupedido.online\"                                                                                                                                                                                                     ");
 		sb.append(
 				"                                                                                                   style=\"background-color: #808000; border-radius: 5px; color: #ffffff; display: inline-block; font-family: sans-serif; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; text-decoration: none; width: 310px\"  ");
 		sb.append(
-				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain() + "</a>                                                                                                                                            ");
+				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"https://www.seupedido.online\">www.seupedido.online</a>                                                                                                                                            ");
 		sb.append(
 				"                                                                                             </div>                                                                                                                                                                                                                                       ");
 		sb.append(
@@ -1242,30 +1095,4 @@ public class MailController {
 		return sb.toString();
 	}
 
-	public void sendMailToMeWithCustomInfo(String message, String info) {
-		Parameter parameter = Parameter.all().first();
-		MailController mailController = new MailController();
-		/* SendTo object */
-		SendTo sendTo = new SendTo();
-		sendTo.setDestination("lucascorreiaevangelista@gmail.com");
-		sendTo.setName("Eu mesmo");
-		sendTo.setSex("");
-		sendTo.setStatus(new StatusMail());
-		/* Sender object */
-		Sender sender = new Sender();
-		sender.setCompany(parameter.getSiteTitle());
-		sender.setFrom(parameter.getSiteMail());
-		sender.setKey("");
-		/* SendTo object */
-		BodyMail bodyMail = new BodyMail();
-		bodyMail.setTitle1(message);
-		bodyMail.setTitle2(info);
-		bodyMail.setParagraph1("Info: " + info);
-		bodyMail.setParagraph2("");
-		bodyMail.setParagraph3("");
-		bodyMail.setFooter1("");
-		bodyMail.setImage1(parameter.getLogoUrl());
-		bodyMail.setBodyHTML(MailController.getHTMLTemplateSimple(bodyMail, parameter));
-		mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter);
-	}
 }

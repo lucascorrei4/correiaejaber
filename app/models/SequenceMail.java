@@ -22,8 +22,7 @@ public class SequenceMail extends Model {
 	@MaxSize(100000)
 	public String description;
 
-	@Hidden
-	public Blob attachment;
+	public Blob attachment = null;
 
 	public Integer sequence;
 
@@ -81,7 +80,7 @@ public class SequenceMail extends Model {
 	public boolean isActive = true;
 
 	public String toString() {
-		return title;
+		return title + " " + url;
 	}
 
 	public boolean isActive() {

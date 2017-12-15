@@ -16,12 +16,12 @@
             <div class="panel-heading"></div>
             <div class="panel-body">
             	<div class="dataTable_wrapper">
-			        #{crud.table fields:['titleSEO', 'descriptionSEO', 'friendlyUrl', 'postedAt', 'action']}
-			        	#{crud.custom 'friendlyUrl'}
-			         		Acessar: <a href="/pv/${object.friendlyUrl}" target="_blank">/pv/${object.friendlyUrl}</a>
-				        #{/crud.custom}
+			        #{crud.table fields:['postedAt', 'titleSEO', 'descriptionSEO', 'friendlyUrl', 'action']}
 			        	#{crud.custom 'postedAt'}
 			         		<a href="@{SellPageCRUD.show(object.id)}">${object.postedAtParsed}</a>
+				        #{/crud.custom}
+			        	#{crud.custom 'friendlyUrl'}
+			         		Acessar: <a href="/pv/${object.friendlyUrl}" target="_blank">/pv/${object.friendlyUrl}</a>
 				        #{/crud.custom}
 				        #{crud.custom 'action'}
                              <a href="@{SellPageCRUD.remove(object.id)}" title="Atenção: Esta ação remove a página ">Remover</a>
