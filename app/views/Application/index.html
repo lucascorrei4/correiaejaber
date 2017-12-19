@@ -36,12 +36,14 @@
 		<!-- End Google Tag Manager (noscript) -->
 		<div id="page-wrapper">
 			#{include 'includes/menuTemplateFollow.html' /}
-			<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}">
+			<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}; background-attachment: scroll, scroll, scroll, fixed; background-image: url('/public/templatefollow/assets/css/images/light-bl.svg'), url('/public/templatefollow/assets/css/images/light-br.svg'), url('@{Application.getHomeBackgroundImage()}'); background-position: bottom left, bottom right, top left, top center; background-repeat: no-repeat, no-repeat, repeat, no-repeat; background-size: 25em, 25em, auto, cover; color: #fff; cursor: default; padding: 6em 0; text-align: center;" >
 				#{include 'includes/imgAdsTop.html' /}
 				<header class="special container" style="margin-bottom: 0">
 					<span class="icon &{parameter.getSiteIconFontAwesome() == null ? 'fa-heartbeat' : parameter.getSiteIconFontAwesome()}"></span>
 					#{if !parameter.getLeftAligmentLogo()}
-						<div class="logo" style="position: relative; background-image: url('@{Application.getLogo()}'); width:150px; height:150px; border-radius:50%; overflow:hidden; background-size: cover; margin: 0 auto;"></div>
+						<a href="/" title="&{parameter.getSiteTitle()}">
+							<div class="logo" style="position: relative; background-image: url('@{Application.getLogo()}'); width:150px; height:150px; border-radius: &{parameter.getLogoRoundedBorder() ? '50&#37' : '0&#37'}; overflow:hidden; background-size: cover; margin: 0 auto;"></div>
+						</a>
 					#{/if}
 					<h2 style="font-family: demo_coneria; text-transform: capitalize; font-size: 2.4em; color: &{parameter.getSiteMainTitleColor() == null ? 'black' : parameter.getSiteMainTitleColor()}; font-weight: 600;">#{verbatim}&{parameter.getSiteName()}#{/verbatim}</h2>
 					<blockquote style="border: none; padding: 0;font-style:italic; color: darkslategray">
@@ -56,6 +58,8 @@
 					<div id="newsletterTips" style="width: 100%">
 						#{include 'includes/formNewsletterTips.html' /}
 					</div>
+				</section>
+				<section class="wrapper style4 container" style="padding-top: 3em">
 					<div class="row 150%">
 						<div class="8u 12u(narrower)">
 							<div class="content">

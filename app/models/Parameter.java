@@ -32,9 +32,11 @@ public class Parameter extends Model {
 	public String siteHeader;
 	public String siteSlogan;
 	public boolean leftAligmentLogo;
+	public boolean logoRoundedBorder;
 
 	public String siteBackGroundColor;
 	public String siteMainTitleColor;
+	public Blob homeBackgroundImage;
 	
 	public String siteIconFontAwesome;
 	
@@ -362,6 +364,22 @@ public class Parameter extends Model {
 	public void setMailHostPassword(String mailHostPassword) {
 		this.mailHostPassword = mailHostPassword;
 	}
-	
+
+	public boolean isLogoRoundedBorder() {
+		return logoRoundedBorder;
+	}
+
+	public void setLogoRoundedBorder(boolean logoRoundedBorder) {
+		this.logoRoundedBorder = logoRoundedBorder;
+	}
+
+	public Blob getHomeBackgroundImage() {
+		return homeBackgroundImage;
+	}
+
+	public void setHomeBackgroundImage(Blob homeBackgroundImage) {
+		this.homeBackgroundImage = homeBackgroundImage;
+	}
+
 
 }

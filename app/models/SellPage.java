@@ -126,7 +126,7 @@ public class SellPage extends Model {
 	}
 
 	public String getFriendlyUrl() {
-		if (Utils.isNullOrEmpty(this.friendlyUrl) && !Utils.isNullOrEmpty(this.mainTitle)) {
+		if (!Utils.isNullOrEmpty(this.mainTitle)) {
 			setFriendlyUrl(Utils.stringToUrl(Utils.removeHTML(this.mainTitle.trim())));
 		}
 		return friendlyUrl;

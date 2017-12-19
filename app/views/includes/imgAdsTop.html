@@ -3,7 +3,9 @@
 	<div class="row 150%" style="display: &{articleTopAds == null ? 'none' : 'block'}">
 		#{if parameter.getLeftAligmentLogo()}
 			<div class="3u 12u(narrower)">
-				<div class="logo" style="position: relative; background-image: url('@{Application.getLogo()}'); width:150px; height:150px; border-radius:50%; overflow:hidden; background-size: cover; margin: 0 auto;"></div>
+				<a href="/" title="&{parameter.getSiteTitle()}">
+					<div class="logo" style="position: relative; background-image: url('@{Application.getLogo()}'); width:150px; height:150px; border-radius: &{parameter.getLogoRoundedBorder() ? '50&#37;' : '0&#37;'}; overflow:hidden; background-size: cover; margin: 0 auto;"></div>
+				</a>
 			</div>
 			<div class="9u 12u(narrower)">
 				<div class="contentAds">

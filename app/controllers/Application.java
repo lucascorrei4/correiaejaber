@@ -169,6 +169,14 @@ public class Application extends Controller {
 		}
 	}
 
+	public static void getHomeBackgroundImage() {
+		Parameter parameter = getCurrentParameter();
+		if (parameter.getHomeBackgroundImage() != null) {
+			renderBinary(parameter.getHomeBackgroundImage().get());
+			return;
+		}
+	}
+
 	/* Pixel tracking e-mail */
 	public static void hrpx(long id) {
 		VirtualFile vf = VirtualFile.fromRelativePath("/public/images/hr-line-gray.png");

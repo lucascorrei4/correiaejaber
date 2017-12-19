@@ -190,7 +190,7 @@ public class Article extends Model {
 	}
 
 	public String getFriendlyUrl() {
-		if (Utils.isNullOrEmpty(this.friendlyUrl) && !Utils.isNullOrEmpty(this.title)) {
+		if (!Utils.isNullOrEmpty(this.title)) {
 			setFriendlyUrl(Utils.stringToUrl(this.title.trim()));
 		}
 		return friendlyUrl;
