@@ -149,6 +149,16 @@ public class Application extends Controller {
 				renderBinary(article.getImage3().get());
 				return;
 			}
+		} else if ("4".equals(index)) {
+			if (article.getImage4() != null) {
+				renderBinary(article.getImage4().get());
+				return;
+			}
+		} else if ("5".equals(index)) {
+			if (article.getImage5() != null) {
+				renderBinary(article.getImage5().get());
+				return;
+			}
 		}
 	}
 

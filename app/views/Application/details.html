@@ -64,15 +64,30 @@
 											<input id="shorten" type="hidden" value="&{article.getShortenUrl()}" />
 											<h2 style=" font-size: 18px;   text-align: left; text-transform: unset; margin-top: 20px; font-weight: 300">&{article.getHeadline().raw()}</h2>
 										</header>
+										#{if article.getImage2().exists()}
+											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '2')}" alt="&{article.getTitleImage2()}" title="&{article.getTitleImage2()}" ></a>
+											<p style="color: #444444">&{article.getDescription2().raw()}</p>
+										#{/if}
+
+										#{if article.getImage3().exists()}
+											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '3')}" alt="&{article.getTitleImage3()}" title="&{article.getTitleImage3()}"></a>
+											<p style="color: #444444">&{article.getDescription3().raw()}</p>
+										#{/if}
+
+										#{if article.getImage4().exists()}
+											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '4')}" alt="&{article.getTitleImage4()}" title="&{article.getTitleImage4()}"></a>
+											<p style="color: #444444">&{article.getDescription4().raw()}</p>
+										#{/if}
+
 										#{if article.getEmbed()}
 											<iframe width="560" height="315" src="&{article.getEmbed()}?rel=0&autoplay=1" frameborder="0" allowfullscreen style="width: 100%;"></iframe>
-											<p style="color: #444444">&{article.getDescription().raw()}</p>
-											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '2')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
 										#{/if}
-										#{else}
-											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '2')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
-											<p style="color: #444444">&{article.getDescription().raw()}</p>
-										#{/else}
+
+										#{if article.getImage5().exists()}
+											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '5')}" alt="&{article.getTitleImage5()}" title="&{article.getTitleImage5()}"></a>
+											<p style="color: #444444">&{article.getDescription5().raw()}</p>
+										#{/if}
+										
 										
 										#{if article.getComplement()}
 											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '3')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>

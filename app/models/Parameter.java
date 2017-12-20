@@ -39,6 +39,7 @@ public class Parameter extends Model {
 	public Blob homeBackgroundImage;
 	
 	public String siteIconFontAwesome;
+	public String titleCaptureForm;
 	
 	public String messageHighlightProducts;
 
@@ -379,6 +380,14 @@ public class Parameter extends Model {
 
 	public void setHomeBackgroundImage(Blob homeBackgroundImage) {
 		this.homeBackgroundImage = homeBackgroundImage;
+	}
+
+	public String getTitleCaptureForm() {
+		return titleCaptureForm;
+	}
+
+	public void setTitleCaptureForm(String titleCaptureForm) {
+		this.titleCaptureForm = titleCaptureForm;
 	}
 
 

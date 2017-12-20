@@ -168,6 +168,17 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+image4=Imagem 4
+image5=Imagem 5
+titleImage1=Título da Imagem 1 (Thumb)
+titleImage2=Título da Imagem 2
+titleImage3=Título da Imagem 3
+titleImage4=Título da Imagem 4
+titleImage5=Título da Imagem 5
+description2=Descrição 2
+description3=Descrição 3
+description4=Descrição 4
+description5=Descrição 5
 homeBackgroundImage=Imagem de Fundo da Home (Ideal: 1600px x 815px .jpg)
 logoRoundedBorder=Logo com Borda Arredondada
 mailHostName=Hostname (SMTP)
@@ -220,7 +231,7 @@ msgOffer=Msg. da Oferta
 siteIconFontAwesome=Ícone Font Awesome - Mais ícones em: http://fontawesome.io/icons/
 siteMainTitleColor=Cor Título Principal
 siteBackGroundColor=Cor de Fundo
-typeAds=Tipo Ads
+typeAds=Tipo Ads (Topo 1, Lat. Direita 4, Rodapé 4)
 directLink=Link Direto
 siteName=Nome do Site
 siteDomain=Domínio do Site (Informe sem a barra final "/")
@@ -248,7 +259,7 @@ messagePreFormLead=Msg Ação Form. Lead
 buttonTitle=Título do Botão
 buttonAction=Ação do Botão
 buttonActionBefore=Ação do Botão Voltar
-friendlyUrl=URL Amigável
+friendlyUrl=URL Amigável (Gerada Automaticamente)
 commentTitle=Título Comentário
 titlePersona=Persona
 mailsPersona=E-mails
@@ -259,9 +270,9 @@ titleDescription=Título da Descrição
 image3=Imagem 3
 showBottomNews=Mostrar Artigos Rodapé
 showLeadsForm=Mostrar Form. Leads
-shortenUrl=URL Encurtada
-highlight=Destaque
-image1=Imagem 1
+shortenUrl=URL Encurtada (Gerada Automaticamente)
+highlight=Destacar na Pág. Inicial
+image1=Imagem 1 (Thumb - Ideal: 373px x 200 .jpg)
 image2=Imagem 2
 tags=Tags Relacionadas
 embed=Embed Vídeo
@@ -462,6 +473,12 @@ validation.msgGenderSelectMembers=Para enviar a todos os membros por um determin
 
 info.isActive.true=Habilita o item atual para ser utilizado pelo sistema.
 info.isActive.false=Informa ao sistema que item atual será descartado.
+
+info.showCaptureForm.true=Mostra o Formunário de Captura no Artigo
+info.showCaptureForm.false=Não Mostra o Formulário de Captura no Artigo 
+
+info.highlight.true=Mostra o Artigo na Página Inicial
+info.highlight.false=Não Mostra o Artigo na Página Inicial 
 
 project.name=
 project.link=
