@@ -99,7 +99,7 @@ public class Admin extends Controller {
 	}
 
 	private static List<Object> getleadsByPage() {
-		return JPA.em().createNativeQuery("SELECT count(*), url FROM maillist where url is not null group by url order by COUNT(*) desc limit 10").getResultList();
+		return JPA.em().createNativeQuery("SELECT count(*), url FROM MailList where url is not null group by url order by COUNT(*) desc limit 10").getResultList();
 	}
 
 	public static String top3LeadPages() {

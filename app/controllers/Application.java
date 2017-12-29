@@ -13,6 +13,7 @@ import com.google.gson.JsonParser;
 
 import models.Article;
 import models.BodyMail;
+import models.FreePage;
 import models.HighlightProduct;
 import models.MailList;
 import models.Message;
@@ -173,15 +174,23 @@ public class Application extends Controller {
 
 	public static void getLogo() {
 		Parameter parameter = getCurrentParameter();
-		if (parameter.getLogo() != null) {
+		if (parameter.getLogo().exists()) {
 			renderBinary(parameter.getLogo().get());
+			return;
+		}
+	}
+
+	public static void getIcon() {
+		Parameter parameter = getCurrentParameter();
+		if (parameter.getIcon().exists()) {
+			renderBinary(parameter.getIcon().get());
 			return;
 		}
 	}
 
 	public static void getHomeBackgroundImage() {
 		Parameter parameter = getCurrentParameter();
-		if (parameter.getHomeBackgroundImage() != null) {
+		if (parameter.getHomeBackgroundImage().exists()) {
 			renderBinary(parameter.getHomeBackgroundImage().get());
 			return;
 		}
@@ -284,6 +293,12 @@ public class Application extends Controller {
 			break;
 		case CapturePageBottom:
 			render("includes/formCapturePageBottom.html", status, resp);
+			break;
+		case NewsletterFreePage:
+			String partOf = url.substring(url.indexOf("fp/"));
+			String pageParameter = partOf.split("/")[1];
+			FreePage freePage = FreePage.findByFriendlyUrl(pageParameter);
+			render("includes/formNewsLetterFreePage.html", status, resp, freePage);
 			break;
 		}
 	}
@@ -439,6 +454,12 @@ public class Application extends Controller {
 				ret = true;
 		}
 		return ret;
+	}
+	
+	public static void main(String[] args) {
+		String text = "http://localhost:9000/fp/obrigado";
+		String partOf = text.substring(text.indexOf("fp/"));
+		System.out.println(partOf.split("/")[1]);
 	}
 
 }

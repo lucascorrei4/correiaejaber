@@ -24,10 +24,15 @@
 		<meta property="twitter:description" content="&{parameter.getSiteDescription()}">
 		<meta property="og:title" content="&{parameter.getSiteTitle()}">
 		<meta property="og:description" content="&{parameter.getSiteDescription()} | &{parameter.getSiteTitle()}">
-		<meta property="og:image" content="&{parameter.getSiteDomain()}@{Application.getLogo()}">
+		<meta property="og:image" content="/logo">
 		<meta charset="utf-8" />
 		<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 		#{include 'includes/headerTemplateFollow.html' /}
+		<style type="text/css">
+			header.special::before, header.special::after{
+    			display:none;
+			}
+		</style>
 	</head>
 	<body class="right-sidebar">
 		<!-- Google Tag Manager (noscript) -->
@@ -36,10 +41,9 @@
 		<!-- End Google Tag Manager (noscript) -->
 		<div id="page-wrapper">
 			#{include 'includes/menuTemplateFollow.html' /}
-			<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}; background-attachment: scroll, scroll, scroll, fixed; background-image: url('/public/templatefollow/assets/css/images/light-bl.svg'), url('/public/templatefollow/assets/css/images/light-br.svg'), url('@{Application.getHomeBackgroundImage()}'); background-position: bottom left, bottom right, top left, top center; background-repeat: no-repeat, no-repeat, repeat, no-repeat; background-size: 25em, 25em, auto, cover; color: #fff; cursor: default; padding: 6em 0; text-align: center;" >
+			<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}; background-attachment: fixed; background-image: url('@{Application.getHomeBackgroundImage()}'); background-position: top center; background-repeat: no-repeat; background-size: cover; color: #fff; cursor: default; padding: 6em 0 3em 0; text-align: center;" >
 				#{include 'includes/imgAdsTop.html' /}
 				<header class="special container" style="margin-bottom: 0">
-					<span class="icon &{parameter.getSiteIconFontAwesome() == null ? 'fa-heartbeat' : parameter.getSiteIconFontAwesome()}"></span>
 					#{if !parameter.getLeftAligmentLogo()}
 						<a href="/" title="&{parameter.getSiteTitle()}">
 							<div class="logo" style="position: relative; background-image: url('@{Application.getLogo()}'); width:150px; height:150px; border-radius: &{parameter.getLogoRoundedBorder() ? '50&#37' : '0&#37'}; overflow:hidden; background-size: cover; margin: 0 auto;"></div>
@@ -54,19 +58,21 @@
 				<section class="wrapper style4 container" style="display: ${listHightlightProduct.size() > 0 ? 'block' : 'none'}">
 					#{include 'includes/highlightProduct.html' /}
 				</section>
-				<section class="wrapper style4 container">
+				<section class="wrapper style4 container" style="background-color: rgba(255,255,255,0.5);">
 					<div id="newsletterTips" style="width: 100%">
 						<input id="response" type="hidden" value="${resp}" /> 
 						<input id="status" type="hidden" value="${status}" />
-						<h3 style="margin:0; text-align: center; text-transform: initial; color: gray;"><strong>&{parameter.getTitleCaptureForm() == null ? 'Inscreva-se em nossa lista de e-mails!' : parameter.getTitleCaptureForm()}</strong></h3>
+						<h3 style="margin:0; text-align: center; text-transform: initial; color: white;">&{parameter.getTitleCaptureForm() == null ? 'Inscreva-se em nossa lista de e-mails!' : parameter.getTitleCaptureForm()}</h3>
 						<ul class="buttons" style="display: inherit; justify-content: center; display: block; text-align: center;">
-							<li><input type="text" name="mailList.name1" placeholder="Digite seu nome" value="${flash['mailList.name1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle" /></li>
-							<li><input type="text" name="mailList.mail1" placeholder="Digite seu melhor e-mail" value="${flash['mailList.mail1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle;" /></li>
+							<li><input type="text" name="mailList.name1" placeholder="Digite seu nome" value="${flash['mailList.name1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle; background-color: white;" /></li>
+							<li><input type="text" name="mailList.mail1" placeholder="Digite seu melhor e-mail" value="${flash['mailList.mail1']}" style="border-radius: 0; margin: 0 auto; line-height: 0; display: inline-block; min-width: 15em; vertical-align: middle; background-color: white;" /></li>
 							<li><a id="btnNews1" class="button" onclick="newsletterTips()" style="background-color: #F0A939; color: #fff;">QUERO RECEBER</a></li>
 						</ul>
 						<p id="message" style="display: none; text-align: center; font-weight: bold;"></p>
 					</div>
 				</section>
+			</article>
+			<article style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}; color: #fff; cursor: default; padding: 0; text-align: center;">
 				<section class="wrapper style4 container" style="padding-top: 3em">
 					<div class="row 150%">
 						<div class="8u 12u(narrower)">

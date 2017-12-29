@@ -29,6 +29,7 @@ POST    ${ctx}/resetpass	   				 						Application.resetPass
 GET    	${ctx}/nova-senha/{id}	   				 					Application.newPass
 GET    	${ctx}/gratidao					   				 			Application.thankLead
 GET    	${ctx}/logo					   				 				Application.getLogo
+GET    	${ctx}/icon					   				 				Application.getIcon
 GET    	${ctx}/desinscrever-se/{mailLead}				   			Application.unsubscribe
 GET    	${ctx}/hrpx/{id}								   			Application.hrpx
 

@@ -29,6 +29,7 @@ public class Parameter extends Model {
 	@Hidden
 	public String siteLogo;
 	public Blob logo;
+	public Blob icon;
 	public String siteHeader;
 	public String siteSlogan;
 	public boolean leftAligmentLogo;
@@ -37,6 +38,7 @@ public class Parameter extends Model {
 	public String siteBackGroundColor;
 	public String siteMainTitleColor;
 	public Blob homeBackgroundImage;
+	public String footerInfo;
 	
 	public String siteIconFontAwesome;
 	public String titleCaptureForm;
@@ -388,6 +390,22 @@ public class Parameter extends Model {
 
 	public void setTitleCaptureForm(String titleCaptureForm) {
 		this.titleCaptureForm = titleCaptureForm;
+	}
+
+	public Blob getIcon() {
+		return icon;
+	}
+
+	public void setIcon(Blob icon) {
+		this.icon = icon;
+	}
+
+	public String getFooterInfo() {
+		return footerInfo;
+	}
+
+	public void setFooterInfo(String footerInfo) {
+		this.footerInfo = footerInfo;
 	}
 
 

@@ -168,6 +168,8 @@ TheSystem= O Sistema
 MailBase=Base de E-mail
 
 #Labels
+footerInfo=Rodapé (HTML)
+icon=Ícone do Site
 image4=Imagem 4
 image5=Imagem 5
 titleImage1=Título da Imagem 1 (Thumb)

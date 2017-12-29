@@ -38,12 +38,13 @@ public class Article extends Model {
 
 	public Blob image1;
 	public String titleImage1;
+
+	@Required(message = "Campo obrigatório.")
+	public Blob image2;
+	public String titleImage2;
 	@Lob
 	@MaxSize(100000)
 	public String description;
-
-	public Blob image2;
-	public String titleImage2;
 	@Lob
 	@MaxSize(100000)
 	public String description2;

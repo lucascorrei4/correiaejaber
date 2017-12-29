@@ -28,6 +28,13 @@
 		<meta name="robots" content="index,follow">
 		<meta charset="utf-8" />
 		#{include 'includes/headerTemplateFollow.html' /}
+		#{if !parameter.getSiteIconFontAwesome()}
+			<style type="text/css">
+				header.special::before, header.special::after{
+	    			display:none;
+				}
+			</style>
+		#{/if}
 	</head>
 	<body class="right-sidebar">
 		<!-- Google Tag Manager (noscript) -->
@@ -49,7 +56,7 @@
 						<p style="font-size: 15px; margin: 0;">Você está em: <a href="/"><strong>&{parameter.getSiteTitle()}</strong></a> > <a href="/artigos"> <a href="#"><strong>&{article.getTitle().raw()}</strong></a></p>
 						<p style="font-size: 15px; margin: 0;">Publicado em &{article.postedAtParsed}</p>
 					</header>
-					<section class="wrapper style4 container">
+					<section class="wrapper style4 container" style="display: &{article.showCaptureForm ? 'block' : 'none'}">
 						<footer id="newsletterTips" style="width: 100%">
 							#{include 'includes/formNewsletterTips.html' /}
 						</footer>
@@ -64,18 +71,18 @@
 											<input id="shorten" type="hidden" value="&{article.getShortenUrl()}" />
 											<h2 style=" font-size: 18px;   text-align: left; text-transform: unset; margin-top: 20px; font-weight: 300">&{article.getHeadline().raw()}</h2>
 										</header>
-										#{if article.getImage2().exists()}
-											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '2')}" alt="&{article.getTitleImage2()}" title="&{article.getTitleImage2()}" ></a>
-											<p style="color: #444444">&{article.getDescription2().raw()}</p>
-										#{/if}
+										
+										<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '2')}" alt="&{article.getTitleImage2()}" title="&{article.getTitleImage2()}" style="width: auto; max-width: 100%"></a>
+										<p style="color: #444444">&{article.getDescription().raw()}</p>
+										<p style="color: #444444">&{article.getDescription2().raw()}</p>
 
 										#{if article.getImage3().exists()}
-											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '3')}" alt="&{article.getTitleImage3()}" title="&{article.getTitleImage3()}"></a>
+											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '3')}" alt="&{article.getTitleImage3()}" title="&{article.getTitleImage3()}" style="width: auto; max-width: 100%"></a>
 											<p style="color: #444444">&{article.getDescription3().raw()}</p>
 										#{/if}
 
 										#{if article.getImage4().exists()}
-											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '4')}" alt="&{article.getTitleImage4()}" title="&{article.getTitleImage4()}"></a>
+											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '4')}" alt="&{article.getTitleImage4()}" title="&{article.getTitleImage4()}" style="width: auto; max-width: 100%"></a>
 											<p style="color: #444444">&{article.getDescription4().raw()}</p>
 										#{/if}
 
@@ -84,13 +91,11 @@
 										#{/if}
 
 										#{if article.getImage5().exists()}
-											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '5')}" alt="&{article.getTitleImage5()}" title="&{article.getTitleImage5()}"></a>
+											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '5')}" alt="&{article.getTitleImage5()}" title="&{article.getTitleImage5()}" style="width: auto; max-width: 100%"></a>
 											<p style="color: #444444">&{article.getDescription5().raw()}</p>
 										#{/if}
 										
-										
 										#{if article.getComplement()}
-											<a href="#" class="image featured"><img src="@{Application.getImage(article.id, '3')}" alt="&{article.getTitle()}" title="&{article.getTitle()}"></a>
 											<p style="color: #444444">&{article.getComplement().raw()}</p>
 										#{/if}
 									</section>

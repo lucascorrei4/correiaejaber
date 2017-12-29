@@ -35,6 +35,8 @@ public class FreePage extends Model {
 	public Blob backgroundImage;
 	public String backgroundColor;
 	
+	public boolean showCaptureForm;
+	public String buttonMainTitle;
 
 	@Lob
 	@MaxSize(10000000)
@@ -185,6 +187,22 @@ public class FreePage extends Model {
 
 	public void setFacebookEvent(FacebookEventEnum facebookEvent) {
 		this.facebookEvent = facebookEvent;
+	}
+
+	public String getButtonMainTitle() {
+		return buttonMainTitle;
+	}
+
+	public void setButtonMainTitle(String buttonMainTitle) {
+		this.buttonMainTitle = buttonMainTitle;
+	}
+
+	public boolean isShowCaptureForm() {
+		return showCaptureForm;
+	}
+
+	public void setShowCaptureForm(boolean showCaptureForm) {
+		this.showCaptureForm = showCaptureForm;
 	}
 
 }
