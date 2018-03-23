@@ -6,20 +6,14 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
-import com.mysql.jdbc.Util;
-
-import controllers.Admin;
 import controllers.CRUD.Hidden;
-import play.data.binding.As;
+import controllers.howtodo.AdminPub;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import util.PlansEnum;
-import util.StatusEnum;
 import util.StatusInvoiceEnum;
 import util.StatusPaymentEnum;
 import util.Utils;
@@ -91,8 +85,8 @@ public class Invoice extends Model {
 	}
 
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
-				: Admin.getLoggedUserInstitution().getInstitution().getId();
+		return AdminPub.getLoggedUserInstitution().getInstitution() == null ? 0l
+				: AdminPub.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {

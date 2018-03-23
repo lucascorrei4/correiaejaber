@@ -13,7 +13,7 @@ secure.error=Usuário ou senha incorretos.
 secure.logout=Você foi desconectado.
 
 
-crud.title=
+crud.title=Howtodo
 crud.home=Início
 crud.blank=Novo
 crud.index.title=Administração
@@ -47,7 +47,7 @@ crud.selectValue=(Favor, selecione um valor.)
 crud.help.required=Obrigatório.
 crud.help.minlength=Tamanho mínimo: %d caracteres.
 crud.help.maxlength=Tamanho máximo: %d caracteres.
-crud.help.email=Formato de e-mail válido: nome@provedor.com.br
+crud.help.email=Formato de e-mail válido: nome@provedor.com.br.
 crud.help.dateformat=Formato &{%s}.
 crud.help.numeric=Numérico.
 crud.help.min=Deve ser maior do que %d.
@@ -78,13 +78,15 @@ secure.username=Seu e-mail:
 secure.password=Senha:
 secure.signin=Entrar
 
-
 downloadFile=Baixar arquivo                
 
 true=Sim
 false=Não
 
 #Controllers
+LeadSearchQuestionCRUD=Pesquisa - Perguntas
+LeadSearchAnswerCRUD=Pesquisa - Respostas
+ActivitiesCRUD=Atividades
 FreePageCRUD=Páginas Livre
 SellPageCRUD=Páginas de Vendas
 SequenceMailQueueCRUD=Fila de E-mails
@@ -124,6 +126,9 @@ SequenceMailCRUD=Funil de E-mails
 HighlightProductCRUD=Produtos em Destaque
 
 #Models
+LeadSearchQuestion=Pesquisa - Pergunta
+LeadSearchAnswer=Pesquisa - Resposta
+Activities=Atividade
 SellPage=Página Livre
 SellPage=Página de Vendas
 HighlightProduct=Produtos em Destaque
@@ -164,10 +169,55 @@ Message=Mensagem Recebida
 StatusMail=E-mail Enviado
 Article=Artigo
 MailList=Lead
-TheSystem= O Sistema
+TheSystem=O Sistema
 MailBase=Base de E-mail
 
 #Labels
+id=Id
+messageNumberPhone=Mensagem Nº de Telefone
+descriptionInactivePage=Conteúdo de Página Inativa
+showNumberPhone=Mostrar Nº Telefone
+annonymousSearch=Pesquisa Anônima
+standarHourToSendMails=Hora Padrão de Envio de E-mails
+excludeWhoDontReceiveOthersMails=Excluir Quem Tem E-mail a Receber
+urlParameters=Parâmetros
+freePageIndex=Página Livre como Página Inicial
+sendSpecificDayAndTime=Enviar em Data e Hora Específica
+mailSendInterval=Intervalo de Envio de E-mails
+sendSpecificDay=Enviar em Dia da Semana Específico
+dayOfWeek=Dia da Semana
+hourOfDay=Hora do Dia
+specificDateTime=Data e Hora Específica ( Formato: 00/00/0000 00:00:00 )
+typeContentPage=Tipo de Conteúdo
+optionalDescription=Descrição Opcional para Teste A/B (Vídeo/Texto)
+abTestVideoOfText=Habilitar Teste A/B de vídeo/texto
+templateStyle=Estilo do Template
+isAuthorize=Autoriza usar o depoimento
+mailList=Lead
+mailSenderName=Remetente Nome (De:)
+mailSenderFrom=Remetente E-mail (De:)
+grade=Nota
+thanksTitle=Título Página de Obrigado
+thanksDescription=Descrição Página de Obrigado
+thanksEmbedVideo=Embed Vídeo
+redirectTo=Redirecionar Para
+campaing=Campanha
+question1=Pergunta 1
+commentQuestion1=Comentário 1
+question2=Pergunta 2
+commentQuestion2=Comentário 2
+question3=Pergunta 3
+commentQuestion3=Comentário 3
+question4=Pergunta 4
+commentQuestion4=Comentário 4
+question5=Pergunta 5
+commentQuestion5=Comentário 5
+question6=Pergunta 6
+commentQuestion6=Comentário 6
+view=Ver
+activityDate=Data da Atividade
+type=Tipo
+phone2=Telefone 2
 footerInfo=Rodapé (HTML)
 icon=Ícone do Site
 image4=Imagem 4
@@ -186,13 +236,15 @@ logoRoundedBorder=Logo com Borda Arredondada
 mailHostName=Hostname (SMTP)
 mailHostUser=Hostname (Usuário)
 mailHostPassword=Hostname (Senha)
+mailHostPort=Hostname (Port)
 mailRead=Lido
 leftAligmentLogo=Logo Alinhado a Esquerda
 logo=Logo do Site (Ideal: 700px x 700px, .jpg)
 jobDate=Data Envio
 sent=Enviado
 sequenceMail=Sequência do E-mail
-jobDate
+jobDate=Data Envio
+sent=Enviado
 origin=Origem
 facebookPixelId=Facebook Pixel Id
 showCaptureForm=Mostrar Form. de Captura
@@ -233,10 +285,10 @@ msgOffer=Msg. da Oferta
 siteIconFontAwesome=Ícone Font Awesome - Mais ícones em: http://fontawesome.io/icons/
 siteMainTitleColor=Cor Título Principal
 siteBackGroundColor=Cor de Fundo
-typeAds=Tipo Ads (Topo 1, Lat. Direita 4, Rodapé 4)
+typeAds=Tipo Ads
 directLink=Link Direto
 siteName=Nome do Site
-siteDomain=Domínio do Site (Informe sem a barra final "/")
+siteDomain=Domínio do Site (Informe com http:// e sem a barra final /)
 siteMail=E-mail do Site
 siteTitle=Título do Site (SEO)
 siteDescription=Descrição do Site (SEO)
@@ -274,7 +326,7 @@ showBottomNews=Mostrar Artigos Rodapé
 showLeadsForm=Mostrar Form. Leads
 shortenUrl=URL Encurtada (Gerada Automaticamente)
 highlight=Destacar na Pág. Inicial
-image1=Imagem 1 (Thumb - Ideal: 373px x 200 .jpg)
+image1=Imagem 1
 image2=Imagem 2
 tags=Tags Relacionadas
 embed=Embed Vídeo
@@ -438,7 +490,8 @@ stateId=Estado
 cityId=Cidade
 urlParameter=Nome da Página
 tweet=Tweet
-embedThankLead=Embed Vídeo Agrad. Lead
+embedThankLead=Página de Embed Vídeo Agrad. Lead
+showFacebookComments=Mostrar Comentários do Fb
 
 #Buttons
 btn.send=Enviar
@@ -476,13 +529,7 @@ validation.msgGenderSelectMembers=Para enviar a todos os membros por um determin
 info.isActive.true=Habilita o item atual para ser utilizado pelo sistema.
 info.isActive.false=Informa ao sistema que item atual será descartado.
 
-info.showCaptureForm.true=Mostra o Formunário de Captura no Artigo
-info.showCaptureForm.false=Não Mostra o Formulário de Captura no Artigo 
-
-info.highlight.true=Mostra o Artigo na Página Inicial
-info.highlight.false=Não Mostra o Artigo na Página Inicial 
-
-project.name=
-project.link=
+project.name=Howtodo
+project.link=http://twitter.com/lucascorrei4
 project.version=1.0
-project.year=2017
+project.year=2018

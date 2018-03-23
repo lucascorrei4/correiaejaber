@@ -1,0 +1,114 @@
+#{extends 'CRUD/layoutPub.html' /}
+#{set title:messages.get('crud.show.title', type.modelName) /}
+<meta charset="utf-8" />
+<div class="col-lg-12">
+   	<div class="panel panel-default">
+        <div class="panel-heading">
+            &{'crud.show.title', type.modelName}
+        </div>
+        <div class="panel-body">
+           	<div class="row">
+               	<div class="col-lg-12">
+					#{form id:'form', action:@save(object._key()), enctype:'multipart/form-data'}
+						#{crud.form}
+							#{crud.custom 'showCaptureForm'}
+								<div class="form-group">
+									<label> &{'showCaptureForm'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.showCaptureForm" id="optionsRadiosInline1" value="true" ${object.showCaptureForm?'checked=checked':''}><span title="&{'showCaptureForm'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.showCaptureForm" id="optionsRadiosInline2" value="false" ${!object.showCaptureForm?'checked=checked':''}><span title="&{'showCaptureForm'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'abTestVideoOfText'}
+								<div class="form-group">
+									<label> &{'abTestVideoOfText'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.abTestVideoOfText" id="optionsRadiosInline3" value="true" ${object.abTestVideoOfText?'checked=checked':''}><span title="&{'abTestVideoOfText'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.abTestVideoOfText" id="optionsRadiosInline4" value="false" ${!object.abTestVideoOfText?'checked=checked':''}><span title="&{'abTestVideoOfText'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'noFollow'}
+								<div class="form-group">
+									<label> &{'noFollow'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.noFollow" id="optionsRadiosInline5" value="true" ${object.noFollow?'checked=checked':''}><span title="&{'noFollow'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.noFollow" id="optionsRadiosInline6" value="false" ${!object.noFollow?'checked=checked':''}><span title="&{'noFollow'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'showFacebookComments'}
+								<div class="form-group">
+									<label> &{'showFacebookComments'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.showFacebookComments" id="optionsRadiosInline7" value="true" ${object.showFacebookComments?'checked=checked':''}><span title="&{'showFacebookComments'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.showFacebookComments" id="optionsRadiosInline8" value="false" ${!object.showFacebookComments?'checked=checked':''}><span title="&{'showFacebookComments'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'isActive'}
+								<div class="form-group">
+									<label> Habilitar </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline9" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline10" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'showNumberPhone'}
+								<div class="form-group">
+									<label> Mostrar Nº de Telefone </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.showNumberPhone" id="optionsRadiosInline11" value="true" ${object.showNumberPhone?'checked=checked':''}><span title="Sim">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.showNumberPhone" id="optionsRadiosInline12" value="false" ${!object.showNumberPhone?'checked=checked':''}><span title="Não">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+						#{/crud.form}
+						<div class="form-group" style="float: right">
+							<input type="submit" name="_save" value="&{'crud.save', type.modelName}" class="btn btn-primary  btn-lg" />
+							<input type="submit" name="_saveAndContinue" value="&{'crud.saveAndContinue', type.modelName}" class="btn btn-primary  btn-lg" />
+						</div>
+					#{/form}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

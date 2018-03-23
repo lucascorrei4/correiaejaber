@@ -7,7 +7,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Transient;
 
-import controllers.Admin;
 import controllers.CRUD.Hidden;
 import enumeration.GenderEnum;
 import play.data.validation.Email;

@@ -6,10 +6,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 
-import org.joda.time.DateTime;
-
-import controllers.Admin;
 import controllers.CRUD.Hidden;
+import controllers.howtodo.AdminPub;
 import play.db.jpa.Model;
 import util.Utils;
 
@@ -41,8 +39,8 @@ public class StatusPUSH extends Model {
 	}
 
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
-				: Admin.getLoggedUserInstitution().getInstitution().getId();
+		return AdminPub.getLoggedUserInstitution().getInstitution() == null ? 0l
+				: AdminPub.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {

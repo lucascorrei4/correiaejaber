@@ -2,19 +2,14 @@ package models;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.PostLoad;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
+import controllers.CRUD.Hidden;
+import controllers.howtodo.AdminPub;
 import play.data.binding.As;
 import play.data.validation.Email;
 import play.data.validation.Min;
@@ -24,9 +19,6 @@ import play.data.validation.Unique;
 import play.db.jpa.Blob;
 import play.db.jpa.Model;
 import util.Utils;
-import controllers.Admin;
-import controllers.Application;
-import controllers.CRUD.Hidden;
 
 @Entity
 public class Institution extends Model {
@@ -117,8 +109,8 @@ public class Institution extends Model {
 
 //	@PostLoad
 //	public void postLoad() {
-//		if (Admin.getLoggedUserInstitution().getUser() != null) {
-//			Institution institution = Institution.find("userId = " + Admin.getLoggedUserInstitution().getUser().getId()).first();
+//		if (AdminPub.getLoggedUserInstitution().getUser() != null) {
+//			Institution institution = Institution.find("userId = " + AdminPub.getLoggedUserInstitution().getUser().getId()).first();
 //			User user = User.findById(institution.getUserId());
 //			user.setInstitutionId(institution.getId());
 //			user.save();
@@ -269,7 +261,7 @@ public class Institution extends Model {
 	}
 
 	public long getUserId() {
-		return Admin.getLoggedUserInstitution().getUser().getId();
+		return AdminPub.getLoggedUserInstitution().getUser().getId();
 	}
 
 	public void setUserId(long userId) {
@@ -316,7 +308,7 @@ public class Institution extends Model {
 	}
 
 	public long getPublishedId() {
-		return Admin.getLoggedUserInstitution().getUser().getId();
+		return AdminPub.getLoggedUserInstitution().getUser().getId();
 	}
 
 	public void setPublishedId(long publishedBy) {
@@ -368,6 +360,9 @@ public class Institution extends Model {
 	}
 
 	public String getUrlParameter() {
+		if (!Utils.isNullOrEmpty(this.institution)) {
+			setUrlParameter(Utils.stringToUrl(this.institution.trim()));
+		}
 		return urlParameter;
 	}
 

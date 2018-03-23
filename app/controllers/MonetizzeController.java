@@ -2,21 +2,17 @@ package controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.Arrays;
 
-import org.apache.ivy.Main;
-
-import models.BodyMail;
-import models.City;
+import controllers.howtodo.AdminPub;
+import controllers.howtodo.MailController;
 import models.MonetizzeTransaction;
-import models.Parameter;
 import models.SendTo;
 import models.Sender;
-import models.Service;
 import models.StatusMail;
 import models.User;
+import models.howtodo.BodyMail;
+import models.howtodo.Parameter;
 import play.mvc.Controller;
-import util.ApplicationConfiguration;
 import util.Utils;
 
 public class MonetizzeController extends Controller {
@@ -25,7 +21,7 @@ public class MonetizzeController extends Controller {
 		String uniqueKey = "52a7196c41cb79b2e7539713270cc02f";
 		String productCode = "40605";
 		String productKey = "10f0468c26647f43d73aac2d4b829eaa";
-		//String body = params.get("body", String.class);
+		// String body = params.get("body", String.class);
 		String body = "chave_unica=52a7196c41cb79b2e7539713270cc02f&produto[codigo]=42&produto[nome]=X-Wing&produto[chave]=b1a4e746c913ac058575403c6408622b&venda[codigo]=1&venda[dataInicio]=2017-06-03 17:32:27&venda[dataFinalizada]=2017-06-03 17:32:27&venda[meioPagamento]=Monetizze&venda[formaPagamento]=Boleto&venda[garantiaRestante]=7&venda[status]=Finalizada&venda[valor]=197.00&venda[quantidade]=1&venda[tipo_frete]=1&venda[frete]=15.00&venda[valorRecebido]=150.00&venda[plano]=&venda[cupom]=&venda[linkBoleto]=&venda[linha_digitavel]=&venda[src]=Origem&comissoes[0][nome]=Afiliado&comissoes[0][tipo_comissao]=Último Clique&comissoes[0][valor]=27,50&comissoes[0][porcentagem]=15,50&comprador[nome]=Comprador Teste&comprador[email]=teste@teste.com.br&comprador[data_nascimento]=1990-01-01&comprador[cnpj_cpf]=111.111.111-11&comprador[telefone]=(11) 1111-1111&comprador[cep]=11111-111&comprador[endereco]=Rua Sem fim&comprador[numero]=42&comprador[complemento]=casa 7&comprador[bairro]=Esperança&comprador[cidade]=Terra do nunca&comprador[estado]=AA&comprador[pais]=Maravilha";
 		String[] params = URLDecoder.decode(body, "UTF-8").split("&");
 		String uniqueKeyFromPost = Utils.getValueParamByKey(params, "chave_unica");
@@ -133,39 +129,42 @@ public class MonetizzeController extends Controller {
 			monetizzeTransaction.setPostedAt(Utils.getCurrentDateTime());
 			monetizzeTransaction.merge();
 			if ("Finalizada".equals(sellStatusFromPost)) {
-				createNewUserCustomer(monetizzeTransaction);
-				User newUser = User.verifyByEmail(monetizzeTransaction.getCustomerMail());
+				User newUser = createNewUserCustomer(monetizzeTransaction);
 				if (newUser != null) {
 					sendEmailToCustomer(newUser);
 				} else {
-					Admin.sendMailToMeWithCustomInfo("Houve um problema para cadastrar o cliente!", "Nome: " + monetizzeTransaction.getComissionName().concat(" - E-mail: ").concat(monetizzeTransaction.getCustomerMail().concat(" - Fone: ").concat(monetizzeTransaction.getCustomerPhone())));
+					AdminPub.sendMailToMeWithCustomInfo("Houve um problema para cadastrar o cliente!", "Nome: " + monetizzeTransaction.getComissionName().concat(" - E-mail: ").concat(monetizzeTransaction.getCustomerMail().concat(" - Fone: ").concat(monetizzeTransaction.getCustomerPhone())));
 				}
 			}
 		}
 	}
 
-	private static void createNewUserCustomer(MonetizzeTransaction monetizzeTransaction) {
-		User user = new User();
-		user.setName(Utils.getNameByWholeName(monetizzeTransaction.getCustomerName()));
-		user.setLastName(Utils.getLastNameByWholeName(monetizzeTransaction.getCustomerName()));
-		user.setAddress(monetizzeTransaction.getCustomerAddress() + " " + monetizzeTransaction.getCustomerAddressNumber());
-		user.setComplement(monetizzeTransaction.getCustomerAddressComplement());
-		user.setBirthdate(monetizzeTransaction.getCustomerBirthDate());
-		user.setNeighborhood(monetizzeTransaction.getCustomerNeighborhood());
-		user.setCep(monetizzeTransaction.getCustomerCEP());
-		user.setCpf(monetizzeTransaction.getCustomerCGC());
-		user.setCityId(1l);
-		user.setCountryId(1l);
-		user.setStateId(1l);
-		user.setEmail(monetizzeTransaction.getCustomerMail());
-		user.setPhone1(monetizzeTransaction.getCustomerPhone());
-		user.setPassword(Utils.encode("123456"));
+	private static User createNewUserCustomer(MonetizzeTransaction monetizzeTransaction) {
+		User user = User.verifyByEmail(monetizzeTransaction.getCustomerMail());
+		if (Utils.isNullOrEmpty(user) || user.id == 0) {
+			user = new User();
+			user.setName(Utils.getNameByWholeName(monetizzeTransaction.getCustomerName()));
+			user.setLastName(Utils.getLastNameByWholeName(monetizzeTransaction.getCustomerName()));
+			user.setAddress(monetizzeTransaction.getCustomerAddress() + " " + monetizzeTransaction.getCustomerAddressNumber());
+			user.setComplement(monetizzeTransaction.getCustomerAddressComplement());
+			user.setBirthdate(monetizzeTransaction.getCustomerBirthDate());
+			user.setNeighborhood(monetizzeTransaction.getCustomerNeighborhood());
+			user.setCep(monetizzeTransaction.getCustomerCEP());
+			user.setCpf(monetizzeTransaction.getCustomerCGC());
+			user.setCityId(1l);
+			user.setCountryId(1l);
+			user.setStateId(1l);
+			user.setEmail(monetizzeTransaction.getCustomerMail());
+			user.setPhone1(monetizzeTransaction.getCustomerPhone());
+			user.setPassword(Utils.encode("123456"));
+			user.setInstitutionId(0l);
+		}
 		user.setAdmin(true);
 		user.setPostedAt(Utils.getCurrentDateTime());
-		user.setInstitutionId(0l);
 		user.setActive(true);
 		user.setFromMonetizze(true);
 		user.merge();
+		return User.verifyByEmail(monetizzeTransaction.getCustomerMail());
 	}
 
 	private static void sendEmailToCustomer(User user) {
@@ -180,8 +179,8 @@ public class MonetizzeController extends Controller {
 			sendTo.setStatus(new StatusMail());
 			/* Sender object */
 			Sender sender = new Sender();
-			sender.setCompany(parameter.getSiteTitle());
-			sender.setFrom(parameter.getSiteMail());
+			sender.setCompany(Utils.isNullOrEmpty(parameter.getMailSenderName()) ? parameter.getSiteTitle() : parameter.getMailSenderName());
+			sender.setFrom(Utils.isNullOrEmpty(parameter.getMailSenderFrom()) ? parameter.getSiteMail() : parameter.getMailSenderFrom());
 			sender.setKey("resetpass");
 			/* SendTo object */
 			BodyMail bodyMail = new BodyMail();
@@ -192,7 +191,7 @@ public class MonetizzeController extends Controller {
 			bodyMail.setImage1(parameter.getSiteDomain() + "/logo");
 			bodyMail.setBodyHTML(MailController.getHTMLTemplateResetPass(bodyMail, parameter));
 			if (mailController.sendHTMLMail(sendTo, sender, bodyMail, null, parameter)) {
-				Admin.sendMailToMeWithCustomInfo("Venda realizada e cliente cadastrado automaticamente!", "Nome: " + user.getName().concat(" - E-mail: ").concat(user.getEmail().concat(" - Fone: ").concat(user.getPhone1())));
+				AdminPub.sendMailToMeWithCustomInfo("Venda realizada e cliente cadastrado automaticamente!", "Nome: " + user.getName().concat(" - E-mail: ").concat(user.getEmail().concat(" - Fone: ").concat(user.getPhone1())));
 			}
 		}
 	}

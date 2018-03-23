@@ -163,37 +163,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.panel -->
-                </div>
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Últimos Artigos
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Data de Pub.</th>
-                                            <th>Página</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    	#{list listArticles, as:'article'}
-	                                       <tr>
-	                                           <td>${article.getPostedAtParsed()}</td>
-	                                           <td><a href="/artigos/${article.id}/${article.friendlyUrl}" target="_blank">${article.titleSEO}</a></td>
-	                                       </tr>
-                                        #{/list}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.table-responsive -->
-                        </div>
-                        <!-- /.panel-body -->
-                    </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             Páginas de Venda
@@ -246,11 +215,69 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Últimos Leads Capturados
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>E-mail</th>
+                                            <th>URL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    	#{list listLast5Leads, as:'lead'}
+	                                       <tr>
+	                                           <td>${lead.getPostedAtParsed()}</td>
+	                                           <td><a href="/leads">${lead.mail}</a></td>
+	                                           <td><a href="/leads">${lead.url}</a></td>
+	                                       </tr>
+                                        #{/list}
+                                    </tbody>
+                                </table>
+                            </div>
                             <!-- /.table-responsive -->
                         </div>
                         <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Últimos Artigos
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Data de Pub.</th>
+                                            <th>Página</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    	#{list listArticles, as:'article'}
+	                                       <tr>
+	                                           <td>${article.getPostedAtParsed()}</td>
+	                                           <td><a href="/artigos/${article.id}/${article.friendlyUrl}" target="_blank">${article.titleSEO}</a></td>
+	                                       </tr>
+                                        #{/list}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
                 </div>
                 <!-- /.col-lg-6 -->
             </div>

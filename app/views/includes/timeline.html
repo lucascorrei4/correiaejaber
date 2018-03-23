@@ -1,0 +1,37 @@
+<meta charset="utf-8" />
+#{if clientTimeline}
+	<div class="page-header" style="margin-top: 5px">
+		<h1 id="timeline">Timeline de ${clientTimeline.name} ${clientTimeline.lastName}</h1>
+		#{if totalSellByClient}
+			<h3 id="timeline">Este cliente já consumiu: <strong>R$ ${totalSellByClient}</strong></h3>
+		#{/}
+	</div>
+	<ul class="timeline">
+		#{list items:activities, as:'act'}
+			<li class="${act_index % 2 == 0 ? 'timeline-inverted' : ''}">
+				<div class="timeline-badge ${act_index % 2 == 0 ? 'warning' : 'info'}">
+					<i class="fa fa-${act.type.icon} fa-fw"></i>
+				</div>
+				<div class="timeline-panel">
+					<div class="timeline-heading">
+						<p style="text-align: right">
+							<small class="text-muted"><i class="fa fa-calendar-check-o fa-fw"></i> Evento ocorrido no dia ${act.activityDate}</small>
+						</p>
+						<h3 class="timeline-title" style="font-weight: bold; color: gray"><i class="fa fa-arrow-circle-right fa-fw"></i>${act.type.label}</h3>
+					</div>
+					<div class="timeline-body" style="padding: 0 15px 0 15px">
+						<h4 class="timeline-title">${act.title.raw()}</h4>
+						<p>${act.description.raw()}</p>
+						#{if act.getImage().exists()}
+							<img src="@{ActivitiesCRUD.getImage(act.id)}" alt="${act.title}" title="${act.title}" style="max-width: 100%">
+						#{/if}
+					</div>
+					<br/>
+					<p style="text-align: right">
+						<small class="text-muted"><i class="glyphicon glyphicon-time"></i> Postado em ${act.postedAtParsed} por ${act.collaborator.name} ${act.collaborator.lastName}</small>
+					</p>
+				</div>
+			</li>
+		#{/list}
+	</ul>
+#{/}

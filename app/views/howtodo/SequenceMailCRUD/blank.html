@@ -1,0 +1,125 @@
+#{extends 'CRUD/layoutPub.html' /}
+#{set title:messages.get('crud.blank.title', type.modelName) /}
+<meta charset="utf-8" />
+<div class="col-lg-12">
+   	<div class="panel panel-default">
+        <div class="panel-heading">
+            &{'crud.blank.title', type.modelName}
+        </div>
+        <div class="panel-body">
+           	<div class="row">
+               	<div class="col-lg-12">
+					#{form action:@create(), enctype:'multipart/form-data'}
+						#{crud.form}
+							#{crud.custom 'url'}
+								<div class="form-group">
+								    <label for="object_services">
+								        Página
+								    </label>
+							        #{select id:'object.url', name:'object.url', items:urls, valueProperty:'value', labelProperty:'label', class:'form-control' /}
+								    <p class="help-block">Obrigatório</p>
+   								</div>	
+							#{/crud.custom}
+							#{crud.custom 'title'}
+   								<div class="form-group">
+								    <label for="object_title"> Título do e-mail - Coloque @lead@ para mencionar o nome. Ex.: @lead@, obrigado por se cadastrar!</label>
+									<input id="object_title" type="text" class="form-control" name="object.title" />
+								    <p class="help-block">Obrigatório</p>
+   								</div>
+							#{/crud.custom}
+							#{crud.custom 'description'}
+								<div class="form-group">
+									<label for="object.description"> Conteúdo do E-mail</label>
+									<textarea id="object.description" name="object.description"  rows="10" cols="80">
+						           	</textarea>
+						           	<script>
+						               CKEDITOR.replace( 'object.description' );
+						           	</script>
+						           	<p class="help-block">Obrigatório</p>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'sequence'}
+								<div class="form-group">
+								    <label for="object_sequence"> Ordem de Envio (1 a 99)</label>
+									<input id="object_sequence" type="text" class="form-control number" name="object.sequence" style="width: 5em;" />
+								    <p class="help-block">Obrigatório</p>
+   								</div>	
+							#{/crud.custom}
+							#{crud.custom 'sendSpecificDay'}
+								<div class="form-group">
+									<label> &{'sendSpecificDay'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.sendSpecificDay" id="optionsRadiosInline1" value="true" ${object.sendSpecificDay?'checked=checked':''}><span title="&{'sendSpecificDay'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.sendSpecificDay" id="optionsRadiosInline2" value="false" ${!object.sendSpecificDay?'checked=checked':''}><span title="&{'sendSpecificDay'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'sendSpecificDayAndTime'}
+								<div id="" class="form-group">
+									<label> &{'sendSpecificDayAndTime'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.sendSpecificDayAndTime" id="optionsRadiosInline3" value="true" ${object.sendSpecificDayAndTime?'checked=checked':''}><span title="&{'sendSpecificDayAndTime'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.sendSpecificDayAndTime" id="optionsRadiosInline4" value="false" ${!object.sendSpecificDayAndTime?'checked=checked':''}><span title="&{'sendSpecificDayAndTime'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'specificDateTime'}
+								<div id="specificDateTime" class="form-group">
+								    <label for="object_specificDateTime"> &{'specificDateTime'}</label>
+									<input id="object_specificDateTime" type="text" class="form-control date_time" name="object.specificDateTime" />
+   								</div>	
+							#{/crud.custom}
+							#{crud.custom 'isActive'}
+								<div class="form-group">
+									<label> Habilitar </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline5" value="true" ${object.isActive?'checked=checked':''}><span title="&{'info.isActive.true'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.isActive" id="optionsRadiosInline46" value="false" ${!object.isActive?'checked=checked':''}><span title="&{'info.isActive.false'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+							#{crud.custom 'excludeWhoDontReceiveOthersMails'}
+								<div class="form-group">
+									<label> &{'excludeWhoDontReceiveOthersMails'} </label> 
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.excludeWhoDontReceiveOthersMails" id="optionsRadiosInline7" value="true" ${object.excludeWhoDontReceiveOthersMails?'checked=checked':''}><span title="&{'excludeWhoDontReceiveOthersMails'}">Sim</span>
+										</label> 
+									</div>
+									<div class="radio">
+                                        <label>
+											<input type="radio" name="object.excludeWhoDontReceiveOthersMails" id="optionsRadiosInline8" value="false" ${!object.excludeWhoDontReceiveOthersMails?'checked=checked':''}><span title="&{'excludeWhoDontReceiveOthersMails'}">Não</span>
+										</label> 
+									</div>
+								</div>
+							#{/crud.custom}
+						#{/crud.form}
+						<div class="form-group" style="float: left">
+							<a href="@{list()}" class="btn btn-default btn-lg">&{'crud.cancel', type.modelName}</a>
+							<button type="submit" class="btn btn-primary  btn-lg" name="_save">&{'crud.save', type.modelName}</button>
+						</div>
+					#{/form}
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

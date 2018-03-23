@@ -6,7 +6,7 @@
     <body>
     <div id="wrapper">
         <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; min-height: 0;">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0; min-height: 75px">
             <!-- Logo navbar -->
            	#{include 'includes/logoNavBar.html' /}
             <!-- Logo navbar -->
@@ -42,7 +42,7 @@
     		#{if flash.success}
 			<div class="row">
 				<div class="col-lg-12">
-					<div class="alert alert-info alert-dismissable">${flash.success}</div>
+					<div class="alert alert-info alert-dismissable" style="margin: 5px">${flash.success}</div>
 				</div>
 			</div>
 			#{/if}

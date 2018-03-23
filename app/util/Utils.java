@@ -3,9 +3,12 @@ package util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -29,6 +32,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -37,12 +41,14 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import controllers.Admin;
+import controllers.howtodo.AdminPub;
 import models.Institution;
 import models.Service;
 import models.User;
-import play.libs.URLs;
 import play.mvc.Controller;
+import play.vfs.VirtualFile;
+import util.howtodo.TONumeric;
+import util.howtodo.UrlShortener;
 
 public class Utils extends Controller {
 	public static final String STR_DEFAULT_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
@@ -353,7 +359,7 @@ public class Utils extends Controller {
 
 	public static boolean validateCompanySession(String id) {
 		Institution institution = Institution.findById(Long.valueOf(id).longValue());
-		Institution loggedInstitution = Admin.getLoggedUserInstitution().getInstitution();
+		Institution loggedInstitution = AdminPub.getLoggedUserInstitution().getInstitution();
 		if (institution != null && institution.id.equals(loggedInstitution.id)) {
 			return true;
 		} else {
@@ -363,7 +369,7 @@ public class Utils extends Controller {
 
 	public static boolean validateUserSession(String id) {
 		User user = User.findById(Long.valueOf(id).longValue());
-		User loggedUser = Admin.getLoggedUserInstitution().getUser();
+		User loggedUser = AdminPub.getLoggedUserInstitution().getUser();
 		if (user != null && user.id.equals(loggedUser.id)) {
 			return true;
 		} else {
@@ -378,9 +384,9 @@ public class Utils extends Controller {
 		return cal.getTime();
 	}
 
-	public static void mainss(String[] args) {
+	public static void main(String[] args) {
 		System.out.println(new Date());
-		System.out.println(addDays(new Date(), 30));
+		System.out.println(addDays(new Date(), 2 - 1));
 	}
 
 	public static String transformQueryParamToJson(String queryParam, String prefix) {
@@ -425,17 +431,26 @@ public class Utils extends Controller {
 		return formatDate(d);
 	}
 
+	public static Date parseStringDateTimeToDate(String dateTime) throws ParseException {
+		Date date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse(dateTime);
+		return date;
+	}
+
 	public static String decode(String s) {
 		return StringUtils.newStringUtf8(Base64.decodeBase64(s));
 	}
 
-	public static void main(String[] args) throws UnsupportedEncodingException {
-		String val1 = String.valueOf(Utils.encode(decodeUrl("correiaejaber2017#")));
-		String val2 = Utils.encode("correiaejaber2017#");
-		System.out.println(val2);
-		System.out.println(val1.equals(val2));
-		System.out.println(val1.equalsIgnoreCase(val2));
-		System.out.println(decode(val2));
+	public static void maissn(String[] args) throws UnsupportedEncodingException, ParseException {
+		// Calendar c = Calendar.getInstance();
+		// c.set(Calendar.HOUR_OF_DAY, Integer.valueOf(06));
+		// c.set(Calendar.MINUTE, Integer.valueOf(30));
+		// c.set(Calendar.SECOND, 0);
+		// c.set(Calendar.MILLISECOND, 0);
+
+		Calendar calendar = getBrazilCalendar();
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		System.out.println(calendar.getTime());
 	}
 
 	public static String encode(String s) {
@@ -444,7 +459,7 @@ public class Utils extends Controller {
 
 	public static String getValueFromUrlParam(String param) {
 		if (!isNullOrEmpty(param) && param.contains("=")) {
-			return param.split("=",-1)[1];
+			return param.split("=", -1)[1];
 		}
 		return "";
 	}
@@ -456,6 +471,25 @@ public class Utils extends Controller {
 			}
 		}
 		return null;
+	}
+
+	public static String getAllValueParamByKey(String[] params, String key) {
+		for (int i = 0; i < params.length; i++) {
+			if (key.equals(params[i].split("=")[0])) {
+				if ("url".equals(key)) {
+					if (params.length > (i + 1) && params[i + 1] != null && params[i + 1].startsWith("utm")) {
+						return params[i].substring(4).concat("&").concat(params[i + 1]);
+					} else if ("url".equals(key)) {
+						return params[i].substring(4);
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public static String splitUrlStringFromParameters(String url, int zeroOrOne) {
+		return (Utils.isNullOrEmpty(url) || Utils.isNullOrEmpty(url.split("\\?")) || url.split("\\?").length == 1) ? url.split("\\?")[0] : url.split("\\?")[zeroOrOne];
 	}
 
 	public static String decodeUrl(String url) throws UnsupportedEncodingException {
@@ -507,19 +541,52 @@ public class Utils extends Controller {
 		}
 		return "";
 	}
-	
-	public static void mainn(String[] args) {
-		System.out.println(getNameByWholeName("Lucas Correia Evangelista"));
-		System.out.println(getLastNameByWholeName("Lucas Correia Evangelista"));
+
+	public static String escapeSpecialCharacters(String text) {
+		return StringEscapeUtils.escapeHtml(text);
 	}
-	
+
+	public static File getVirtualFile() {
+		VirtualFile vf = VirtualFile.fromRelativePath("/public/images/apple76x76.png");
+		File f = vf.getRealFile();
+		return f;
+	}
 
 	public static String unsubscribeHTML(String siteDomain, String mail, long sequenceMailQueueId) {
-		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" /><br><br>Caso não queira mais receber nossos e-mails, <a href=\"" + siteDomain + "/desinscrever-se/" + Utils.encode(mail) + "\" target=\"_blank\">clique aqui</a> para descadastrar-se de nossa lista de forma segura.";
+		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" alt=\"Img bar\" /><br><br>Caso não queira mais receber nossos e-mails, <a href=\"" + siteDomain + "/desinscrever-se/" + Utils.encode(mail)
+				+ "\" target=\"_blank\">clique aqui</a> para descadastrar-se de nossa lista de forma segura.";
+	}
+
+	public static String unsubscribeHTMLSendPulse(String siteDomain, String mail, long sequenceMailQueueId) {
+		return "<br><br><img src=\"" + siteDomain + "/hrpx/" + sequenceMailQueueId + "\" alt=\"Img bar\" /><br><br>Caso não queira mais receber nossos e-mails, <a href=\"{{unsubscribe}}\" target=\"_blank\">clique aqui</a> para descadastrar-se de nossa lista de forma segura.";
 	}
 
 	public static String sentCredits(String siteTitle, String siteDomain) {
-		return "<br><br>E-mail enviado por <strong><a href=\"" + siteDomain + "\" target=\"_blank\">" + siteTitle + "</a></strong>.";
+		return "<br><br>E-mail enviado por <b>" + siteTitle + "</b>.";
 	}
-	
+
+	public static String validateHtmlEmail(String bodyHTML, long sequenceMailQueueId) {
+		String headers = "<!DOCTYPE html>";
+		String tagsBegin = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html charset=UTF-8\" /></head><body>";
+		String content = bodyHTML.replaceAll("<p>", "<p style=\"margin:0;\">").replaceAll("<strong>", "<b>").replaceAll("</strong>", "</b>").replaceAll("\" target=", "?mid=" + sequenceMailQueueId + "\" target=");
+		String tagsEnd = "</body></html>";
+		String htmlMail = headers.concat(tagsBegin).concat(content).concat(tagsEnd);
+		return htmlMail;
+	}
+
+	public static boolean testUrl(String url) throws IOException {
+		URL u = new URL(url);
+		HttpURLConnection huc = (HttpURLConnection) u.openConnection();
+		huc.setRequestMethod("GET");
+		huc.connect();
+		int code = huc.getResponseCode();
+		return 200 == code;
+	}
+
+	public static String toJsonChart(List<TONumeric> top3Clients) {
+		Gson gson = new Gson();
+		String json = gson.toJson(top3Clients).replaceAll("\"label\"", "label").replaceAll("\"value\"", "value");
+		return json;
+	}
+
 }

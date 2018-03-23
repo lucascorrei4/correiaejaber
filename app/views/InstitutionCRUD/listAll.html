@@ -1,4 +1,4 @@
-#{extends 'CRUD/layout.html' /}
+#{extends 'CRUD/layoutPub.html' /}
 #{set title:'Empresas Cadastradas' /}
 <meta charset="utf-8" />
 	<div class="col-lg-6">
@@ -27,7 +27,7 @@
 			         		<a href="#">${object.licenseDateParsed}</a>
 				        #{/crud.custom}
 				    #{/crud.tableAll}
-    				<div class="alert alert-info alert-dismissable">
+    				<div class="alert alert-info alert-dismissable" style="margin: 5px">
 						#{crud.pagination /}
 	   				</div>
    				</div>

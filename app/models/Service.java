@@ -5,8 +5,8 @@ import java.text.ParseException;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-import controllers.Admin;
 import controllers.CRUD.Hidden;
+import controllers.howtodo.AdminPub;
 import play.data.validation.Required;
 import play.db.jpa.Model;
 import util.Utils;
@@ -25,13 +25,17 @@ public class Service extends Model {
 	public String basePrice = "0,00";
 
 	public boolean isActive = true;
-	
+
 	@Transient
 	public String nameBasePrice;
 
 	@Transient
+	public String reference;
+
+	@Transient
 	public String aux;
-	
+
+
 	public String toString() {
 		return title;
 	}
@@ -48,8 +52,7 @@ public class Service extends Model {
 	public long institutionId;
 
 	public long getInstitutionId() {
-		return Admin.getLoggedUserInstitution().getInstitution() == null ? 0l
-				: Admin.getLoggedUserInstitution().getInstitution().getId();
+		return AdminPub.getLoggedUserInstitution().getInstitution() == null ? 0l : AdminPub.getLoggedUserInstitution().getInstitution().getId();
 	}
 
 	public void setInstitutionId(long institutionId) {
@@ -90,11 +93,11 @@ public class Service extends Model {
 	public void setBasePrice(String basePrice) {
 		this.basePrice = basePrice;
 	}
-	
+
 	public String getNameBasePrice() {
 		return title + " R$ " + basePrice;
 	}
-	
+
 	public String getPostedAtParsed() throws ParseException {
 		return Utils.parseStringDateTime(postedAt);
 	}
@@ -105,6 +108,14 @@ public class Service extends Model {
 
 	public void setAux(String aux) {
 		this.aux = aux;
+	}
+	
+	public String getReference() {
+		return reference;
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
 	}
 
 }

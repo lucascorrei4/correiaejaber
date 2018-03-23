@@ -3,6 +3,8 @@ package controllers;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
+import controllers.howtodo.AdminPub;
+import controllers.howtodo.ApplicationPub;
 import models.City;
 import models.Country;
 import models.Institution;
@@ -22,15 +24,15 @@ import util.Utils;
 public class FinancialCRUD extends CRUD {
 	@Before
 	static void globals() {
-		if (Admin.getLoggedUserInstitution() == null || Admin.getLoggedUserInstitution().getUser() == null) {
-			Application.index();
+		if (AdminPub.getLoggedUserInstitution() == null || AdminPub.getLoggedUserInstitution().getUser() == null) {
+			ApplicationPub.index();
 		} 
-		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(Admin.getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
-		renderArgs.put("logged", Admin.getLoggedUserInstitution().getUser().id);
+		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(AdminPub.getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
+		renderArgs.put("logged", AdminPub.getLoggedUserInstitution().getUser().id);
 		renderArgs.put("enableUser", Security.enableMenu() ? "true" : "false");
-		renderArgs.put("idu", Admin.getLoggedUserInstitution().getUser().getId());
-		renderArgs.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
-		renderArgs.put("institutionName", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+		renderArgs.put("idu", AdminPub.getLoggedUserInstitution().getUser().getId());
+		renderArgs.put("id", AdminPub.getLoggedUserInstitution().getInstitution() != null ? AdminPub.getLoggedUserInstitution().getInstitution().getId() : null);
+		renderArgs.put("institutionName", AdminPub.getLoggedUserInstitution().getInstitution() != null ? AdminPub.getLoggedUserInstitution().getInstitution().getInstitution() : null);
 	}
 	
 	public static void create() throws Exception {
@@ -66,7 +68,7 @@ public class FinancialCRUD extends CRUD {
 		if (page < 1) {
 			page = 1;
 		}
-		String where = "institutionId = " + Admin.getLoggedUserInstitution().getInstitution();
+		String where = "institutionId = " + AdminPub.getLoggedUserInstitution().getInstitution();
 		if (orderBy == null) {
 			orderBy = "id";
 		}
@@ -76,7 +78,7 @@ public class FinancialCRUD extends CRUD {
 		List<Model> objects = type.findPage(page, search, searchFields, orderBy, order, where);
 		Long count = type.count(search, searchFields, where);
 		Long totalCount = type.count(null, null, where);
-		Institution institution = Institution.find("userId = " + Admin.getLoggedUserInstitution().getUser().getId())
+		Institution institution = Institution.find("userId = " + AdminPub.getLoggedUserInstitution().getUser().getId())
 				.first();
 		try {
 			render(type, objects, count, totalCount, page, orderBy, order, institution);
@@ -100,7 +102,7 @@ public class FinancialCRUD extends CRUD {
 
 	public static void signature(String id) throws Exception {
 		if (Utils.validateCompanySession(id)) {
-			User user = Admin.getLoggedUserInstitution().getUser();
+			User user = AdminPub.getLoggedUserInstitution().getUser();
 			ObjectType type = ObjectType.get(getControllerClass());
 			notFoundIfNull(type);
 			List<Invoice> listInvoice = Invoice.find("institutionId = " + id).fetch();
@@ -116,7 +118,7 @@ public class FinancialCRUD extends CRUD {
 				render("FinancialCRUD/signature.html", type, listInvoice, user);
 			}
 		} else {
-			redirect("Admin.index");
+			redirect("AdminPub.index");
 		}
 	}
 

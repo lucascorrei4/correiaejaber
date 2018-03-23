@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-WWMNHWH');</script>
+		<!-- End Google Tag Manager -->
+		<title>Tudo sobre Pós-venda, Modelos de Contrato e Acompanhamento de Serviço</title>
+		<meta name="description" content="Quer saber como fazer pos venda, modelo de contrato de prestação de serviço ou atendimento ao cliente com CRM? Fique por dentro!">
+		<meta property="twitter:title" content="artigos Úteis">
+		<meta property="twitter:description" content="Quer saber como fazer pos venda, modelo de contrato de prestação de serviço ou atendimento ao cliente com CRM? Fique por dentro!">
+		<meta property="og:title" content="Artigos Úteis">
+		<meta property="og:description" content="Quer saber como fazer pos venda, modelo de contrato de prestação de serviço ou atendimento ao cliente com CRM? Fique por dentro!">
+		<meta property="og:image" content="&{parameter.getSiteDomain()}/logo">
+		<meta charset="utf-8" />
+		#{include 'includes/headerTemplateFollow.html' /}
+	</head>
+	<body class="right-sidebar">
+		<!-- Google Tag Manager (noscript) -->
+		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=&{parameter.getGoogleTagManagerId()}"
+		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+		<!-- End Google Tag Manager (noscript) -->
+		<div id="page-wrapper">
+			<!-- Header -->
+				#{include 'includes/menuTemplateFollow.html' /}
+			<!-- Main -->
+				<article id="main" style="background-color: &{parameter.getSiteBackGroundColor() == null ? 'gray' : parameter.getSiteBackGroundColor()}">
+				#{include 'includes/imgAdsTop.html' /}
+				<header class="special container" style="margin-bottom: 0">
+					<span class="icon &{parameter.getSiteIconFontAwesome() == null ? 'fa-heartbeat' : parameter.getSiteIconFontAwesome()}"></span>
+					<p style="font-size: 15px; margin: 0;">Você está em: <a href="/">&{parameter.getSiteTitle()}</a> > <a href="/artigos">Artigos</a></p>
+				</header>
+				<h3 style="text-align: center; font-weight: 600; margin: 0 auto;">#{verbatim}&{parameter.getMessageHighlightProducts() == null ? 'Ofertas da semana em estoque' : parameter.getMessageHighlightProducts()}#{/verbatim}</h3>				
+				<section class="wrapper style4 container" style="display: ${listHightlightProduct.size() > 0 ? 'block' : 'none'}">
+					#{include 'includes/highlightProduct.html' /}
+				</section>
+				<section class="wrapper style4 container">
+					<div id="newsletterTips" style="width: 100%">
+						#{include 'includes/formNewsletterTips.html' /}
+					</div>
+					<div class="row 150%">
+						<div class="8u 12u(narrower)">
+							<div class="content">
+								#{include 'includes/highlightArticles.html' /}
+							</div>
+						</div>
+						<div class="4u 12u(narrower)">
+							<div class="sidebar">
+								#{include 'includes/imgAdsSidebar.html' /}
+							</div>
+							<div class="sidebar">
+								#{include 'includes/lastNewsSidebarRight.html' /}
+							</div>
+						</div>
+					</div>
+				</section>
+				<section class="wrapper style1 container special">
+					<div class="row">
+						#{include 'includes/imgAdsBottom.html' /}
+					</div>
+				</section>
+				<section class="wrapper style1 container special">
+					<div class="row">
+						#{include 'includes/lastNewsBottom.html' /}
+					</div>
+				</section>
+			</article>
+			<!-- Footer -->
+			#{include 'includes/footerTemplateFollow.html' /}
+	</body>
+</html>

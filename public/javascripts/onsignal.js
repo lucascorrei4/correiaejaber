@@ -32,9 +32,9 @@
 				cancelButtonText: "EU NÃO QUERO!"
 			},
 			welcomeNotification: {
-				"title": ApplicationConfiguration.getInstance().getSiteName(),
+				"title": "Acompanhe Seu Pedido",
 				"message": "Obrigado pela inscrição",
-				 "url": ApplicationConfiguration.getInstance().getSiteDomain() + ""
+				 "url": "https://acompanheseupedido.com"
 			}
 	    }]);
     </script>

@@ -1,17 +1,13 @@
 package controllers;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import models.Institution;
+import controllers.howtodo.AdminPub;
+import controllers.howtodo.ApplicationPub;
 import models.User;
 import play.cache.Cache;
-import play.mvc.Http;
-import play.mvc.Scope.Session;
-import util.UserInstitutionParameter;
 import util.Utils;
 
 public class Security extends Secure.Security {
@@ -35,19 +31,19 @@ public class Security extends Secure.Security {
 	}
 
 	static void onDisconnected() {
-		Admin.loggedUserInstitution = null;
-		Cache.delete(Admin.getLoggedUserInstitution().getCurrentSession());
+		AdminPub.loggedUserInstitution = null;
+		Cache.delete(AdminPub.getLoggedUserInstitution().getCurrentSession());
 		session.remove("username");
-		Application.index();
+		ApplicationPub.index();
 	}
 
 	static void onAuthenticated() {
 		User connectedUser = User.find("byEmail", session.get("username")).first();
 		connect(connectedUser);
 		if (connectedUser.getInstitutionId() == 0) {
-			Admin.firstStep();
+			AdminPub.firstStep();
 		} else {
-			Admin.index();
+			AdminPub.index();
 		}
 	}
 
@@ -63,12 +59,12 @@ public class Security extends Secure.Security {
 		sessionParameters.put("logged", connectedUser.id);
 		sessionParameters.put("enableUser", enableMenu() ? "true" : "false");
 		sessionParameters.put("idu", connectedUser.getId());
-		sessionParameters.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
+		sessionParameters.put("id", AdminPub.getLoggedUserInstitution().getInstitution() != null ? AdminPub.getLoggedUserInstitution().getInstitution().getId() : null);
 		Cache.set(session.get("username"), sessionParameters);
 	}
 	
-	static boolean enableMenu() {
-		if (Admin.getLoggedUserInstitution().getInstitution() != null && Admin.validateLicenseDate(Admin.getLoggedUserInstitution())) {
+	public static boolean enableMenu() {
+		if (AdminPub.getLoggedUserInstitution().getInstitution() != null && AdminPub.validateLicenseDate(AdminPub.getLoggedUserInstitution())) {
 			return true;
 		}
 		return false;

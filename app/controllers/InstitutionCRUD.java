@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.util.List;
 
 import controllers.CRUD.ObjectType;
+import controllers.howtodo.AdminPub;
+import controllers.howtodo.ApplicationPub;
 import models.City;
 import models.Country;
 import models.Institution;
@@ -20,15 +22,15 @@ import util.Utils;
 public class InstitutionCRUD extends CRUD {
 	@Before
 	static void globals() {
-		if (Admin.getLoggedUserInstitution() == null || Admin.getLoggedUserInstitution().getUser() == null) {
-			Application.index();
+		if (AdminPub.getLoggedUserInstitution() == null || AdminPub.getLoggedUserInstitution().getUser() == null) {
+			ApplicationPub.index();
 		} 
-		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(Admin.getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
-		renderArgs.put("logged", Admin.getLoggedUserInstitution().getUser().id);
+		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(AdminPub.getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
+		renderArgs.put("logged", AdminPub.getLoggedUserInstitution().getUser().id);
 		renderArgs.put("enableUser", Security.enableMenu() ? "true" : "false");
-		renderArgs.put("idu", Admin.getLoggedUserInstitution().getUser().getId());
-		renderArgs.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
-		renderArgs.put("institutionName", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+		renderArgs.put("idu", AdminPub.getLoggedUserInstitution().getUser().getId());
+		renderArgs.put("id", AdminPub.getLoggedUserInstitution().getInstitution() != null ? AdminPub.getLoggedUserInstitution().getInstitution().getId() : null);
+		renderArgs.put("institutionName", AdminPub.getLoggedUserInstitution().getInstitution() != null ? AdminPub.getLoggedUserInstitution().getInstitution().getInstitution() : null);
 	}
 	
 	public static void listAll(int page, String search, String searchFields, String orderBy, String order) {
@@ -81,7 +83,7 @@ public class InstitutionCRUD extends CRUD {
 	}
 
 	public static void list(int page, String search, String searchFields, String orderBy, String order) {
-		redirect(request.controller + ".show", Admin.getLoggedUserInstitution().getInstitution().getId());
+		redirect(request.controller + ".show", AdminPub.getLoggedUserInstitution().getInstitution().getId());
 	}
 
 	public static void blank() throws Exception {
@@ -104,7 +106,7 @@ public class InstitutionCRUD extends CRUD {
 			// Filtro pelo usuário conectado para proteger os dados dos demais
 			// usuários
 			Institution object = Institution
-					.find("id = " + id + " and userId = " + Admin.getLoggedUserInstitution().getUser().getId()).first();
+					.find("id = " + id + " and userId = " + AdminPub.getLoggedUserInstitution().getUser().getId()).first();
 			notFoundIfNull(object);
 			Country country = Country.find("byId", object.getCountryId()).first();
 			State state = State.find("byId", object.getStateId()).first();

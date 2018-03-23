@@ -2,7 +2,8 @@ package controllers;
 
 import java.util.List;
 
-import models.StatusSMS;
+import controllers.howtodo.AdminPub;
+import controllers.howtodo.ApplicationPub;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
@@ -12,15 +13,15 @@ public class StatusPushCRUD extends CRUD {
 	
 	@Before
 	static void globals() {
-		if (Admin.getLoggedUserInstitution() == null || Admin.getLoggedUserInstitution().getUser() == null) {
-			Application.index();
+		if (AdminPub.getLoggedUserInstitution() == null || AdminPub.getLoggedUserInstitution().getUser() == null) {
+			ApplicationPub.index();
 		} 
-		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(Admin.getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
-		renderArgs.put("logged", Admin.getLoggedUserInstitution().getUser().id);
+		renderArgs.put("poweradmin", "lucascorreiaevangelista@gmail.com".equals(AdminPub.getLoggedUserInstitution().getUser().getEmail()) ? "true" : "false");
+		renderArgs.put("logged", AdminPub.getLoggedUserInstitution().getUser().id);
 		renderArgs.put("enableUser", Security.enableMenu() ? "true" : "false");
-		renderArgs.put("idu", Admin.getLoggedUserInstitution().getUser().getId());
-		renderArgs.put("id", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getId() : null);
-		renderArgs.put("institutionName", Admin.getLoggedUserInstitution().getInstitution() != null ? Admin.getLoggedUserInstitution().getInstitution().getInstitution() : null);
+		renderArgs.put("idu", AdminPub.getLoggedUserInstitution().getUser().getId());
+		renderArgs.put("id", AdminPub.getLoggedUserInstitution().getInstitution() != null ? AdminPub.getLoggedUserInstitution().getInstitution().getId() : null);
+		renderArgs.put("institutionName", AdminPub.getLoggedUserInstitution().getInstitution() != null ? AdminPub.getLoggedUserInstitution().getInstitution().getInstitution() : null);
 	}
 	
 	public static void list(int page, String search, String searchFields, String orderBy, String order) {
@@ -29,7 +30,7 @@ public class StatusPushCRUD extends CRUD {
 		if (page < 1) {
 			page = 1;
 		}
-		String where = "institutionId = " + Admin.getLoggedUserInstitution().getInstitution().getId();
+		String where = "institutionId = " + AdminPub.getLoggedUserInstitution().getInstitution().getId();
 		if (orderBy == null) {
 			orderBy = "id";
 		}
