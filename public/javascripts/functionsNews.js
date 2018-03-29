@@ -28,7 +28,7 @@ function newsletterFreePageBootstrap() {
 	var url = window.location.href;
 	data.url = url;
 	data.phone = phone;
-	$('#newsletterFreePage').load('/applicationpub/savemaillist', data,
+	$('#newsletterFreePage').load('/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
@@ -81,7 +81,7 @@ function newsletterFreePage() {
 	data.typeContentPage = typeContentPage;
 	var url = [location.protocol, '//', location.host, location.pathname].join('');
 	data.url = url;
-	$('#newsletterFreePage').load('/application/savemaillist', data,
+	$('#newsletterFreePage').load('/savemaillist', data,
 			function(response, status, xhr) {
 		var status = $("#status").val();
 		if ('SUCCESS' === status) {
@@ -133,7 +133,7 @@ function newsletterTips() {
 	data.typeContentPage = "nd";
 	var url = [location.protocol, '//', location.host, location.pathname].join('');
 	data.url = url;
-	$('#newsletterTips').load('/application/savemaillist', data,
+	$('#newsletterTips').load('/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
@@ -182,7 +182,7 @@ function newsletterTheSystemTop() {
 	data.typeContentPage = "nd";
 	var url = [location.protocol, '//', location.host, location.pathname].join('');
 	data.url = url;
-	$('#newsletterTheSystemTop').load('/application/savemaillist', data,
+	$('#newsletterTheSystemTop').load('/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
@@ -231,7 +231,7 @@ function newsletterTheSystemBottom() {
 	data.typeContentPage = "nd";
 	var url = [location.protocol, '//', location.host, location.pathname].join('');
 	data.url = url;
-	$('#newsletterTheSystemBottom').load('/application/savemaillist', data,
+	$('#newsletterTheSystemBottom').load('/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {

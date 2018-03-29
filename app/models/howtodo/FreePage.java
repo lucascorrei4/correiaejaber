@@ -23,9 +23,6 @@ public class FreePage extends Model {
 	public String titleSEO;
 	@Required(message = "Campo obrigatório.")
 	public String descriptionSEO;
-	@Hidden
-	@Required(message = "Campo obrigatório.")
-	public String canonicalURL;
 	public boolean noFollow = false;
 
 	@Required(message = "Campo obrigatório.")
@@ -191,14 +188,6 @@ public class FreePage extends Model {
 
 	public void setDescriptionSEO(String descriptionSEO) {
 		this.descriptionSEO = descriptionSEO;
-	}
-
-	public String getCanonicalURL() {
-		return canonicalURL;
-	}
-
-	public void setCanonicalURL(String canonicalURL) {
-		this.canonicalURL = canonicalURL;
 	}
 
 	public boolean isNoFollow() {

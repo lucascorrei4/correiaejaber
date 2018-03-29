@@ -505,7 +505,7 @@ function newsletterTop() {
 	data.origin = 'homepagetop';
 	data.typeContentPage = "nd";
 	data.url = window.location.href;
-	$('#mailListTop').load('/application/savemaillist', data,
+	$('#mailListTop').load('/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status").val();
 				if ('SUCCESS' === status) {
@@ -553,7 +553,7 @@ function newsletterBottom() {
 	data.origin = 'homepagebottom';
 	data.typeContentPage = "nd";
 	data.url = window.location.href;
-	$('#mailListBottom').load('/application/savemaillist', data,
+	$('#mailListBottom').load('/savemaillist', data,
 			function(response, status, xhr) {
 				var status = $("#status2").val();
 				if ('SUCCESS' === status) {

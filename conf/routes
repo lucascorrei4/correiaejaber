@@ -32,6 +32,7 @@ GET    	${ctx}/gratidao					   				 			howtodo.ApplicationPub.thankLead
 GET    	${ctx}/pesquisa/cid/{campaing}/uid/{lead}		 			howtodo.ApplicationPub.leadSearch
 POST   	${ctx}/pesquisa-obrigado				 					howtodo.ApplicationPub.sendAnswer
 GET    	${ctx}/avaliacao/{cod}/{id}						 			howtodo.ApplicationPub.clientEvaluation
+POST   	${ctx}/savemaillist						 					howtodo.ApplicationPub.saveMailList
 
 GET    	${ctx}/logo					   				 				howtodo.ApplicationPub.getLogo
 GET    	${ctx}/icon					   				 				howtodo.ApplicationPub.getIcon
