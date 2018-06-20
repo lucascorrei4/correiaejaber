@@ -8,13 +8,13 @@ import controllers.CRUD;
 import controllers.Security;
 import controllers.CRUD.For;
 import controllers.CRUD.ObjectType;
-import models.howtodo.SellPage;
+import models.howtodo.Gallery;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
 
-@CRUD.For(models.howtodo.SellPage.class)
-public class SellPageCRUD extends CRUD {
+@CRUD.For(models.howtodo.Gallery.class)
+public class GalleryCRUD extends CRUD {
 	
 	@Before
 	static void globals() {
@@ -46,16 +46,16 @@ public class SellPageCRUD extends CRUD {
 		Long count = type.count(search, searchFields, where);
 		Long totalCount = type.count(null, null, where);
 		try {
-			render("howtodo/SellPageCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+			render("howtodo/GalleryCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		} catch (TemplateNotFoundException e) {
-			render("howtodo/SellPageCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
+			render("howtodo/GalleryCRUD/list.html", type, objects, count, totalCount, page, orderBy, order);
 		}
 	}
 	
 	public static void remove(String id) throws Exception {
-		SellPage sellPage = SellPage.find("id = " + Long.valueOf(id)).first();
-		sellPage.delete();
-		SellPageCRUD.list(0, null, null, null, null);
+		Gallery freePage = Gallery.find("id = " + Long.valueOf(id)).first();
+		freePage.delete();
+		GalleryCRUD.list(0, null, null, null, null);
 	}
 	
 }

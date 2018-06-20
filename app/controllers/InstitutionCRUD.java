@@ -117,7 +117,7 @@ public class InstitutionCRUD extends CRUD {
 				render("InstitutionCRUD/show.html", type, object, country, state, city);
 			}
 		} else {
-			redirect("Admin.index");
+			redirect("AdminPub.index");
 		}
 	}
 

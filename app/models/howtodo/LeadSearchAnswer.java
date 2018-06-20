@@ -8,8 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 
-import controllers.CRUD.Hidden;
 import controllers.howtodo.AdminPub;
+import controllers.CRUD.Hidden;
 import play.data.validation.MaxSize;
 import play.db.jpa.Model;
 import util.Utils;

@@ -5,8 +5,8 @@ import java.text.ParseException;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 
-import controllers.CRUD.Hidden;
 import controllers.howtodo.AdminPub;
+import controllers.CRUD.Hidden;
 import play.data.validation.MaxSize;
 import play.db.jpa.Model;
 import util.Utils;
@@ -46,6 +46,7 @@ public class LeadSearchQuestion extends Model {
 	@Hidden
 	public String postedAt;
 
+	public boolean annonymousSearch = false;
 	public boolean isActive = true;
 	
 	@Hidden
@@ -196,6 +197,14 @@ public class LeadSearchQuestion extends Model {
 
 	public void setThanksTitle(String thanksTitle) {
 		this.thanksTitle = thanksTitle;
+	}
+
+	public boolean isAnnonymousSearch() {
+		return annonymousSearch;
+	}
+
+	public void setAnnonymousSearch(boolean annonymousSearch) {
+		this.annonymousSearch = annonymousSearch;
 	}
 
 }

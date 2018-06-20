@@ -15,21 +15,17 @@
 	<div class="panel panel-default">
     	<div class="panel-heading">
 			<div class="alert alert-warning alert-dismissable">
-  				<strong>Sobre imagens:</strong> Você pode cadastrar 5 imagens para serem utilizadas na página. 
-             	<br />Para referenciar uma imagem na página use o caminho: <kbd>/imagem-fp/3?index=1</kbd>. 
-             	<br />Ex.: <code>img src"/imagem-fp/3?index=1" ...</code> 
-             	<br /><small>Neste caso, o 3 é o id da página e o 1 é o índice (Imagem 1).</small>
+  				<strong>Sobre imagens:</strong> Você pode cadastrar 15 imagens em cada galeria. 
+             	<br />Para referenciar uma imagem na página use o caminho: <kbd>/galeria/3?index=1</kbd>. 
+             	<br />Ex.: <code>img src"/galeria/3?index=1" ...</code> 
+             	<br /><small>Neste caso, o 3 é o id da galeria e o 1 é o índice (Imagem 1).</small>
    			</div>
        	</div>
 		<div class="panel-body">
 		 	<div class="dataTable_wrapper">
-		       	#{crud.table fields:['id','postedAt', 'titleSEO', 'friendlyUrl', 'action']}
-			       	#{crud.custom 'titleSEO'}
-		        		<p>${object.titleSEO.raw()}</p>
-		        		<p><small>${object.mainTitle.raw()}</small></p>
-			        #{/crud.custom}
-			       	#{crud.custom 'friendlyUrl'}
-			        	Acessar: <a href="/fp/${object.friendlyUrl}" target="_blank">/fp/${object.friendlyUrl}</a>
+		       	#{crud.table fields:['id','postedAt', 'title', 'action']}
+			       	#{crud.custom 'title'}
+		        		<p>${object.title.raw()}</p>
 			        #{/crud.custom}
 			       	#{crud.custom 'postedAt'}
 			        	<a href="@{howtodo.FreePageCRUD.show(object.id)}">${object.postedAtParsed}</a>

@@ -84,6 +84,7 @@ true=Sim
 false=Não
 
 #Controllers
+IncludeCRUD=Includes
 LeadSearchQuestionCRUD=Pesquisa - Perguntas
 LeadSearchAnswerCRUD=Pesquisa - Respostas
 ActivitiesCRUD=Atividades
@@ -124,6 +125,7 @@ MailBaseCRUD=Base de E-mails
 MonetizzeTransactionCRUD=Transações Monetizze
 SequenceMailCRUD=Funil de E-mails
 HighlightProductCRUD=Produtos em Destaque
+GalleryCRUD=Galerias
 
 #Models
 LeadSearchQuestion=Pesquisa - Pergunta
@@ -171,8 +173,10 @@ Article=Artigo
 MailList=Lead
 TheSystem=O Sistema
 MailBase=Base de E-mail
+Gallery=Galeria
 
 #Labels
+code=Código HTML
 id=Id
 messageNumberPhone=Mensagem Nº de Telefone
 descriptionInactivePage=Conteúdo de Página Inativa
@@ -271,7 +275,7 @@ buttonMainTitle=Título do Botão Principal
 buttonActionMainTitle=Ação do Botão Principal
 backgroundImage=Imagem de Fundo (Ideal: 1500px x 1000px .jpg)
 backgroundColor=Cor de Fundo
-subtitle1=Subtítulo 1
+subtitle1=Conteúdo (Abaixo Form. Captura)
 description=Descrição
 imageProduct=Imagem do Produto (Ideal: 1000px x 1164px .png)
 subtitle2=Subtítulo 2

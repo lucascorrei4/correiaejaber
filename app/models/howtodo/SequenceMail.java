@@ -8,8 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
-import controllers.CRUD.Hidden;
 import controllers.howtodo.AdminPub;
+import controllers.CRUD.Hidden;
 import models.Institution;
 import play.data.validation.MaxSize;
 import play.db.jpa.Blob;

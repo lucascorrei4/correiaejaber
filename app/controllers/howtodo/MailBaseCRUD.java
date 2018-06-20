@@ -1,7 +1,10 @@
 package controllers.howtodo;
 
+import controllers.howtodo.AdminPub;
+import controllers.howtodo.ApplicationPub;
 import controllers.CRUD;
 import controllers.Security;
+import controllers.CRUD.For;
 import play.mvc.Before;
 
 @CRUD.For(models.howtodo.MailBase.class)

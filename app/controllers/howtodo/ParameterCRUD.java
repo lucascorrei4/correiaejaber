@@ -1,7 +1,11 @@
 package controllers.howtodo;
 
+import controllers.howtodo.AdminPub;
+import controllers.howtodo.ApplicationPub;
 import controllers.CRUD;
 import controllers.Security;
+import controllers.CRUD.For;
+import controllers.CRUD.ObjectType;
 import play.data.binding.Binder;
 import play.db.Model;
 import play.exceptions.TemplateNotFoundException;

@@ -9,6 +9,7 @@
 
 # Home page
 GET     ${ctx}/                                       				howtodo.ApplicationPub.index
+GET     ${ctx}/index.html                              				howtodo.ApplicationPub.index
 GET     ${ctx}/sitemap.xml                              			staticFile:/public/sitemap.xml
 
 # 301 redirects
@@ -41,6 +42,7 @@ GET    	${ctx}/hrpx/{id}								   			howtodo.ApplicationPub.hrpx
 
 GET    	${ctx}/logo-empresa/{id}		   				 			InstitutionController.getImage
 GET    	${ctx}/imagem-fp/{id}			   				 			howtodo.FreePageController.getImage
+GET    	${ctx}/galeria/{id}			   				 			    howtodo.GalleryController.getImage
 
 # Essentials Pages
 GET    	${ctx}/contato												howtodo.ApplicationPub.contact
@@ -85,6 +87,29 @@ GET    	${ctx}/fp/{friendlyUrl}						howtodo.FreePageController.details
 
 GET    	${ctx}/artigos					   				 			howtodo.NewsController.list
 GET    	${ctx}/artigos/{id}/{friendlyUrl}							howtodo.NewsController.details
+
+# Gallery
+
+GET		${ctx}/admin-howtodo/galeria											howtodo.GalleryCRUD.list
+GET		${ctx}/admin-howtodo/galeria/novo										howtodo.GalleryCRUD.blank
+GET		${ctx}/admin-howtodo/galeria/{id}										howtodo.GalleryCRUD.show
+GET		${ctx}/admin-howtodo/galeria/{id}/{field}								howtodo.GalleryCRUD.attachment
+GET		${ctx}/admin-howtodo/galeria/{id}/editar								howtodo.GalleryCRUD.edit
+POST	${ctx}/admin-howtodo/galeria											howtodo.GalleryCRUD.create
+POST	${ctx}/admin-howtodo/galeria/{id}										howtodo.GalleryCRUD.save
+DELETE	${ctx}/admin-howtodo/galeria/{id}										howtodo.GalleryCRUD.delete
+
+# Include
+
+GET		${ctx}/admin-howtodo/includes											howtodo.IncludeCRUD.list
+GET		${ctx}/admin-howtodo/includes/novo										howtodo.IncludeCRUD.blank
+GET		${ctx}/admin-howtodo/includes/{id}										howtodo.IncludeCRUD.show
+GET		${ctx}/admin-howtodo/includes/{id}/{field}								howtodo.IncludeCRUD.attachment
+GET		${ctx}/admin-howtodo/includes/{id}/editar								howtodo.IncludeCRUD.edit
+POST	${ctx}/admin-howtodo/includes											howtodo.IncludeCRUD.create
+POST	${ctx}/admin-howtodo/includes/{id}										howtodo.IncludeCRUD.save
+DELETE	${ctx}/admin-howtodo/includes/{id}										howtodo.IncludeCRUD.delete
+
 
 # LeadSearchAnswer
 

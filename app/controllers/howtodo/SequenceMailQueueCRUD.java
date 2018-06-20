@@ -5,8 +5,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import controllers.howtodo.AdminPub;
+import controllers.howtodo.ApplicationPub;
 import controllers.CRUD;
 import controllers.Security;
+import controllers.CRUD.For;
+import controllers.CRUD.ObjectType;
+import models.howtodo.Parameter;
 import models.howtodo.SequenceMail;
 import models.howtodo.SequenceMailQueue;
 import play.db.Model;
@@ -14,6 +19,7 @@ import play.exceptions.TemplateNotFoundException;
 import play.mvc.Before;
 import util.Utils;
 import util.howtodo.SequenceMailTO;
+import util.howtodo.TO;
 
 @CRUD.For(models.howtodo.SequenceMailQueue.class)
 public class SequenceMailQueueCRUD extends CRUD {

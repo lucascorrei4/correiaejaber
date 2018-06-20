@@ -1,8 +1,15 @@
 package controllers.howtodo;
 
+import java.io.File;
+
+import controllers.howtodo.AdminPub;
+import controllers.howtodo.ApplicationPub;
 import controllers.CRUD;
 import controllers.Security;
+import controllers.CRUD.For;
+import models.howtodo.Article;
 import play.mvc.Before;
+import play.vfs.VirtualFile;
 
 @CRUD.For(models.howtodo.SimplePage.class)
 public class SimplePagesCRUD extends CRUD {

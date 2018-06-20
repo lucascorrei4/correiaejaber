@@ -2,8 +2,12 @@ package controllers.howtodo;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
+import controllers.howtodo.AdminPub;
+import models.howtodo.Article;
 import models.howtodo.FreePage;
+import models.howtodo.Include;
 import models.howtodo.Parameter;
 import models.howtodo.SequenceMailQueue;
 import play.mvc.Before;
@@ -12,6 +16,7 @@ import play.mvc.Finally;
 import play.mvc.Http;
 import play.mvc.Http.Cookie;
 import play.vfs.VirtualFile;
+import util.UserInstitutionParameter;
 import util.Utils;
 
 public class FreePageController extends Controller {
@@ -30,7 +35,9 @@ public class FreePageController extends Controller {
 
 	public static void details(String friendlyUrl, long mid) {
 		/* Verifying click on mail link */
+		Parameter parameter = Parameter.all().first();
 		if (!Utils.isNullOrZero(mid)) {
+			AdminPub.sendMailToMe(AdminPub.getLoggedUserInstitution(), "Lead clicou no link do e-mail!");
 			SequenceMailQueue seqMail = SequenceMailQueue.findById(mid);
 			if (seqMail != null) {
 				seqMail.setMailRead(true);
@@ -39,7 +46,6 @@ public class FreePageController extends Controller {
 			}
 		}
 		FreePage freePage = FreePage.findByFriendlyUrl(friendlyUrl);
-		Parameter parameter = Parameter.all().first();
 		String title = Utils.removeHTML(freePage.getMainTitle());
 		String headline = Utils.removeHTML(freePage.getSubtitle1());
 		/* Verify if test A/B of Video or Text is enabled. */
@@ -64,6 +70,10 @@ public class FreePageController extends Controller {
 				freePage.setAlternateVideoText(false);
 			}
 		}
+		freePage.setDescription(replacementInclude(freePage.getDescription()));
+		freePage.setDescriptionInactivePage(replacementInclude(freePage.getDescriptionInactivePage()));
+		freePage.setOptionalDescription(replacementInclude(freePage.getOptionalDescription()));
+		freePage.setSubtitle1(replacementInclude(freePage.getSubtitle1()));
 		render(freePage, parameter, title, headline);
 	}
 
@@ -118,4 +128,22 @@ public class FreePageController extends Controller {
 			getVirtualFile();
 		}
 	}
+	
+	public static String replacementInclude(String field) {
+		String content = field;
+		List<Include> listArticles = Include.findAll();
+		if (!Utils.isNullOrEmpty(listArticles)) {
+			for (Include include : listArticles) {
+				if (content.contains(include.title)) {
+					if (include.isActive) {
+						content = content.replace(include.title, include.code);
+					} else {
+						content = content.replace(include.title, " ");
+					}
+				}
+			}
+		} 
+		return content;
+	}
+
 }

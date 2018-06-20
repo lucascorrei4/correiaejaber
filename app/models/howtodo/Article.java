@@ -7,8 +7,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Lob;
 
-import controllers.CRUD.Hidden;
 import controllers.howtodo.AdminPub;
+import controllers.CRUD.Hidden;
 import play.data.validation.MaxSize;
 import play.data.validation.Required;
 import play.db.jpa.Blob;

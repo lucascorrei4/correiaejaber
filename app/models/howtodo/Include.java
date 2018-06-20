@@ -3,29 +3,25 @@ package models.howtodo;
 import java.text.ParseException;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 
 import controllers.howtodo.AdminPub;
 import controllers.CRUD.Hidden;
+import play.data.validation.MaxSize;
 import play.data.validation.Required;
-import play.db.jpa.Blob;
 import play.db.jpa.Model;
 import util.Utils;
 
 @Entity
-public class HighlightProduct extends Model {
+public class Include extends Model {
 
 	@Required(message = "Campo obrigatório.")
 	public String title;
 
 	@Required(message = "Campo obrigatório.")
-	public String msgOffer;
-
-	@Required(message = "Campo obrigatório.")
-	public String link;
-
-	public Blob image;
-
-	public boolean isHighlight;
+	@Lob
+	@MaxSize(10000000)
+	public String code;
 
 	@Hidden
 	public String postedAt;
@@ -80,44 +76,12 @@ public class HighlightProduct extends Model {
 		return Utils.parseStringDateTime(postedAt);
 	}
 
-	public static HighlightProduct findByFriendlyUrl(String friendlyUrl) {
+	public static Include findByFriendlyUrl(String friendlyUrl) {
 		return find("byFriendlyUrl", friendlyUrl).first();
 	}
 
-	public String getMsgOffer() {
-		return msgOffer;
-	}
-
-	public void setMsgOffer(String msgOffer) {
-		this.msgOffer = msgOffer;
-	}
-
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
-	public Blob getImage() {
-		return image;
-	}
-
-	public void setImage(Blob image) {
-		this.image = image;
-	}
-	
 	public String getTitleNoHtml() {
 		return Utils.removeHTML(this.title);
-	}
-
-	public boolean isHighlight() {
-		return isHighlight;
-	}
-
-	public void setHighlight(boolean isHighlight) {
-		this.isHighlight = isHighlight;
 	}
 
 }

@@ -16,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import javax.mail.internet.MimeUtility;
 
 import org.apache.log4j.Logger;
 
@@ -26,12 +27,11 @@ import models.howtodo.BodyMail;
 import models.howtodo.Parameter;
 import models.howtodo.SequenceMailQueue;
 import play.db.jpa.Blob;
-import util.ApplicationConfiguration;
 import util.Utils;
 
 public class MailController {
 	public static Logger logger = Logger.getLogger(MailController.class);
-	
+
 	public boolean sendHTMLMail(SendTo sendTo, Sender sender, BodyMail bodyMail, String subject, Parameter parameter) {
 		final String userName = parameter.getMailHostUser();
 		final String password = parameter.getMailHostPassword();
@@ -46,20 +46,29 @@ public class MailController {
 			};
 			/* Parse and send content */
 			try {
+				String encodingOptions = "text/html; charset=UTF-8";
 				Session session = Session.getInstance(properties, auth);
 				Message message = new MimeMessage(session);
 				message.setFrom(new InternetAddress(sender.from, sender.company, "utf-8"));
+				if (!Utils.isNullOrEmpty(sender.getReplyTo())) {
+					message.setReplyTo(new javax.mail.Address[] { new javax.mail.internet.InternetAddress(sender.getReplyTo()) });
+				}
 				message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendTo.destination));
+				message.setHeader("Content-Type", encodingOptions);
+				message.setSentDate(Utils.getBrazilCalendar().getTime());
 				if (Utils.isNullOrEmpty(subject)) {
-					message.setSubject(Utils.removeHTML(bodyMail.title2));
+					message.setSubject(MimeUtility.encodeText(Utils.removeHTML(bodyMail.title2), "utf-8", "B"));
 				} else {
-					message.setSubject(Utils.removeHTML(subject));
+					message.setSubject(MimeUtility.encodeText(Utils.removeHTML(subject), "utf-8", "B"));
 				}
 				String htmlMessage = Utils.validateHtmlEmail(bodyMail.getBodyHTML(), 0l);
-				Multipart multipart = new MimeMultipart();
-				MimeBodyPart mimeBodyPart = new MimeBodyPart();
-				mimeBodyPart.setContent(htmlMessage, "text/html");
-				multipart.addBodyPart(mimeBodyPart);
+				final MimeBodyPart textPart = new MimeBodyPart();
+				textPart.setText(Utils.unescapeHtml(Utils.removeHTML(htmlMessage)), "utf-8");
+				final MimeBodyPart htmlPart = new MimeBodyPart();
+				htmlPart.setContent(htmlMessage, "text/html; charset=utf-8");
+				final Multipart multipart = new MimeMultipart("alternative");
+				multipart.addBodyPart(textPart);
+				multipart.addBodyPart(htmlPart);
 				message.setContent(multipart);
 				message.saveChanges();
 				Transport.send(message);
@@ -76,8 +85,8 @@ public class MailController {
 		}
 		return true;
 	}
-	
-	private static Properties getSmtpProperties(Parameter parameter, String hostName){
+
+	private static Properties getSmtpProperties(Parameter parameter, String hostName) {
 		Properties properties = new Properties();
 		properties.put("mail.transport.protocol", "smtp");
 		properties.put("mail.smtp.host", hostName);
@@ -87,7 +96,7 @@ public class MailController {
 		properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		return properties;
 	}
-	
+
 	public boolean sendHTMLMail(SendTo sendTo, Sender sender, BodyMail bodyMail, String subject, SequenceMailQueue sequenceMailQueue, Parameter parameter) {
 		final String userName = parameter.getMailHostUser();
 		final String password = parameter.getMailHostPassword();
@@ -102,22 +111,31 @@ public class MailController {
 			};
 			/* Parse and send content */
 			try {
+				String encodingOptions = "text/html; charset=UTF-8";
 				Session session = Session.getInstance(properties, auth);
 				Message message = new MimeMessage(session);
 				message.setFrom(new InternetAddress(sender.from, sender.company, "utf-8"));
+				if (!Utils.isNullOrEmpty(sender.getReplyTo())) {
+					message.setReplyTo(new javax.mail.Address[] { new javax.mail.internet.InternetAddress(sender.getReplyTo()) });
+				}
 				message.setRecipient(Message.RecipientType.TO, new InternetAddress(sendTo.destination));
+				message.setHeader("Content-Type", encodingOptions);
+				message.setSentDate(Utils.getBrazilCalendar().getTime());
 				if (Utils.isNullOrEmpty(subject)) {
 					message.setSubject(Utils.removeHTML(bodyMail.title2));
 				} else {
 					message.setSubject(Utils.removeHTML(subject));
 				}
 				String htmlMessage = Utils.validateHtmlEmail(bodyMail.getBodyHTML(), sequenceMailQueue.id);
-				Multipart multipart = new MimeMultipart();
-				MimeBodyPart mimeBodyPart = new MimeBodyPart();
-				mimeBodyPart.setContent(htmlMessage, "text/html");
-				multipart.addBodyPart(mimeBodyPart);
+				final MimeBodyPart textPart = new MimeBodyPart();
+				textPart.setText(Utils.unescapeHtml(Utils.removeHTML(htmlMessage)), "utf-8");
+				final MimeBodyPart htmlPart = new MimeBodyPart();
+				htmlPart.setContent(htmlMessage, "text/html; charset=utf-8");
+				final Multipart multipart = new MimeMultipart("alternative");
+				multipart.addBodyPart(textPart);
+				multipart.addBodyPart(htmlPart);
 				/* Finding attachment and adding to body message mail */
-				Blob attachment = sequenceMailQueue.getSequenceMail().getAttachment(); 
+				Blob attachment = sequenceMailQueue.getSequenceMail().getAttachment();
 				if (attachment.exists()) {
 					MimeBodyPart attachPart = new MimeBodyPart();
 					try {
@@ -236,8 +254,8 @@ public class MailController {
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
-		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteDomain() + "</td>                                                                                                                                 ");
+		sb.append("                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteDomain()
+				+ "</td>                                                                                                                                 ");
 		sb.append(
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
@@ -358,12 +376,12 @@ public class MailController {
 				"                                                                                          <td align=\"center\" bgcolor=\"#4098BC\" style=\"border-radius: 5px\">                                                                                                                                                                                ");
 		sb.append(
 				"                                                                                             <div>                                                                                                                                                                                                                                        ");
-		sb.append(
-				"                                                                                                <a href=\"" + parameter.getSiteDomain() + "\"                                                                                                                                                                                                     ");
+		sb.append("                                                                                                <a href=\"" + parameter.getSiteDomain()
+				+ "\"                                                                                                                                                                                                     ");
 		sb.append(
 				"                                                                                                   style=\"background-color: #808000; border-radius: 5px; color: #ffffff; display: inline-block; font-family: sans-serif; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; text-decoration: none; width: 310px\"  ");
-		sb.append(
-				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain() + "</a>                                                                                                                                            ");
+		sb.append("                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain()
+				+ "</a>                                                                                                                                            ");
 		sb.append(
 				"                                                                                             </div>                                                                                                                                                                                                                                       ");
 		sb.append(
@@ -641,8 +659,8 @@ public class MailController {
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
-		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteDomain() + "</td>                                                                                                                                 ");
+		sb.append("                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteDomain()
+				+ "</td>                                                                                                                                 ");
 		sb.append(
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
@@ -699,12 +717,12 @@ public class MailController {
 				"                                                                                          <td align=\"center\" bgcolor=\"#4098BC\" style=\"border-radius: 5px\">                                                                                                                                                                                ");
 		sb.append(
 				"                                                                                             <div>                                                                                                                                                                                                                                        ");
-		sb.append(
-				"                                                                                                <a href=\"" + parameter.getSiteDomain() + "\"                                                                                                                                                                                                     ");
+		sb.append("                                                                                                <a href=\"" + parameter.getSiteDomain()
+				+ "\"                                                                                                                                                                                                     ");
 		sb.append(
 				"                                                                                                   style=\"background-color: #808000; border-radius: 5px; color: #ffffff; display: inline-block; font-family: sans-serif; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; text-decoration: none; width: 310px\"  ");
-		sb.append(
-				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain() + "</a>                                                                                                                                            ");
+		sb.append("                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain()
+				+ "</a>                                                                                                                                            ");
 		sb.append(
 				"                                                                                             </div>                                                                                                                                                                                                                                       ");
 		sb.append(
@@ -982,8 +1000,8 @@ public class MailController {
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
 				"                                                                                       <tr>                                                                                                                                                                                                                                               ");
-		sb.append(
-				"                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteDomain() + "</td>                                                                                                                                 ");
+		sb.append("                                                                                          <td align=\"center\" height=\"20\" style=\"height: 20px; font-size: 11px; font-style: italic;\">" + parameter.getSiteDomain()
+				+ "</td>                                                                                                                                 ");
 		sb.append(
 				"                                                                                       </tr>                                                                                                                                                                                                                                              ");
 		sb.append(
@@ -1044,12 +1062,12 @@ public class MailController {
 				"                                                                                          <td align=\"center\" bgcolor=\"#4098BC\" style=\"border-radius: 5px\">                                                                                                                                                                                ");
 		sb.append(
 				"                                                                                             <div>                                                                                                                                                                                                                                        ");
-		sb.append(
-				"                                                                                                <a href=\"" + parameter.getSiteDomain() + "\"                                                                                                                                                                                                     ");
+		sb.append("                                                                                                <a href=\"" + parameter.getSiteDomain()
+				+ "\"                                                                                                                                                                                                     ");
 		sb.append(
 				"                                                                                                   style=\"background-color: #808000; border-radius: 5px; color: #ffffff; display: inline-block; font-family: sans-serif; font-size: 16px; font-weight: bold; line-height: 50px; text-align: center; text-decoration: none; width: 310px\"  ");
-		sb.append(
-				"                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain() + "</a>                                                                                                                                            ");
+		sb.append("                                                                                                   target=\"_blank\" data-saferedirecturl=\"" + parameter.getSiteDomain() + "\">" + parameter.getSiteDomain()
+				+ "</a>                                                                                                                                            ");
 		sb.append(
 				"                                                                                             </div>                                                                                                                                                                                                                                       ");
 		sb.append(

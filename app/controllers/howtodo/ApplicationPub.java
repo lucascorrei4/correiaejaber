@@ -97,6 +97,10 @@ public class ApplicationPub extends Controller {
 					freePage.setAlternateVideoText(false);
 				}
 			}
+			freePage.setDescription(FreePageController.replacementInclude(freePage.getDescription()));
+			freePage.setDescriptionInactivePage(FreePageController.replacementInclude(freePage.getDescriptionInactivePage()));
+			freePage.setOptionalDescription(FreePageController.replacementInclude(freePage.getOptionalDescription()));
+			freePage.setSubtitle1(FreePageController.replacementInclude(freePage.getSubtitle1()));
 			render("howtodo/FreePageController/details.html", freePage, parameter, title, headline);
 		} else {
 			List<Article> listArticles = Article.find("isActive = true order by postedAt desc").fetch(4);
@@ -535,16 +539,13 @@ public class ApplicationPub extends Controller {
 		String pageParameter = null;
 		FreePage freePage = null;
 		Parameter parameter = getCurrentParameter();
-		if (Utils.isNullOrEmpty(parameter.getFreePageIndex())) {
-			if (url.equals(parameter.getSiteDomain())) {
-				redirectTo = parameter.getEmbedThankLead();
-			} else if (url.contains("fp/")) {
-				partOf = url.substring(url.indexOf("fp/"));
-				pageParameter = partOf.split("/")[1];
-				freePage = FreePage.findByFriendlyUrl(pageParameter);
-				redirectTo = freePage.getRedirectTo();
-			}
-		} else {
+		if (url.contains("fp/")) {
+			partOf = url.substring(url.indexOf("fp/"));
+			pageParameter = partOf.split("/")[1];
+			freePage = FreePage.findByFriendlyUrl(pageParameter);
+			redirectTo = freePage.getRedirectTo();
+		} else if (url.equals(parameter.getSiteDomain()) && !Utils.isNullOrEmpty(parameter.getFreePageIndex())) {
+			redirectTo = parameter.getEmbedThankLead();
 			freePage = parameter.getFreePageIndex();
 			redirectTo = parameter.getFreePageIndex().getRedirectTo();
 		}

@@ -81,28 +81,23 @@ public class Parameter extends Model {
 	public String mailHostUser;
 	public String mailHostPassword;
 	public String mailHostPort;
-	@Hidden
+
 	public Float smsPricePlan = 0f;
-	@Hidden
+
 	public Float mininumSalary = 0f;
-	@Hidden
+
 	public Float percentValuePlan = 0f;
 
-	@Hidden
 	@Lob
 	public String msgNewUsers;
-	@Hidden
 	@Lob
 	public String msgActiveUsers;
-	@Hidden
 	@Lob
 	public String msgUpgrade;
 	@Hidden
 	public Float currentPricePlan = 0f;
-	@Hidden
 	@Lob
 	public String embedThankLead;
-	@Hidden
 	@Lob
 	public String embedFirstStep;
 

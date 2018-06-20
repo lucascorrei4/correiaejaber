@@ -1,9 +1,12 @@
 package controllers.howtodo;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import controllers.howtodo.AdminPub;
+import controllers.howtodo.ApplicationPub;
 import controllers.CRUD;
 import controllers.Security;
 import models.howtodo.MailList;
